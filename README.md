@@ -25,7 +25,6 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | Auth | JWT |
 | Doc | Swagger |
 | CI/CD | GitHub Actions |
-| Container | Docker |
 
 
 👤 **Autora**
