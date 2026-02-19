@@ -20,7 +20,7 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | Camada | Tecnologia |
 |--------|------------|
 | Backend | Spring Boot |
-| Frontend | Angular 17 |
+| Frontend | Angular |
 | Banco | MySQL |
 | Auth | JWT |
 | Doc | Swagger |
