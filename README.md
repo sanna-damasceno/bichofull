@@ -3,9 +3,11 @@
 
 Simulação educacional do Jogo do Bicho. Aposte com dinheiro virtual e acompanhe sorteios!
 
+
 🎯 **Introdução**
 
 Projeto full stack para fins educacionais onde usuários criam conta, recebem saldo fictício (R$ 1.000,00) e realizam apostas simuladas no Jogo do Bicho.
+
 
 📋 **Regras de Negócio**
 
@@ -14,6 +16,7 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 - **Premiação:** Grupo (18x), Milhar (4000x) - apenas 1º prêmio
 - **Saldo inicial:** R$ 1.000,00 (não pode ficar negativo)
 - **Sorteio:** 5 milhares aleatórias (manual via admin)
+  
 
 🛠️ **Stack**
 
@@ -25,6 +28,7 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | Auth | JWT |
 | Doc | Swagger |
 | CI/CD | GitHub Actions |
+
 
 
 👤 **Autora**
