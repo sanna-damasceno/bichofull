@@ -1,13 +1,13 @@
 
-# 🎲 BichoFull
+🎲 **BichoFull**
 
 Simulação educacional do Jogo do Bicho. Aposte com dinheiro virtual e acompanhe sorteios!
 
-# 🎯 Introdução
+🎯 **Introdução**
 
 Projeto full stack para fins educacionais onde usuários criam conta, recebem saldo fictício (R$ 1.000,00) e realizam apostas simuladas no Jogo do Bicho.
 
-# 📋 Regras de Negócio
+📋 **Regras de Negócio**
 
 - **25 animais** (grupos de 01 a 25), cada um com 4 dezenas
 - **Tipos de aposta:** Grupo, Dezena, Centena, Milhar
@@ -15,7 +15,7 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 - **Saldo inicial:** R$ 1.000,00 (não pode ficar negativo)
 - **Sorteio:** 5 milhares aleatórias (manual via admin)
 
-# 🛠️ Stack
+🛠️ **Stack**
 
 | Camada | Tecnologia |
 |--------|------------|
@@ -28,7 +28,7 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | Container | Docker |
 
 
-# 👤 Autora
+👤 **Autora**
 
 **sanna-damasceno**
 
