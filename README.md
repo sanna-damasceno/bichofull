@@ -1,5 +1,5 @@
 
-##🎲 **BichoFull**
+##🎲 BichoFull
 
 Simulação educacional do Jogo do Bicho. Aposte com dinheiro virtual e acompanhe sorteios!
 
