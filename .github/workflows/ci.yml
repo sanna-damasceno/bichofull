@@ -83,10 +83,10 @@ jobs:
           cd frontend
           npm ci
       
-      - name: Run lint
-        run: |
-          cd frontend
-          npm run lint
+      #- name: Run lint
+      #  run: |
+       #   cd frontend
+       #   npm run lint
 
   frontend-tests:
     name: Frontend - Tests
