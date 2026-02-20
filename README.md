@@ -30,6 +30,17 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | CI/CD | GitHub Actions |
 
 
+🏗️ **Arquitetura do Sistema**
+
+![Diagrama de Arquitetura - BichoFull](modelagem.png)
+
+| Camada | Tecnologia | Função |
+|--------|------------|--------|
+| **Frontend** | Angular | Interface do usuário (web/mobile) |
+| **Backend** | Spring Boot | API, regras de negócio, segurança |
+| **Banco** | MySQL | Persistência de dados |
+
+**Fluxo:** Frontend → Backend → Banco
 
 👤 **Autora**
 
