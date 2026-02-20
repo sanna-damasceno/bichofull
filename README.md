@@ -39,7 +39,6 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | | | |
 | 📊 **Histórico** | Histórico de apostas | Visualização de apostas realizadas |
 | 📊 **Histórico** | Resultados | Ganhos/perdas por aposta |
-| 📊 **Histórico** | Últimos sorteios | Consulta dos últimos resultados |
 
   
 
