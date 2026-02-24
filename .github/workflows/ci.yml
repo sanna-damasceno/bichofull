@@ -16,12 +16,12 @@ jobs:
 
       - name: Check backend folder
         run: |
-          cd backend
+          cd bichofull/backend
           ls
           echo "Backend OK"
 
       - name: Check frontend folder
         run: |
-          cd frontend
+          cd bichofull/frontend
           ls
           echo "Frontend OK"
