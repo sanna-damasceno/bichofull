@@ -1,5 +1,7 @@
 package com.bichofull.backend.controller;
 
+import com.bichofull.backend.dto.LoginRequestDTO;
+import com.bichofull.backend.dto.LoginResponseDTO;
 import com.bichofull.backend.dto.RegisterRequestDTO;
 import com.bichofull.backend.dto.RegisterResponseDTO;
 import com.bichofull.backend.model.User;
@@ -28,4 +30,17 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
+
+        try {
+            LoginResponseDTO response = authService.login(request);
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        }
+    }
+
 }
