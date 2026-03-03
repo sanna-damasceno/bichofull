@@ -1,12 +1,23 @@
+# 🎲 BichoFull
 
-🎲 **BichoFull**
+Simulação educacional do **Jogo do Bicho**, com autenticação segura, arquitetura REST e testes automatizados.
 
-Simulação educacional do Jogo do Bicho. Aposte com dinheiro virtual e acompanhe sorteios!
+Projeto full stack onde usuários criam conta, recebem saldo fictício (R$ 1.000,00) e realizam apostas simuladas.
 
+---
 
-🎯 **Introdução**
+# 🎯 Objetivo do Projeto
 
-Projeto full stack para fins educacionais onde usuários criam conta, recebem saldo fictício (R$ 1.000,00) e realizam apostas simuladas no Jogo do Bicho.
+Desenvolver uma aplicação full stack aplicando:
+
+* Arquitetura REST
+* Autenticação stateless com JWT
+* Separação entre entidade e DTO
+* Testes automatizados
+* Integração Contínua (CI)
+* Boas práticas de backend com Spring Boot
+
+---
 
 
 📋 **Regras de Negócio**
@@ -41,37 +52,129 @@ Projeto full stack para fins educacionais onde usuários criam conta, recebem sa
 | 📊 **Histórico** | Resultados | Ganhos/perdas por aposta |
 
   
+---
 
-🛠️ **Stack**
+# ⚡ Status Atual (Semana 2)
 
-| Camada | Tecnologia |
-|--------|------------|
-| Backend | Spring Boot |
-| Frontend | Angular |
-| Banco | MySQL |
-| Auth | JWT |
-| Doc | Swagger |
-| CI/CD | GitHub Actions |
+* ✅ Cadastro de usuário
+* ✅ Login com JWT
+* ✅ Saldo inicial automático (R$ 1.000,00)
+* ✅ Rota protegida `/api/users/me`
+* ✅ Segurança stateless configurada
+* ✅ Filtro JWT customizado
+* ✅ Testes unitários implementados (6 testes)
+* ✅ Banco de dados rodando via Docker
+* ✅ H2 configurado para ambiente de testes
+* ✅ CI rodando via GitHub Actions
+
+---
+
+# 🔐 Autenticação
+
+A aplicação utiliza:
+
+* JWT (Bearer Token)
+* Spring Security
+* PasswordEncoder (BCrypt)
+* Filtro customizado `JwtAuthenticationFilter`
+* Segurança stateless
+
+### Fluxo:
+
+1. Usuário faz login
+2. Backend gera JWT
+3. Frontend envia token no header:
+
+   ```
+   Authorization: Bearer <token>
+   ```
+4. Filtro valida token antes de acessar rotas protegidas
+
+---
+
+# 📡 Endpoints Implementados
+
+## 🔹 Auth
+
+| Método | Endpoint             | Descrição              |
+| ------ | -------------------- | ---------------------- |
+| POST   | `/api/auth/register` | Cadastro de usuário    |
+| POST   | `/api/auth/login`    | Login e geração de JWT |
+
+---
+
+## 🔹 Usuário
+
+| Método | Endpoint        | Descrição                            |
+| ------ | --------------- | ------------------------------------ |
+| GET    | `/api/users/me` | Retorna dados do usuário autenticado |
 
 
+---
 
-🏗️ **Arquitetura do Sistema**
+# 🧪 Testes Automatizados
 
+Testes implementados:
+
+* Cadastro com sucesso
+* Cadastro com email duplicado
+* Login com sucesso
+* Login com senha inválida
+* Teste de contexto Spring
+* Teste de repositório
+
+Execução local:
+
+```bash
+./mvnw test
+```
+
+---
+
+# 🔄 Integração Contínua (CI)
+
+GitHub Actions configurado para:
+
+* Build automático
+* Execução de testes
+* Validação a cada push ou pull request
+
+Se algum teste falhar, o build é interrompido.
+
+---
+
+# 🛠️ Stack
+
+| Camada            | Tecnologia                   |
+| ----------------- | ---------------------------- |
+| Backend           | Spring Boot 3                |
+| Segurança         | Spring Security + JWT        |
+| Banco             | MySQL (Docker)               |
+| Banco para testes | H2 (in-memory)               |
+| Build             | Maven                        |
+| CI/CD             | GitHub Actions               |
+| Frontend          | Angular (em desenvolvimento) |
+
+---
+
+# 🏗️ Arquitetura
 
 ![Diagrama de Arquitetura - BichoFull](modelagem.png)
 
+Frontend → Backend → Banco
 
-| Camada | Tecnologia | Função |
-|--------|------------|--------|
-| **Frontend** | Angular | Interface do usuário (web/mobile) |
-| **Backend** | Spring Boot | API, regras de negócio, segurança |
-| **Banco** | MySQL | Persistência de dados |
+A aplicação segue:
 
-**Fluxo:** Frontend → Backend → Banco
+* Arquitetura em camadas
+* Separação de responsabilidades
+* DTO para exposição de dados
+* Entidades isoladas da API
 
 
-👤 **Autora**
+---
 
-**sanna-damasceno**
+# 👤 Autora
 
-🎓 Projeto educacional
+**Sanna Damasceno**
+
+Projeto educacional – Full Stack Application
