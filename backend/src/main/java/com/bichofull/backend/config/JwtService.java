@@ -1,5 +1,6 @@
 package com.bichofull.backend.config;
 
+import com.bichofull.backend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -19,11 +22,15 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    //Gerar token
-    public String generateToken(String email) {
+    // 🔐 Gerar token com ROLE
+    public String generateToken(User user) {
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getRole().name());
 
         return Jwts.builder()
-                .setSubject(email)
+                .setClaims(claims)
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(
                         new Date(System.currentTimeMillis() + 1000 * 60 * 60)
@@ -32,12 +39,17 @@ public class JwtService {
                 .compact();
     }
 
-    //Extrair email do token
+    // 📧 Extrair email
     public String extractEmail(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    //Validar token
+    // 🛡 Extrair role
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
+    }
+
+    // ✔ Validar token
     public boolean isTokenValid(String token) {
         try {
             extractAllClaims(token);
@@ -47,7 +59,7 @@ public class JwtService {
         }
     }
 
-    //Extrair todos os dados do token
+    // 📦 Extrair todos os claims
     private Claims extractAllClaims(String token) {
 
         return Jwts.parserBuilder()

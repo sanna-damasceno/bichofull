@@ -1,29 +1,12 @@
-package com.bichofull.backend.model;
+package com.bichofull.backend.dto;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "draws")
-public class Draw {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class DrawRequestDTO {
 
     private String firstPrize;
     private String secondPrize;
     private String thirdPrize;
     private String fourthPrize;
     private String fifthPrize;
-
-    private LocalDateTime drawDate;
-
-    public Draw() {}
-
-    public Long getId() {
-        return id;
-    }
 
     public String getFirstPrize() {
         return firstPrize;
@@ -63,13 +46,5 @@ public class Draw {
 
     public void setFifthPrize(String fifthPrize) {
         this.fifthPrize = fifthPrize;
-    }
-
-    public LocalDateTime getDrawDate() {
-        return drawDate;
-    }
-
-    public void setDrawDate(LocalDateTime drawDate) {
-        this.drawDate = drawDate;
     }
 }

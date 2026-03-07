@@ -102,7 +102,7 @@ class AuthServiceTest {
         when(passwordEncoder.matches("123456", "encryptedPassword"))
                 .thenReturn(true);
 
-        when(jwtService.generateToken("sanna@email.com"))
+        when(jwtService.generateToken(any(User.class)))
                 .thenReturn("fake-jwt-token");
 
         LoginRequestDTO request =
@@ -111,6 +111,8 @@ class AuthServiceTest {
         var response = authService.login(request);
 
         assertEquals("fake-jwt-token", response.getToken());
+        
+        verify(jwtService).generateToken(any(User.class));
     }
 
     // Login com senha errada

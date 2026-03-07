@@ -5,12 +5,14 @@ import com.bichofull.backend.dto.LoginRequestDTO;
 import com.bichofull.backend.dto.LoginResponseDTO;
 import com.bichofull.backend.dto.RegisterRequestDTO;
 import com.bichofull.backend.dto.RegisterResponseDTO;
+import com.bichofull.backend.enums.UserRole;
 import com.bichofull.backend.model.User;
 import com.bichofull.backend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class AuthService {
@@ -43,6 +45,10 @@ public class AuthService {
 
         user.setBalance(new BigDecimal("1000.00"));
 
+        user.setRole(UserRole.USER);
+
+        user.setCreatedAt(LocalDateTime.now());
+
         User savedUser = userRepository.save(user);
 
         return new RegisterResponseDTO(
@@ -62,7 +68,7 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        String token = jwtService.generateToken(user.getEmail());
+        String token = jwtService.generateToken(user);
 
         return new LoginResponseDTO(token);
     }
