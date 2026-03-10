@@ -25,7 +25,7 @@ class BetServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    // Criar aposta com sucesso
+    // 1️⃣ Criar aposta com sucesso
     @Test
     void shouldCreateBetSuccessfully() {
 
@@ -49,17 +49,50 @@ class BetServiceTest {
         assertEquals(BigDecimal.valueOf(10), bet.getAmount());
     }
 
-    // Teste de erro (saldo insuficiente)
+    // 2️⃣ Não permitir aposta com saldo insuficiente
     @Test
     void shouldNotAllowBetWithInsufficientBalance() {
+
+        User user = new User();
+        user.setEmail("saldo@email.com");
+        user.setName("Saldo");
+        user.setPasswordHash("123");
+        user.setBalance(BigDecimal.valueOf(5));
+
+        userRepository.save(user);
 
         BetRequestDTO request = new BetRequestDTO();
         request.setType(BetType.GROUP);
         request.setChosenNumber("12");
-        request.setAmount(BigDecimal.valueOf(100000));
+        request.setAmount(BigDecimal.valueOf(100));
 
         assertThrows(RuntimeException.class, () -> {
-            betService.createBetDTO(request, "teste@email.com");
+            betService.createBetDTO(request, "saldo@email.com");
         });
+    }
+
+    // 3️⃣ Histórico de apostas do usuário
+    @Test
+    void shouldReturnUserBetHistory() {
+
+        User user = new User();
+        user.setEmail("history@email.com");
+        user.setName("History");
+        user.setPasswordHash("123");
+        user.setBalance(BigDecimal.valueOf(100));
+
+        userRepository.save(user);
+
+        BetRequestDTO request = new BetRequestDTO();
+        request.setType(BetType.THOUSAND);
+        request.setChosenNumber("1234");
+        request.setAmount(BigDecimal.valueOf(10));
+
+        betService.createBetDTO(request, "history@email.com");
+
+        var bets = betService.getUserBetsDTO("history@email.com");
+
+        assertFalse(bets.isEmpty());
+        assertEquals("1234", bets.get(0).getChosenNumber());
     }
 }
