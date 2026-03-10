@@ -11,6 +11,7 @@ import com.bichofull.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -64,5 +65,25 @@ public class BetService {
                 bet.getPrize(),
                 bet.getCreatedAt()
         );
+    }
+
+    public List<BetResponseDTO> getUserBetsDTO(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Bet> bets = betRepository.findByUserOrderByCreatedAtDesc(user);
+
+        return bets.stream()
+                .map(bet -> BetResponseDTO.builder()
+                        .id(bet.getId())
+                        .type(bet.getType())
+                        .chosenNumber(bet.getChosenNumber())
+                        .amount(bet.getAmount())
+                        .status(bet.getStatus())
+                        .prize(bet.getPrize())
+                        .createdAt(bet.getCreatedAt())
+                        .build())
+                .toList();
     }
 }

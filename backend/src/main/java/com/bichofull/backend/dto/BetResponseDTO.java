@@ -2,10 +2,15 @@ package com.bichofull.backend.dto;
 
 import com.bichofull.backend.enums.BetStatus;
 import com.bichofull.backend.enums.BetType;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
 public class BetResponseDTO {
 
     private Long id;
