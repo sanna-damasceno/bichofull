@@ -9,6 +9,11 @@ import com.bichofull.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Autenticação", description = "Endpoints de cadastro e login")
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -18,6 +23,11 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
+
+    @Operation(
+        summary = "Cadastro de usuário",
+        description = "Cria uma nova conta de usuário com saldo inicial."
+    )
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
@@ -30,6 +40,11 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @Operation(
+        summary = "Login do usuário",
+        description = "Autentica um usuário e retorna um token JWT."
+    )
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {

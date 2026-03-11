@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
+@Tag(name = "Apostas", description = "Gerenciamento de apostas")
 @RestController
 @RequestMapping("/api/bets")
 public class BetController {
@@ -19,6 +22,10 @@ public class BetController {
         this.betService = betService;
     }
 
+    @Operation(
+        summary = "Criar aposta",
+        description = "Permite ao usuário registrar uma aposta caso possua saldo suficiente."
+    )
     @PostMapping
     public ResponseEntity<BetResponseDTO> createBet(
             @RequestBody BetRequestDTO request,
@@ -31,6 +38,11 @@ public class BetController {
 
         return ResponseEntity.ok(bet);
     }
+
+    @Operation(
+        summary = "Histórico de apostas",
+        description = "Retorna todas as apostas realizadas pelo usuário autenticado."
+    )
 
     @GetMapping("/my-bets")
     public ResponseEntity<List<BetResponseDTO>> getMyBets(Authentication authentication) {

@@ -8,6 +8,10 @@ import com.bichofull.backend.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Usuário", description = "Informações do usuário autenticado")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -19,6 +23,11 @@ public class UserController {
         this.userRepository = userRepository;
         this.userService = userService;
     }
+
+    @Operation(
+        summary = "Dados do usuário",
+        description = "Retorna informações do usuário autenticado."
+    )
 
     @GetMapping("/me")
     public UserResponseDTO getAuthenticatedUser(Authentication authentication) {
@@ -35,7 +44,12 @@ public class UserController {
                 user.getBalance()
         );
     }
-    
+
+    @Operation(
+        summary = "Saldo do usuário",
+        description = "Retorna o saldo atual do usuário."
+    )
+
     @GetMapping("/balance")
     public UserBalanceResponseDTO getBalance(Authentication authentication) {
 

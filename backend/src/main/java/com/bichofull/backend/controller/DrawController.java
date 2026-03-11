@@ -4,11 +4,15 @@ import com.bichofull.backend.dto.DrawRequestDTO;
 import com.bichofull.backend.dto.DrawResponseDTO;
 import com.bichofull.backend.model.Draw;
 import com.bichofull.backend.service.DrawService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-
+@Tag(name = "Sorteios", description = "Execução e registro de sorteios")
 @RestController
 @RequestMapping("/api/draws")
 public class DrawController {
@@ -19,6 +23,11 @@ public class DrawController {
         this.drawService = drawService;
     }
 
+    @Operation(
+        summary = "Criar sorteio manual",
+        description = "Cria um sorteio com números definidos."
+    )
+
     @PostMapping
     public ResponseEntity<DrawResponseDTO> createDraw(@RequestBody DrawRequestDTO request) {
 
@@ -26,6 +35,11 @@ public class DrawController {
 
         return ResponseEntity.ok(drawService.toDTO(saved));
     }
+
+    @Operation(
+        summary = "Executar sorteio",
+        description = "Gera um sorteio aleatório e processa todas as apostas pendentes."
+    )
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/run")
