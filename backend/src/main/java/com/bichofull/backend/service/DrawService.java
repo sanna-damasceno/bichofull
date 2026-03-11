@@ -15,12 +15,16 @@ import java.util.Random;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class DrawService {
 
     private final DrawRepository drawRepository;
     private final BetRepository betRepository;
     private final UserRepository userRepository;
+    private static final Logger log = LoggerFactory.getLogger(DrawService.class);
 
     public DrawService(DrawRepository drawRepository,
                        BetRepository betRepository,
@@ -73,6 +77,8 @@ public class DrawService {
 
         draw = drawRepository.save(draw);
 
+        log.info("Running draw...");
+
         var bets = betRepository.findByStatus(BetStatus.PENDING);
 
         for (Bet bet : bets) {
@@ -86,11 +92,18 @@ public class DrawService {
                         bet.getAmount()
                 );
 
+                bet.setPrize(prize);
+
                 User user = bet.getUser();
                 
                 user.setBalance(user.getBalance().add(prize));
 
                 userRepository.save(user);
+
+                log.info("User {} won bet {} and received {}",
+                        user.getEmail(),
+                        bet.getId(),
+                        prize);
 
             } else {
 
