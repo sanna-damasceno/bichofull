@@ -92,9 +92,9 @@ A aplicação utiliza:
 
 ### Fluxo de autenticação
 
-1️⃣ Usuário faz login
-2️⃣ Backend gera um **JWT**
-3️⃣ Frontend envia o token no header:
+* 1️⃣ Usuário faz login
+* 2️⃣ Backend gera um **JWT**
+* 3️⃣ Frontend envia o token no header:
 
 ```
 Authorization: Bearer <token>
@@ -208,6 +208,7 @@ Para rodar os testes localmente:
 
 ```bash
 ./mvnw test
+```
 
 ---
 
