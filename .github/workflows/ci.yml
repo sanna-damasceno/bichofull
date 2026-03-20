@@ -37,6 +37,6 @@ jobs:
 
       - name: Check frontend folder
         run: |
-          cd frontend
+          cd bichofull-frontend
           ls
           echo "Frontend OK"
