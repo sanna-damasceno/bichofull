@@ -1,0 +1,18 @@
+<div class="wallet-container">
+  <div class="card saldo">
+    <small>SALDO ATUAL</small>
+    <strong>{{ wallet?.balance | currency:'BRL' }}</strong>
+  </div>
+  <div class="card ganhou">
+    <small>Ganhou</small>
+    <strong>{{ wallet.totalWon | currency:'BRL' }}</strong>
+  </div>
+  <div class="card perdeu">
+    <small>Perdeu</small>
+    <strong>{{ wallet.totalLost | currency:'BRL' }}</strong>
+  </div>
+  <div class="card pendente">
+    <small>Pendente</small>
+    <strong>{{ wallet?.totalPending | currency:'BRL' }}</strong>
+  </div>
+</div>

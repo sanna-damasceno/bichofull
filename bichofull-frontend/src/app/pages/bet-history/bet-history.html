@@ -1,0 +1,77 @@
+<div class="history-container">
+  <header class="history-header">
+    <a routerLink="/dashboard" class="back-link">← Voltar para Apostas</a>
+    <h1>
+      <i class="icon-history"></i> Histórico de Apostas
+    </h1>
+  </header>
+
+  <section class="stats-grid">
+    <div class="stat-card">
+      <small>Total de Apostas</small>
+      <strong>{{ stats.totalBets }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <small>Taxa de Acerto</small>
+      <strong class="highlight">{{ stats.winRate }}%</strong>
+    </div>
+
+    <div class="stat-card">
+      <small>Total Ganho</small>
+      <strong class="won-text">{{ stats.totalWon | currency:'BRL' }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <small>Total Perdido</small>
+      <strong class="lost-text">{{ stats.totalLost | currency:'BRL' }}</strong>
+    </div>
+  </section>
+
+  <main class="table-container">
+    <div class="table-header">
+      <h2>Suas Apostas</h2>
+      <div class="search-box">
+        <input type="text" placeholder="Buscar apostas realizadas">
+        <i class="icon-search"></i>
+      </div>
+    </div>
+
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Valor</th>
+          <th>Status</th>
+          <th>Prêmio</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (bet of bets; track bet.id) {
+          <tr>
+            <td>{{ bet.chosenNumber }}</td>
+            <td>{{ translateType(bet.type) }}</td>
+            <td>{{ bet.amount | currency:'BRL' }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getBadgeClass(bet.status)">
+                {{ translateStatus(bet.status) }}
+              </span>
+            </td>
+            <td>
+              @if (bet.status === 'WON') {
+                <span class="prize-value">{{ bet.prize | currency:'BRL' }}</span>
+              } @else {
+                <span class="no-prize">-</span>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-message">Nenhuma aposta encontrada.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </main>
+</div>

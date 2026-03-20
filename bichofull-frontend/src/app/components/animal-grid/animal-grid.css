@@ -1,0 +1,12 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.animal-card{
+  background:#f3e6f8;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+}

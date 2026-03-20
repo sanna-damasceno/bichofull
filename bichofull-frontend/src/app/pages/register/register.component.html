@@ -1,0 +1,35 @@
+<form (ngSubmit)="register()">
+
+  <input
+    type="text"
+    placeholder="Nome completo"
+    [(ngModel)]="name"
+    name="name"
+  />
+
+  <input
+    type="email"
+    placeholder="E-mail"
+    [(ngModel)]="email"
+    name="email"
+  />
+
+  <input
+    type="password"
+    placeholder="Senha"
+    [(ngModel)]="password"
+    name="password"
+  />
+
+  <input
+    type="password"
+    placeholder="Confirmar senha"
+    [(ngModel)]="confirmPassword"
+    name="confirmPassword"
+  />
+
+  <button type="submit">
+    Cadastrar agora
+  </button>
+
+</form>

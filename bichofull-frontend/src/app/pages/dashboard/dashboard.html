@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+
+  <div class="left">
+
+    <app-wallet></app-wallet>
+
+    <app-animal-grid 
+        (animalSelected)="onAnimalSelected($event)">
+    </app-animal-grid>
+    
+  </div>
+
+  <div class="right">
+
+     <app-bet-form 
+        [selectedAnimal]="selectedAnimal">
+    </app-bet-form>
+
+    <app-draw-history></app-draw-history>
+
+    <app-next-draw></app-next-draw>
+
+  </div>
+
+</div>

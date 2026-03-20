@@ -1,0 +1,18 @@
+<form (submit)="onRegister($event)">
+  <input type="text" name="name" [(ngModel)]="registerData.name" placeholder="Nome" required>
+  <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="Email" required>
+  
+  <input type="password" name="password" [(ngModel)]="registerData.password" placeholder="Senha" required>
+  
+  <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirmar senha" required>
+
+  @if (confirmPassword && registerData.password !== confirmPassword) {
+    <p style="color: red; font-size: 12px;">
+        As senhas não coincidem!
+    </p>
+    }
+
+  <button type="submit" [disabled]="registerData.password !== confirmPassword">
+    Cadastrar
+  </button>
+</form>

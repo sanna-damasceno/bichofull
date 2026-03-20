@@ -1,5 +1,6 @@
 package com.bichofull.backend.service;
 
+import com.bichofull.backend.dto.BetHistoryDTO;
 import com.bichofull.backend.dto.BetRequestDTO;
 import com.bichofull.backend.dto.BetResponseDTO;
 import com.bichofull.backend.enums.BetStatus;
@@ -11,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -108,4 +111,63 @@ public class BetService {
                         .build())
                 .toList();
     }
+
+    public BigDecimal sumAmountByUserAndStatus(Long userId, BetStatus status) {
+        BigDecimal sum = betRepository.sumAmountByUserIdAndStatus(userId, status);
+        return sum != null ? sum : BigDecimal.ZERO;
+    }
+
+    
+    public BigDecimal calculateTotalPendingPrize(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Busca todas as apostas com status PENDING deste usuário
+        List<Bet> pendingBets = betRepository.findByUserAndStatus(user, BetStatus.PENDING);
+
+        // Soma o prêmio potencial de cada uma usando sua PrizeCalculator
+        return pendingBets.stream()
+                .map(bet -> PrizeCalculator.calculatePrize(bet.getType(), bet.getAmount()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public Map<String, Object> getUserHistorySummary(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        List<Bet> allBets = betRepository.findByUserOrderByCreatedAtDesc(user);
+
+        long totalBets = allBets.size();
+        long wins = allBets.stream().filter(b -> b.getStatus() == BetStatus.WON).count();
+        
+        // Calcula a Taxa de Acerto (ex: 33%)
+        double winRate = totalBets > 0 ? (double) wins / totalBets * 100 : 0;
+
+        // Soma o total que ele já ganhou (prize das apostas WON)
+        BigDecimal totalWon = allBets.stream()
+                .filter(b -> b.getStatus() == BetStatus.WON && b.getPrize() != null)
+                .map(Bet::getPrize)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // Soma o total que ele perdeu (amount das apostas LOST)
+        BigDecimal totalLost = allBets.stream()
+                .filter(b -> b.getStatus() == BetStatus.LOST)
+                .map(Bet::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // Converte a lista para o seu novo BetHistoryDTO
+        List<BetHistoryDTO> history = allBets.stream()
+                .map(b -> new BetHistoryDTO(b.getId(), b.getType(), b.getChosenNumber(), b.getAmount(), b.getStatus(), b.getPrize(), b.getCreatedAt()))
+                .toList();
+
+        return Map.of(
+            "totalBets", totalBets,
+            "winRate", Math.round(winRate),
+            "totalWon", totalWon,
+            "totalLost", totalLost,
+            "history", history
+        );
+    }
+        
+
 }

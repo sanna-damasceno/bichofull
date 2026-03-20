@@ -31,7 +31,7 @@ public class User {
     private String passwordHash;
 
     @Column(nullable = false)
-    private BigDecimal balance;
+    private BigDecimal balance = new BigDecimal("1000.00");
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

@@ -1,0 +1,10 @@
+<div class="animal-grid">
+  <div 
+    class="animal-card" 
+    *ngFor="let animal of animals"
+    (click)="selectAnimal(animal)"
+  >
+    <div>{{animal.id}}</div>
+    <strong>{{animal.name}}</strong>
+  </div>
+</div>

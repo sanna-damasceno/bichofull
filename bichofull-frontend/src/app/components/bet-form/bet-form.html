@@ -1,0 +1,40 @@
+<div>
+  <h3>Fazer aposta</h3>
+
+  <div class="bet-types">
+    <button (click)="onTypeChange('GRUPO')" [class.active]="betType === 'GRUPO'">Grupo</button>
+    <button (click)="onTypeChange('DEZENA')" [class.active]="betType === 'DEZENA'">Dezena</button>
+    <button (click)="onTypeChange('MILHAR')" [class.active]="betType === 'MILHAR'">Milhar</button>
+  </div>
+
+  <input 
+    type="text" 
+    [(ngModel)]="numberInput"
+    (ngModelChange)="onNumberChange($event)"
+    placeholder="{{ betType === 'MILHAR' ? '0000' : '00' }}"
+  />
+
+  <input 
+    type="number"
+    [(ngModel)]="amount"
+    (ngModelChange)="calculatePrize()"
+    placeholder="Valor da Aposta (R$)"
+  />
+
+  <div *ngIf="detectedAnimal" class="result-info">
+    <p>Animal: <strong>{{ detectedAnimal.name }}</strong></p>
+    <p>Grupo: <strong>{{ detectedAnimal.id }}</strong></p>
+  </div>
+
+  <p *ngIf="prize > 0" class="prize-info">
+    Possível Retorno: <strong>R$ {{ prize }}</strong>
+  </p>
+
+  <button 
+    class="btn-confirmar" 
+    (click)="confirmBet()" 
+    [disabled]="!detectedAnimal || amount <= 0">
+    Confirmar Aposta
+  </button>
+
+</div>
