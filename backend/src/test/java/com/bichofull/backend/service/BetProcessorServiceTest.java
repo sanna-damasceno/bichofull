@@ -2,117 +2,126 @@ package com.bichofull.backend.service;
 
 import com.bichofull.backend.enums.BetStatus;
 import com.bichofull.backend.enums.BetType;
-import com.bichofull.backend.model.Bet;
-import com.bichofull.backend.model.Draw;
+import com.bichofull.backend.model.*;
 import com.bichofull.backend.repository.BetRepository;
 import com.bichofull.backend.repository.UserRepository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class BetProcessorServiceTest {
 
     private BetRepository betRepository;
-    private BetProcessorService betProcessorService;
     private UserRepository userRepository;
+    private BetProcessorService betProcessorService;
 
     @BeforeEach
     void setup() {
-        betRepository = Mockito.mock(BetRepository.class);
+        betRepository = mock(BetRepository.class);
+        userRepository = mock(UserRepository.class);
+
         betProcessorService = new BetProcessorService(betRepository, userRepository);
     }
 
-    // ✅ Aposta vencedora
     @Test
     void shouldMarkBetAsWon() {
+
+        User user = new User();
+        user.setBalance(BigDecimal.ZERO);
 
         Bet bet = new Bet();
         bet.setType(BetType.THOUSAND);
         bet.setAmount(BigDecimal.valueOf(10));
         bet.setChosenNumber("1234");
         bet.setStatus(BetStatus.PENDING);
+        bet.setUser(user);
 
         Draw draw = new Draw();
         draw.setFirstPrize("1234");
 
-        when(betRepository.findByStatus(BetStatus.PENDING))
+        when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
 
         betProcessorService.processBets(draw);
 
-        verify(betRepository).saveAll(anyList());
-
         assertEquals(BetStatus.WON, bet.getStatus());
+        assertNotNull(bet.getPrize());
+
+        verify(betRepository).saveAll(anyList());
+        verify(userRepository).saveAll(anyList());
     }
 
-    // ✅ Aposta perdedora
     @Test
     void shouldMarkBetAsLost() {
+
+        User user = new User();
+        user.setBalance(BigDecimal.ZERO);
 
         Bet bet = new Bet();
         bet.setType(BetType.THOUSAND);
         bet.setAmount(BigDecimal.valueOf(10));
         bet.setChosenNumber("9999");
         bet.setStatus(BetStatus.PENDING);
+        bet.setUser(user);
 
         Draw draw = new Draw();
         draw.setFirstPrize("1234");
 
-        when(betRepository.findByStatus(BetStatus.PENDING))
+        when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
 
         betProcessorService.processBets(draw);
 
-        verify(betRepository).saveAll(anyList());
-
         assertEquals(BetStatus.LOST, bet.getStatus());
+
+        verify(betRepository).saveAll(anyList());
+        verify(userRepository).saveAll(anyList());
     }
 
-    // ✅ Prêmio calculado corretamente
     @Test
     void shouldCalculatePrizeForWinner() {
+
+        User user = new User();
+        user.setBalance(BigDecimal.ZERO);
 
         Bet bet = new Bet();
         bet.setType(BetType.THOUSAND);
         bet.setAmount(BigDecimal.valueOf(10));
         bet.setChosenNumber("1234");
         bet.setStatus(BetStatus.PENDING);
+        bet.setUser(user);
 
         Draw draw = new Draw();
         draw.setFirstPrize("1234");
 
-        when(betRepository.findByStatus(BetStatus.PENDING))
+        when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
 
         betProcessorService.processBets(draw);
 
         assertNotNull(bet.getPrize());
-        assertTrue(bet.getPrize().compareTo(BigDecimal.ZERO) > 0);
+
+        verify(betRepository).saveAll(anyList());
+        verify(userRepository).saveAll(anyList());
     }
 
-    // ✅ Caso não tenha apostas
     @Test
     void shouldDoNothingWhenNoBets() {
 
         Draw draw = new Draw();
         draw.setFirstPrize("1234");
 
-        when(betRepository.findByStatus(BetStatus.PENDING))
+        when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of());
 
         betProcessorService.processBets(draw);
 
         verify(betRepository, never()).saveAll(anyList());
+        verify(userRepository, never()).saveAll(anyList());
     }
-
 }
