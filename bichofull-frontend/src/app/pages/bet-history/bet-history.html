@@ -14,7 +14,7 @@
 
     <div class="stat-card">
       <small>Taxa de Acerto</small>
-      <strong class="highlight">{{ stats.winRate }}%</strong>
+      <strong class="highlight">{{ stats.winRate | number:'1.0-2' }}%</strong>
     </div>
 
     <div class="stat-card">
@@ -36,6 +36,7 @@
         <i class="icon-search"></i>
       </div>
     </div>
+    <p>Quantidade de apostas: {{ bets.length }}</p>
 
     <table class="history-table">
       <thead>
@@ -47,30 +48,30 @@
           <th>Prêmio</th>
         </tr>
       </thead>
+
       <tbody>
-        @for (bet of bets; track bet.id) {
-          <tr>
-            <td>{{ bet.chosenNumber }}</td>
-            <td>{{ translateType(bet.type) }}</td>
-            <td>{{ bet.amount | currency:'BRL' }}</td>
-            <td>
-              <span class="status-badge" [ngClass]="getBadgeClass(bet.status)">
-                {{ translateStatus(bet.status) }}
-              </span>
-            </td>
-            <td>
-              @if (bet.status === 'WON') {
-                <span class="prize-value">{{ bet.prize | currency:'BRL' }}</span>
-              } @else {
-                <span class="no-prize">-</span>
-              }
-            </td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="5" class="empty-message">Nenhuma aposta encontrada.</td>
-          </tr>
-        }
+        <tr *ngFor="let bet of bets">
+          <td>{{ bet.chosenNumber }}</td>
+          <td>{{ translateType(bet.type) }}</td>
+          <td>{{ bet.amount | currency:'BRL' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getBadgeClass(bet.status)">
+              {{ translateStatus(bet.status) }}
+            </span>
+          </td>
+          <td>
+            <span *ngIf="bet.status === 'WON'; else noPrize">
+              {{ bet.prize | currency:'BRL' }}
+            </span>
+            <ng-template #noPrize>-</ng-template>
+          </td>
+        </tr>
+
+        <tr *ngIf="bets.length === 0">
+          <td colspan="5" class="empty-message">
+            Nenhuma aposta encontrada.
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>

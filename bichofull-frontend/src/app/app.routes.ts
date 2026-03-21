@@ -5,9 +5,17 @@ import { RegisterComponent } from './pages/register/register';
 import { DashboardComponent  } from './pages/dashboard/dashboard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full'}
+  { path: 'dashboard', component: DashboardComponent },
+
+  {
+    path: 'bet-history',
+    loadComponent: () =>
+      import('./pages/bet-history/bet-history')
+        .then(m => m.BetHistoryComponent)
+  },
+  { path: '**', redirectTo: 'login' }
 ];

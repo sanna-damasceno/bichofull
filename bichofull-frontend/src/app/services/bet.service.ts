@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 // Alinhado com o seu BetRequestDTO do Java
 export interface BetRequest {
-  type: 'GROUP' | 'DOZEN' | 'THOUSAND'; // Seu enum BetType
+  type: 'GROUP' | 'TEN' | 'THOUSAND'; 
   chosenNumber: string;
   amount: number;
 }
@@ -29,7 +29,6 @@ export class BetService {
   constructor(private http: HttpClient) {}
 
   placeBet(betData: BetRequest): Observable<BetResponse> {
-    // Note que o caminho agora é apenas a API_URL (conforme seu @PostMapping no Controller)
     return this.http.post<BetResponse>(this.API_URL, betData);
   }
 

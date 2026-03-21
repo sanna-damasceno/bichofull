@@ -116,9 +116,9 @@ export class BetFormComponent implements OnChanges {
     }
 
     // Mapeamento para o Enum que o seu Java espera
-    const typeMap: Record<string, 'GROUP' | 'DOZEN' | 'THOUSAND'> = {
+    const typeMap: Record<string, 'GROUP' | 'TEN' | 'THOUSAND'> = {
       'GRUPO': 'GROUP',
-      'DEZENA': 'DOZEN',
+      'DEZENA': 'TEN',
       'MILHAR': 'THOUSAND'
     };
 

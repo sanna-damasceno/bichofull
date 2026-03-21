@@ -14,9 +14,6 @@
   </ul>
 
   <div class="user-section">
-    <div class="balance-badge">
-      R$ {{ user.balance | number:'1.2-2' }}
-    </div>
     <div class="profile-info">
       <span>Olá, {{ user.name }}</span>
       <img [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
