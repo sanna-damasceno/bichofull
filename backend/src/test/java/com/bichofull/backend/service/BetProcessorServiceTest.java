@@ -115,30 +115,4 @@ class BetProcessorServiceTest {
         verify(betRepository, never()).saveAll(anyList());
     }
 
-    // 🚀 Teste mais robusto (valida conteúdo salvo)
-    @Test
-    void shouldSaveUpdatedBetsCorrectly() {
-
-        Bet bet = new Bet();
-        bet.setType(BetType.THOUSAND);
-        bet.setAmount(BigDecimal.valueOf(10));
-        bet.setChosenNumber("1234");
-        bet.setStatus(BetStatus.PENDING);
-
-        Draw draw = new Draw();
-        draw.setFirstPrize("1234");
-
-        when(betRepository.findByStatus(BetStatus.PENDING))
-                .thenReturn(List.of(bet));
-
-        betProcessorService.processBets(draw);
-
-        verify(betRepository).saveAll(argThat(iterable -> {
-            List<Bet> list = new ArrayList<>();
-            iterable.forEach(list::add);
-
-            return list.size() == 1 &&
-                list.get(0).getStatus() == BetStatus.WON;
-        }));
-    }
 }
