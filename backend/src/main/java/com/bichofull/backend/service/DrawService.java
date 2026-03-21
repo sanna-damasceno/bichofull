@@ -9,6 +9,7 @@ import com.bichofull.backend.model.User;
 import com.bichofull.backend.repository.BetRepository;
 import com.bichofull.backend.repository.DrawRepository;
 import com.bichofull.backend.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Service;
 import java.util.Random;
@@ -24,15 +25,18 @@ public class DrawService {
     private final DrawRepository drawRepository;
     private final BetRepository betRepository;
     private final UserRepository userRepository;
+    private final BetProcessorService betProcessorService;
     private static final Logger log = LoggerFactory.getLogger(DrawService.class);
 
     public DrawService(DrawRepository drawRepository,
                        BetRepository betRepository,
-                       UserRepository userRepository
+                       UserRepository userRepository,
+                       BetProcessorService betProcessorService
     ) {
         this.drawRepository = drawRepository;
         this.betRepository = betRepository;
         this.userRepository = userRepository;
+        this.betProcessorService = betProcessorService;
     }
 
     public Draw createDraw(DrawRequestDTO request) {
@@ -61,61 +65,26 @@ public class DrawService {
         );
     }
 
+    @Transactional
     public Draw runDraw() {
-
-        Random random = new Random();
 
         Draw draw = new Draw();
 
         draw.setDrawDate(LocalDateTime.now());
 
-        draw.setFirstPrize(String.format("%04d", random.nextInt(10000)));
-        draw.setSecondPrize(String.format("%04d", random.nextInt(10000)));
-        draw.setThirdPrize(String.format("%04d", random.nextInt(10000)));
-        draw.setFourthPrize(String.format("%04d", random.nextInt(10000)));
-        draw.setFifthPrize(String.format("%04d", random.nextInt(10000)));
+        draw.setFirstPrize(String.format("%04d", new Random().nextInt(10000)));
+        draw.setSecondPrize(String.format("%04d", new Random().nextInt(10000)));
+        draw.setThirdPrize(String.format("%04d", new Random().nextInt(10000)));
+        draw.setFourthPrize(String.format("%04d", new Random().nextInt(10000)));
+        draw.setFifthPrize(String.format("%04d", new Random().nextInt(10000)));
 
-        draw = drawRepository.save(draw);
 
-        log.info("Running draw...");
+        Draw savedDraw = drawRepository.save(draw);
 
-        var bets = betRepository.findByStatus(BetStatus.PENDING);
+        // 🚀 roda processamento em background
+        new Thread(() -> betProcessorService.processBets(savedDraw)).start();
 
-        for (Bet bet : bets) {
-
-            if (BetChecker.isWinner(bet, draw.getFirstPrize())) {
-
-                bet.setStatus(BetStatus.WON);
-
-                BigDecimal prize = PrizeCalculator.calculatePrize(
-                        bet.getType(), 
-                        bet.getAmount()
-                );
-
-                bet.setPrize(prize);
-
-                User user = bet.getUser();
-                
-                user.setBalance(user.getBalance().add(prize));
-
-                userRepository.save(user);
-
-                log.info("User {} won bet {} and received {}",
-                        user.getEmail(),
-                        bet.getId(),
-                        prize);
-
-            } else {
-
-                bet.setStatus(BetStatus.LOST);
-            }
-
-            bet.setDraw(draw);
-
-            betRepository.save(bet);
-        }
-
-        return draw;
+        return savedDraw;
     }
 
 

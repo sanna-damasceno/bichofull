@@ -29,7 +29,16 @@ export class LoginComponent {
 
         console.log("LOGIN FUNCIONOU", response);
 
-        this.router.navigate(['/dashboard']);
+        const token = response.token;
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        const role = payload.role;
+
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
 
       },
       error: (err) => {

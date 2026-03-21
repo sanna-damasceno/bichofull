@@ -24,6 +24,7 @@ public class BetService {
     private final BetRepository betRepository;
     private final UserRepository userRepository;
     private final AuditService auditService;
+
     private static final Logger log = LoggerFactory.getLogger(BetService.class);
 
     public BetService(BetRepository betRepository, UserRepository userRepository,
@@ -32,6 +33,7 @@ public class BetService {
         this.betRepository = betRepository;
         this.userRepository = userRepository;
         this.auditService = auditService;
+
         
     }
 

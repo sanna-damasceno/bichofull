@@ -1,0 +1,20 @@
+<h2>Admin - Sorteio</h2>
+
+<button (click)="runDraw()" [disabled]="loading">
+  {{ loading ? 'Executando...' : 'Executar Sorteio' }}
+</button>
+
+<!-- loading -->
+<p *ngIf="loading">⏳ Processando apostas...</p>
+
+<!-- sucesso -->
+<p *ngIf="success">✅ Sorteio realizado com sucesso!</p>
+
+<div *ngIf="result">
+  <h3>Resultado:</h3>
+  <p>1º: {{ result.firstPrize }}</p>
+  <p>2º: {{ result.secondPrize }}</p>
+  <p>3º: {{ result.thirdPrize }}</p>
+  <p>4º: {{ result.fourthPrize }}</p>
+  <p>5º: {{ result.fifthPrize }}</p>
+</div>

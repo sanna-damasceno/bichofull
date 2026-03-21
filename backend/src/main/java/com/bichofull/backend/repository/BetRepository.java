@@ -21,5 +21,8 @@ public interface BetRepository extends JpaRepository<Bet, Long> {
     @Query("SELECT COALESCE(SUM(b.amount), 0) FROM Bet b WHERE b.user.id = :userId AND b.status = :status")
     BigDecimal sumAmountByUserIdAndStatus(@Param("userId") Long userId, @Param("status") BetStatus status);
 
+    @Query("SELECT b FROM Bet b JOIN FETCH b.user WHERE b.status = :status")
+    List<Bet> findByStatusWithUser(@Param("status") BetStatus status);
+
     List<Bet> findByUserAndStatus(User user, BetStatus status);
 }
