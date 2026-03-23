@@ -9,8 +9,9 @@ import com.bichofull.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.scheduling.annotation.Async;
 import java.util.List;
+
 
 @Service
 public class BetProcessorService {
@@ -24,10 +25,10 @@ public class BetProcessorService {
         this.userRepository = userRepository;
     }
 
+    @Async
     @Transactional
     public void processBets(Draw draw) {
 
-        // 🔥 traz bets + users em uma query
         List<Bet> bets = betRepository.findByStatusWithUser(BetStatus.PENDING);
 
         if (bets.isEmpty()) {
@@ -51,7 +52,7 @@ public class BetProcessorService {
                 bet.setStatus(BetStatus.WON);
                 bet.setPrize(prize);
 
-                // 💰 atualiza saldo
+                // atualiza saldo
                 User user = bet.getUser();
                 user.setBalance(user.getBalance().add(prize));
 
@@ -62,10 +63,10 @@ public class BetProcessorService {
             bet.setDraw(draw);
         }
 
-        // 🔥 salva tudo de uma vez (MUITO importante)
+        // salva tudo de uma vez
         betRepository.saveAll(bets);
 
-        // 🔥 salva usuários sem duplicar
+        // salva usuários sem duplicar
         userRepository.saveAll(
             bets.stream()
                 .map(Bet::getUser)

@@ -1,0 +1,57 @@
+<h2>Sorteios</h2>
+
+<div class="top-container">
+
+  <!--  Próximo sorteio -->
+  <div class="card">
+    <h3>Próximo Sorteio</h3>
+    <p>Às {{ nextDrawTime | date:'HH:mm' }}</p>
+
+    <div class="countdown">
+        <span>{{ timeLeft.hours }}h</span>
+        <span>{{ timeLeft.minutes }}m</span>
+        <span>{{ timeLeft.seconds }}s</span>
+    </div>
+  </div>
+
+  <!-- Último sorteio -->
+  <div class="card" *ngIf="lastDraw">
+    <h3>Último Sorteio</h3>
+
+    <p>1º {{ lastDraw.firstPrize }} ({{ getAnimal(lastDraw.firstPrize) }})</p>
+    <p>2º {{ lastDraw.secondPrize }} ({{ getAnimal(lastDraw.secondPrize) }})</p>
+    <p>3º {{ lastDraw.thirdPrize }} ({{ getAnimal(lastDraw.thirdPrize) }})</p>
+    <p>4º {{ lastDraw.fourthPrize }} ({{ getAnimal(lastDraw.fourthPrize) }})</p>
+    <p>5º {{ lastDraw.fifthPrize }} ({{ getAnimal(lastDraw.fifthPrize) }})</p>
+  </div>
+
+</div>
+
+<!-- Histórico -->
+<div class="history">
+  <h3>Histórico de Sorteios</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>1º</th>
+        <th>2º</th>
+        <th>3º</th>
+        <th>4º</th>
+        <th>5º</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let d of history">
+        <td>{{ d.drawDate | date:'dd/MM HH:mm' }}</td>
+        <td>{{ d.firstPrize }}</td>
+        <td>{{ d.secondPrize }}</td>
+        <td>{{ d.thirdPrize }}</td>
+        <td>{{ d.fourthPrize }}</td>
+        <td>{{ d.fifthPrize }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

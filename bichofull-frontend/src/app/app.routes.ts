@@ -19,5 +19,13 @@ export const routes: Routes = [
       import('./pages/bet-history/bet-history')
         .then(m => m.BetHistoryComponent)
   },
+
+  {
+    path: 'draws',
+    loadComponent: () =>
+      import('./pages/draws/draws')
+        .then(m => m.DrawsComponent)
+  },
+
   { path: '**', redirectTo: 'login' }
 ];

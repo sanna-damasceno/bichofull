@@ -142,7 +142,7 @@ public class BetService {
         long totalBets = allBets.size();
         long wins = allBets.stream().filter(b -> b.getStatus() == BetStatus.WON).count();
         
-        // Calcula a Taxa de Acerto (ex: 33%)
+        // Calcula a Taxa de Acerto
         double winRate = totalBets > 0 ? (double) wins / totalBets * 100 : 0;
 
         // Soma o total que ele já ganhou (prize das apostas WON)
@@ -157,7 +157,7 @@ public class BetService {
                 .map(Bet::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        // Converte a lista para o seu novo BetHistoryDTO
+        // Converte a lista para BetHistoryDTO
         List<BetHistoryDTO> history = allBets.stream()
                 .map(b -> new BetHistoryDTO(b.getId(), b.getType(), b.getChosenNumber(), b.getAmount(), b.getStatus(), b.getPrize(), b.getCreatedAt()))
                 .toList();

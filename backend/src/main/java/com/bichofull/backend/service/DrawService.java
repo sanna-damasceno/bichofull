@@ -10,7 +10,7 @@ import com.bichofull.backend.repository.BetRepository;
 import com.bichofull.backend.repository.DrawRepository;
 import com.bichofull.backend.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.math.BigDecimal;
@@ -72,19 +72,29 @@ public class DrawService {
 
         draw.setDrawDate(LocalDateTime.now());
 
-        draw.setFirstPrize(String.format("%04d", new Random().nextInt(10000)));
-        draw.setSecondPrize(String.format("%04d", new Random().nextInt(10000)));
-        draw.setThirdPrize(String.format("%04d", new Random().nextInt(10000)));
-        draw.setFourthPrize(String.format("%04d", new Random().nextInt(10000)));
-        draw.setFifthPrize(String.format("%04d", new Random().nextInt(10000)));
+        Random random = new Random();
 
+        draw.setFirstPrize(String.format("%04d", random.nextInt(10000)));
+        draw.setSecondPrize(String.format("%04d", random.nextInt(10000)));
+        draw.setThirdPrize(String.format("%04d", random.nextInt(10000)));
+        draw.setFourthPrize(String.format("%04d", random.nextInt(10000)));
+        draw.setFifthPrize(String.format("%04d", random.nextInt(10000)));
 
         Draw savedDraw = drawRepository.save(draw);
 
-        // 🚀 roda processamento em background
-        new Thread(() -> betProcessorService.processBets(savedDraw)).start();
+        log.info("🎯 Sorteio criado: {}", savedDraw.getId());
+
+        betProcessorService.processBets(savedDraw);
 
         return savedDraw;
+    }
+
+    public Draw getLastDraw() {
+        return drawRepository.findTopByOrderByDrawDateDesc();
+    }
+
+    public List<Draw> getDrawHistory() {
+        return drawRepository.findTop20ByOrderByDrawDateDesc();
     }
 
 

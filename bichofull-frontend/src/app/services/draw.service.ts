@@ -24,4 +24,12 @@ export class DrawService {
   runDraw(): Observable<DrawResponse> {
     return this.http.post<DrawResponse>(`${this.apiUrl}/run`, {});
   }
+
+  getLastDraw(): Observable<DrawResponse> {
+    return this.http.get<DrawResponse>(`${this.apiUrl}/last`);
+  }
+
+  getDrawHistory(): Observable<DrawResponse[]> {
+    return this.http.get<DrawResponse[]>(`${this.apiUrl}/history`);
+  }
 }
