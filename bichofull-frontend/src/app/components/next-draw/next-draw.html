@@ -1,1 +1,10 @@
-<p>next-draw works!</p>
+<div class="card">
+    <h3>Próximo Sorteio</h3>
+    <p>Às {{ nextDrawTime | date:'HH:mm' }}</p>
+
+    <div class="countdown">
+        <span>{{ timeLeft.hours }}h</span>
+        <span>{{ timeLeft.minutes }}m</span>
+        <span>{{ timeLeft.seconds }}s</span>
+    </div>
+</div>

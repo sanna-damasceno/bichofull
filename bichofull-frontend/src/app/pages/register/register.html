@@ -1,3 +1,6 @@
+<app-navbar *ngIf="!isAuthPage()"></app-navbar>
+<router-outlet></router-outlet>
+
 <form (submit)="onRegister($event)">
   <input type="text" name="name" [(ngModel)]="registerData.name" placeholder="Nome" required>
   <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="Email" required>

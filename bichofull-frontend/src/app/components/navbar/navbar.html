@@ -18,5 +18,9 @@
       <span>Olá, {{ user.name }}</span>
       <img [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
     </div>
+
+    <button (click)="logout()" class="logout-btn">
+      Sair
+    </button>
   </div>
 </nav>

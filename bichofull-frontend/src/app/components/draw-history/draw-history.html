@@ -1,1 +1,9 @@
-<p>draw-history works!</p>
+<div class="card" *ngIf="lastDraw">
+  <h3>Último Sorteio</h3>
+
+  <p>1º {{ lastDraw.firstPrize }} ({{ getAnimal(lastDraw.firstPrize) }})</p>
+  <p>2º {{ lastDraw.secondPrize }} ({{ getAnimal(lastDraw.secondPrize) }})</p>
+  <p>3º {{ lastDraw.thirdPrize }} ({{ getAnimal(lastDraw.thirdPrize) }})</p>
+  <p>4º {{ lastDraw.fourthPrize }} ({{ getAnimal(lastDraw.fourthPrize) }})</p>
+  <p>5º {{ lastDraw.fifthPrize }} ({{ getAnimal(lastDraw.fifthPrize) }})</p>
+</div>
