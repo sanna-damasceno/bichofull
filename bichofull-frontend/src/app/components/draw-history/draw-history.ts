@@ -1,46 +1,33 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DrawService, DrawResponse } from '../../services/draw.service';
-import { ChangeDetectorRef } from '@angular/core';
-
 
 @Component({
   selector: 'app-draw-history',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './draw-history.html',
   styleUrl: './draw-history.css',
 })
+export class DrawHistoryComponent implements OnInit {
 
-export class DrawHistoryComponent implements OnInit, OnDestroy {
+  lastDraw = signal<DrawResponse | null>(null);
 
-  lastDraw: DrawResponse | null = null;
-  interval: any;
-
-  constructor(
-    private drawService: DrawService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private drawService: DrawService) {}
 
   ngOnInit() {
     this.loadLastDraw();
 
-    // 🔥 atualiza automaticamente a cada 5 segundos
-    this.interval = setInterval(() => {
+    // auto refresh
+    setInterval(() => {
       this.loadLastDraw();
     }, 5000);
   }
 
-  ngOnDestroy() {
-    clearInterval(this.interval);
-  }
-
   loadLastDraw() {
     this.drawService.getLastDraw().subscribe({
-      next: (res) => {
-        this.lastDraw = res;
-        this.cdr.detectChanges(); // 🔥 força atualização na tela
-      },
-      error: (err) => console.error('Erro ao carregar último sorteio', err)
+      next: (res) => this.lastDraw.set(res),
+      error: (err) => console.error(err)
     });
   }
 

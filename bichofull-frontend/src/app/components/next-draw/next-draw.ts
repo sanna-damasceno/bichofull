@@ -1,108 +1,49 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-next-draw',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './next-draw.html',
   styleUrl: './next-draw.css',
 })
+export class NextDrawComponent {
 
+  now = signal(Date.now());
 
-export class NextDrawComponent implements OnInit, OnDestroy {
+  nextDrawTime = computed(() => {
+    const now = new Date(this.now());
 
-  sub!: Subscription;
+    const times = [11, 14, 18];
 
-  nextDrawTime!: Date;
-
-  timeLeft = {
-    hours: '00',
-    minutes: '00',
-    seconds: '00'
-  };
-
-  interval: any;
-
-  constructor(
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnInit() {
-    this.calculateNextDraw();
-    this.startCountdown();
-
-
-    this.sub = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.calculateNextDraw();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    for (let h of times) {
+      const t = new Date();
+      t.setHours(h, 0, 0);
+      if (now < t) return t;
     }
-    clearInterval(this.interval);
-  }
 
-  calculateNextDraw() {
-    const now = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(11, 0, 0);
+    return tomorrow;
+  });
 
-    const today11 = new Date();
-    today11.setHours(11, 0, 0);
+  timeLeft = computed(() => {
+    const diff = this.nextDrawTime().getTime() - this.now();
 
-    const today14 = new Date();
-    today14.setHours(14, 0, 0);
+    if (diff <= 0) return { h: '00', m: '00', s: '00' };
 
-    const today18 = new Date();
-    today18.setHours(18, 0, 0);
+    return {
+      h: String(Math.floor(diff / 3600000)).padStart(2, '0'),
+      m: String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0'),
+      s: String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'),
+    };
+  });
 
-    if (now < today11) {
-      this.nextDrawTime = today11;
-    } else if (now < today14) {
-      this.nextDrawTime = today14;
-    } else if (now < today18) {
-      this.nextDrawTime = today18;
-    } else {
-      const tomorrow = new Date();
-      tomorrow.setDate(now.getDate() + 1);
-      tomorrow.setHours(11, 0, 0);
-      this.nextDrawTime = tomorrow;
-    }
-  }
-
-  startCountdown() {
-    this.interval = setInterval(() => {
-
-      const now = new Date().getTime();
-      const diff = this.nextDrawTime.getTime() - now;
-
-      if (diff <= 0) {
-        this.calculateNextDraw();
-        return;
-      }
-
-      this.timeLeft = {
-        hours: String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0'),
-        minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0'),
-        seconds: String(Math.floor((diff / 1000) % 60)).padStart(2, '0')
-      };
-
-
-      this.cdr.detectChanges();
-
+  constructor() {
+    setInterval(() => {
+      this.now.set(Date.now());
     }, 1000);
-  }
-
-  getNextDrawLabel(): string {
-    return this.nextDrawTime.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
   }
 }

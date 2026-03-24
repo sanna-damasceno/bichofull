@@ -9,34 +9,37 @@
   <section class="stats-grid">
     <div class="stat-card">
       <small>Total de Apostas</small>
-      <strong>{{ stats.totalBets }}</strong>
+      <strong>{{ stats().totalBets }}</strong>
     </div>
 
     <div class="stat-card">
       <small>Taxa de Acerto</small>
-      <strong class="highlight">{{ stats.winRate | number:'1.0-2' }}%</strong>
+      <strong class="highlight">
+        {{ stats().winRate | number:'1.0-2' }}%
+      </strong>
     </div>
 
     <div class="stat-card">
       <small>Total Ganho</small>
-      <strong class="won-text">{{ stats.totalWon | currency:'BRL' }}</strong>
+      <strong class="won-text">
+        {{ stats().totalWon | currency:'BRL' }}
+      </strong>
     </div>
 
     <div class="stat-card">
       <small>Total Perdido</small>
-      <strong class="lost-text">{{ stats.totalLost | currency:'BRL' }}</strong>
+      <strong class="lost-text">
+        {{ stats().totalLost | currency:'BRL' }}
+      </strong>
     </div>
   </section>
 
   <main class="table-container">
     <div class="table-header">
       <h2>Suas Apostas</h2>
-      <div class="search-box">
-        <input type="text" placeholder="Buscar apostas realizadas">
-        <i class="icon-search"></i>
-      </div>
     </div>
-    <p>Quantidade de apostas: {{ bets.length }}</p>
+
+    <p>Quantidade de apostas: {{ bets().length }}</p>
 
     <table class="history-table">
       <thead>
@@ -50,28 +53,35 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let bet of bets">
-          <td>{{ bet.chosenNumber }}</td>
-          <td>{{ translateType(bet.type) }}</td>
-          <td>{{ bet.amount | currency:'BRL' }}</td>
-          <td>
-            <span class="status-badge" [ngClass]="getBadgeClass(bet.status)">
-              {{ translateStatus(bet.status) }}
-            </span>
-          </td>
-          <td>
-            <span *ngIf="bet.status === 'WON'; else noPrize">
-              {{ bet.prize | currency:'BRL' }}
-            </span>
-            <ng-template #noPrize>-</ng-template>
-          </td>
-        </tr>
 
-        <tr *ngIf="bets.length === 0">
-          <td colspan="5" class="empty-message">
-            Nenhuma aposta encontrada.
-          </td>
-        </tr>
+        @for (bet of bets(); track bet.id) {
+          <tr>
+            <td>{{ bet.chosenNumber }}</td>
+            <td>{{ translateType(bet.type) }}</td>
+            <td>{{ bet.amount | currency:'BRL' }}</td>
+            <td>
+              <span class="status-badge" [class]="getBadgeClass(bet.status)">
+                {{ translateStatus(bet.status) }}
+              </span>
+            </td>
+            <td>
+              @if (bet.status === 'WON') {
+                <span>{{ bet.prize | currency:'BRL' }}</span>
+              } @else {
+                <span>-</span>
+              }
+            </td>
+          </tr>
+        }
+
+        @if (bets().length === 0) {
+          <tr>
+            <td colspan="5" class="empty-message">
+              Nenhuma aposta encontrada.
+            </td>
+          </tr>
+        }
+
       </tbody>
     </table>
   </main>

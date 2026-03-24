@@ -1,49 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { WalletService, WalletDTO } from '../../services/wallet.service';
-import { UserService, UserResponse } from '../../services/user.service'; 
-import { ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserService, UserResponse } from '../../services/user.service';
 
 @Component({
   selector: 'app-wallet',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule],
   templateUrl: './wallet.html',
   styleUrl: './wallet.css',
 })
-export class WalletComponent implements OnInit, OnDestroy {
-  // Inicializamos com valores zerados para evitar erros de undefined no HTML
-  wallet: WalletDTO = { balance: 0, totalWon: 0, totalLost: 0, totalPending: 0 };
+export class WalletComponent {
 
-  sub!: Subscription;
-  constructor(private userService: UserService,
-              private cdr: ChangeDetectorRef
-  ) {}
+  wallet = signal({
+    balance: 0,
+    totalWon: 0,
+    totalLost: 0,
+    totalPending: 0
+  });
 
-  ngOnInit(): void {
-    // 1. Escuta o BehaviorSubject. Sempre que o perfil mudar, a tela atualiza.
-    this.userService.user$.subscribe(data => {
+  constructor(private userService: UserService) {
+
+    this.userService.user$.subscribe((data: UserResponse | null) => {
       if (data) {
-        console.log('Dados recebidos do Backend:', data);
-        
-        // Mapeamos o UserResponse para o nosso objeto wallet da tela
-        this.wallet = {
+        this.wallet.set({
           balance: data.balance,
-          totalWon: data.totalWon,     
+          totalWon: data.totalWon,
           totalLost: data.totalLost,
           totalPending: data.totalPending
-        };
-
-        this.cdr.detectChanges();
+        });
       }
     });
 
-    // 2. Dispara a carga dos dados
     this.userService.loadUserProfile();
-  }
-
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
   }
 }

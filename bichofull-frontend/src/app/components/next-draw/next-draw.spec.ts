@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NextDraw } from './next-draw';
+import { NextDrawComponent } from './next-draw';
 
 describe('NextDraw', () => {
-  let component: NextDraw;
-  let fixture: ComponentFixture<NextDraw>;
+  let component: NextDrawComponent;
+  let fixture: ComponentFixture<NextDrawComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NextDraw],
+      imports: [NextDrawComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NextDraw);
+    fixture = TestBed.createComponent(NextDrawComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

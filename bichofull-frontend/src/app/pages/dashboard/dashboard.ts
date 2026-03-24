@@ -15,7 +15,7 @@ interface Animal {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavbarComponent,
+  imports: [
             WalletComponent,
             AnimalGridComponent,
             BetFormComponent,

@@ -1,10 +1,11 @@
 <div class="card">
-    <h3>Próximo Sorteio</h3>
-    <p>Às {{ nextDrawTime | date:'HH:mm' }}</p>
+  <h3>Próximo Sorteio</h3>
 
-    <div class="countdown">
-        <span>{{ timeLeft.hours }}h</span>
-        <span>{{ timeLeft.minutes }}m</span>
-        <span>{{ timeLeft.seconds }}s</span>
-    </div>
+  <p>Às {{ nextDrawTime() | date:'HH:mm' }}</p>
+
+  <div class="countdown">
+    <span>{{ timeLeft().h }}h</span>
+    <span>{{ timeLeft().m }}m</span>
+    <span>{{ timeLeft().s }}s</span>
+  </div>
 </div>
