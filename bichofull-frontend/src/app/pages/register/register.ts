@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // IMPORTANTE
+import { FormsModule } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule], // Adicione aqui
+  imports: [FormsModule], 
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -39,4 +40,5 @@ export class RegisterComponent {
       }
     });
   }
+
 }

@@ -4,6 +4,8 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { DashboardComponent  } from './pages/dashboard/dashboard';
 import { AdminDrawComponent  } from './pages/admin-draw/admin-draw';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout';
 
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
@@ -13,24 +15,32 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'admin', component: AdminDrawComponent, canActivate: [adminGuard] },
 
   {
-    path: 'bet-history',
-    loadComponent: () =>
-      import('./pages/bet-history/bet-history')
-        .then(m => m.BetHistoryComponent),
-        canActivate: [authGuard]
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+        { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+
+        {
+          path: 'bet-history',
+          loadComponent: () =>
+            import('./pages/bet-history/bet-history')
+              .then(m => m.BetHistoryComponent),
+              canActivate: [authGuard]
+        },
+
+        {
+          path: 'draws',
+          loadComponent: () =>
+            import('./pages/draws/draws')
+              .then(m => m.DrawsComponent),
+              canActivate: [authGuard]
+        },
+
+    ]
   },
 
-  {
-    path: 'draws',
-    loadComponent: () =>
-      import('./pages/draws/draws')
-        .then(m => m.DrawsComponent),
-        canActivate: [authGuard]
-  },
 
   { path: 'admin', component: AdminDrawComponent, 
     canActivate: [adminGuard] },
