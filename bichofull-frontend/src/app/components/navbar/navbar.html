@@ -15,8 +15,10 @@
 
   <div class="user-section">
     <div class="profile-info">
-      <span>Olá, {{ user.name }}</span>
-      <img [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
+      <span>Olá, {{ user?.name ?? '' }}</span>
+
+      <!-- ✅ corrigido -->
+      <img [src]="user?.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
     </div>
 
     <button (click)="logout()" class="logout-btn">

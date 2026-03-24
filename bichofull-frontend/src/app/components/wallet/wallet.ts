@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService, UserResponse } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-wallet',
@@ -11,26 +11,20 @@ import { UserService, UserResponse } from '../../services/user.service';
 })
 export class WalletComponent {
 
-  wallet = signal({
-    balance: 0,
-    totalWon: 0,
-    totalLost: 0,
-    totalPending: 0
+  private userService = inject(UserService);
+
+  wallet = computed(() => {
+    const user = this.userService.user();
+
+    return {
+      balance: user?.balance ?? 0,
+      totalWon: user?.totalWon ?? 0,
+      totalLost: user?.totalLost ?? 0,
+      totalPending: user?.totalPending ?? 0
+    };
   });
 
-  constructor(private userService: UserService) {
-
-    this.userService.user$.subscribe((data: UserResponse | null) => {
-      if (data) {
-        this.wallet.set({
-          balance: data.balance,
-          totalWon: data.totalWon,
-          totalLost: data.totalLost,
-          totalPending: data.totalPending
-        });
-      }
-    });
-
+  constructor() {
     this.userService.loadUserProfile();
   }
 }
