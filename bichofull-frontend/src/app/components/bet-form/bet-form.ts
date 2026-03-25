@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BetService, BetRequest, BetResponse } from '../../services/bet.service';
@@ -21,7 +21,7 @@ export class BetFormComponent implements OnChanges {
   @Input() selectedAnimal: Animal | null = null;
 
   betType: 'GRUPO' | 'DEZENA' | 'MILHAR' = 'GRUPO';
-  numberInput: string = '';
+  numberInput = signal('');
   detectedAnimal: Animal | null = null;
   amount: number = 0;
   prize: number = 0;
@@ -61,15 +61,18 @@ export class BetFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedAnimal'] && this.selectedAnimal) {
       this.betType = 'GRUPO';
-      this.numberInput = this.selectedAnimal.id.toString().padStart(2, '0');
+      this.numberInput.set(this.selectedAnimal.id.toString().padStart(2, '0'));
       this.detectedAnimal = this.selectedAnimal;
-      this.calculatePrize();
+      
+      setTimeout(() => {
+        this.calculatePrize();
+      });
     }
   }
 
   onTypeChange(type: 'GRUPO' | 'DEZENA' | 'MILHAR') {
     this.betType = type;
-    this.numberInput = '';
+    this.numberInput.set('');
     this.detectedAnimal = null;
     this.prize = 0;
   }
@@ -77,9 +80,10 @@ export class BetFormComponent implements OnChanges {
   onNumberChange(value: string) {
     let cleanValue = value.replace(/\D/g, '');
     const limit = this.betType === 'MILHAR' ? 4 : 2;
-    this.numberInput = cleanValue.slice(0, limit);
 
-    if (!this.numberInput) {
+    this.numberInput.set(cleanValue.slice(0, limit));
+
+    if (!this.numberInput()) {
       this.detectedAnimal = null;
       this.calculatePrize();
       return;
@@ -90,11 +94,11 @@ export class BetFormComponent implements OnChanges {
   }
 
   private updateDetectedAnimal() {
-    const val = parseInt(this.numberInput);
+    const val = parseInt(this.numberInput());
     if (this.betType === 'GRUPO') {
       this.detectedAnimal = this.animals.find(a => a.id === val) || null;
     } else {
-      const lastTwoDigits = parseInt(this.numberInput.slice(-2));
+      const lastTwoDigits = parseInt(this.numberInput().slice(-2));
       this.detectedAnimal = this.animals.find(a => a.dezenas.includes(lastTwoDigits)) || null;
     }
   }
@@ -110,7 +114,7 @@ export class BetFormComponent implements OnChanges {
 
   // Método de confirmação atualizado com o serviço em inglês
   confirmBet(): void {
-    if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput) {
+    if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput()) {
       alert('Please fill in all fields correctly.');
       return;
     }
@@ -124,7 +128,7 @@ export class BetFormComponent implements OnChanges {
 
     const betRequest: BetRequest = {
       type: typeMap[this.betType],
-      chosenNumber: this.numberInput,
+      chosenNumber: this.numberInput(),
       amount: this.amount
     };
 
@@ -144,7 +148,7 @@ export class BetFormComponent implements OnChanges {
   }
 
   private resetForm(): void {
-    this.numberInput = '';
+    this.numberInput.set('');
     this.detectedAnimal = null;
     this.amount = 0;
     this.prize = 0;
