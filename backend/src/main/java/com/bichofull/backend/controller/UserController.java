@@ -1,6 +1,7 @@
 package com.bichofull.backend.controller;
 
 import com.bichofull.backend.dto.UserResponseDTO;
+import com.bichofull.backend.enums.BetStatus;
 import com.bichofull.backend.model.User;
 import com.bichofull.backend.dto.UserBalanceResponseDTO;
 import com.bichofull.backend.service.UserService;
@@ -43,7 +44,7 @@ public class UserController {
         var user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        BigDecimal won = betService.sumAmountByUserAndStatus(user.getId(), com.bichofull.backend.enums.BetStatus.WON);
+        BigDecimal won = betService.sumPrizeByUserAndStatus(user.getId(), BetStatus.WON);
         BigDecimal lost = betService.sumAmountByUserAndStatus(user.getId(), com.bichofull.backend.enums.BetStatus.LOST);
         BigDecimal pending = betService.calculateTotalPendingPrize(user.getId());
        
@@ -60,6 +61,7 @@ public class UserController {
         summary = "Saldo do usuário",
         description = "Retorna o saldo atual do usuário."
     )
+
 
     @GetMapping("/balance")
     public UserBalanceResponseDTO getBalance(Authentication authentication) {

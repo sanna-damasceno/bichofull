@@ -2,6 +2,9 @@ package com.bichofull.backend.dto;
 
 import java.math.BigDecimal;
 
+import com.bichofull.backend.enums.BetType;
+import com.bichofull.backend.model.Bet;
+
 public class UserResponseDTO {
 
     private Long id;
@@ -31,4 +34,7 @@ public class UserResponseDTO {
     public BigDecimal getTotalWon() { return totalWon;}
     public BigDecimal getTotalLost() { return totalLost;}
     public BigDecimal getTotalPending() { return totalPending;}
+
+
+
 }

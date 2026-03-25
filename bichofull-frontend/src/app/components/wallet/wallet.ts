@@ -1,6 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { BetService, BetResponse } from '../../services/bet.service';
 
 @Component({
   selector: 'app-wallet',
@@ -12,6 +13,9 @@ import { UserService } from '../../services/user.service';
 export class WalletComponent {
 
   private userService = inject(UserService);
+  private betService = inject(BetService);
+
+  bets = signal<BetResponse[]>([]);
 
   wallet = computed(() => {
     const user = this.userService.user();
@@ -26,5 +30,9 @@ export class WalletComponent {
 
   constructor() {
     this.userService.loadUserProfile();
+
+    this.betService.getMyBets().subscribe(bets => {
+      this.bets.set(bets);
+    });
   }
 }

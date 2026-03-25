@@ -121,6 +121,7 @@ public class BetService {
 
     
     public BigDecimal calculateTotalPendingPrize(Long userId) {
+        System.out.println("🔥 CALCULANDO PENDING CORRETAMENTE");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -129,8 +130,12 @@ public class BetService {
 
         // Soma o prêmio potencial de cada uma usando sua PrizeCalculator
         return pendingBets.stream()
-                .map(bet -> PrizeCalculator.calculatePrize(bet.getType(), bet.getAmount()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(bet -> {
+                BigDecimal prize = PrizeCalculator.calculatePrize(bet.getType(), bet.getAmount());
+                System.out.println("Tipo: " + bet.getType() + " → " + prize);
+                return prize;
+            })
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public Map<String, Object> getUserHistorySummary(String email) {
@@ -169,6 +174,15 @@ public class BetService {
             "totalLost", totalLost,
             "history", history
         );
+    }
+
+    public BigDecimal sumPrizeByUserAndStatus(Long userId, BetStatus status) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return betRepository.findByUserAndStatus(user, status).stream()
+                .map(b -> b.getPrize() != null ? b.getPrize() : BigDecimal.ZERO)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
         
 
