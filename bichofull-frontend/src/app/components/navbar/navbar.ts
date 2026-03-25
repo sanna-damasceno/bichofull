@@ -16,12 +16,17 @@ export class NavbarComponent {
   constructor(
     private userService: UserService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(){
     this.userService.loadUserProfile();
   }
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['/login']);
+
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
   }
 }
