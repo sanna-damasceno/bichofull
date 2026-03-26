@@ -1,14 +1,32 @@
 <h2>Admin - Sorteio</h2>
 
+<!-- SORTEIO AUTOMÁTICO -->
 <button (click)="runDraw()" [disabled]="loading">
   {{ loading ? 'Executando...' : 'Executar Sorteio' }}
 </button>
 
+<hr>
+
+<!-- SORTEIO MANUAL -->
+<h3>Criar Sorteio Manual</h3>
+
+<div>
+  <input placeholder="1º prêmio" [(ngModel)]="manualDraw.firstPrize">
+  <input placeholder="2º prêmio" [(ngModel)]="manualDraw.secondPrize">
+  <input placeholder="3º prêmio" [(ngModel)]="manualDraw.thirdPrize">
+  <input placeholder="4º prêmio" [(ngModel)]="manualDraw.fourthPrize">
+  <input placeholder="5º prêmio" [(ngModel)]="manualDraw.fifthPrize">
+</div>
+
+<button (click)="createManualDraw()" [disabled]="loading">
+  Criar Sorteio Manual
+</button>
+
 <!-- loading -->
-<p *ngIf="loading">⏳ Processando apostas...</p>
+<p *ngIf="loading">⏳ Processando...</p>
 
 <!-- sucesso -->
-<p *ngIf="success">✅ Sorteio realizado com sucesso!</p>
+<p *ngIf="success">✅ Operação realizada com sucesso!</p>
 
 <div *ngIf="result">
   <h3>Resultado:</h3>

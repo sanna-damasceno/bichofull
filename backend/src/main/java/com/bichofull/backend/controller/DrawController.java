@@ -29,7 +29,7 @@ public class DrawController {
         summary = "Criar sorteio manual",
         description = "Cria um sorteio com números definidos."
     )
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<DrawResponseDTO> createDraw(@RequestBody DrawRequestDTO request) {
 

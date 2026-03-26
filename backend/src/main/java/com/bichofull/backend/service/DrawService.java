@@ -50,7 +50,13 @@ public class DrawService {
         draw.setFourthPrize(request.getFourthPrize());
         draw.setFifthPrize(request.getFifthPrize());
 
-        return drawRepository.save(draw);
+        Draw saved = drawRepository.save(draw);
+
+        log.info("🎯 Sorteio manual criado: {}", saved.getId());
+
+        betProcessorService.processBets(saved);
+
+        return saved;
     }
 
     public DrawResponseDTO toDTO(Draw draw) {

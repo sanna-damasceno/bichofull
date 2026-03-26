@@ -32,4 +32,14 @@ export class DrawService {
   getDrawHistory(): Observable<DrawResponse[]> {
     return this.http.get<DrawResponse[]>(`${this.apiUrl}/history`);
   }
+
+  createDraw(data: {
+    firstPrize: string;
+    secondPrize: string;
+    thirdPrize: string;
+    fourthPrize: string;
+    fifthPrize: string;
+  }) {
+    return this.http.post<DrawResponse>(this.apiUrl, data);
+  }
 }

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-draw',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-draw.html',
   styleUrls: ['./admin-draw.css'],
 })
@@ -17,6 +18,14 @@ export class AdminDrawComponent implements OnInit, OnDestroy {
   result: DrawResponse | null = null;
   loading = false;
   success = false;
+
+    manualDraw = {
+    firstPrize: '',
+    secondPrize: '',
+    thirdPrize: '',
+    fourthPrize: '',
+    fifthPrize: ''
+  };
 
   sub!: Subscription;
 
@@ -62,7 +71,40 @@ export class AdminDrawComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  createManualDraw() {
+    this.loading = true;
+    this.success = false;
+
+    this.drawService.createDraw(this.manualDraw).subscribe({
+      next: (res) => {
+        this.result = res;
+        this.success = true;
+        this.loading = false;
+
+        this.resetManualForm();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+        alert('Erro ao criar sorteio manual');
+      }
+    });
+  }
+
+  resetManualForm() {
+    this.manualDraw = {
+      firstPrize: '',
+      secondPrize: '',
+      thirdPrize: '',
+      fourthPrize: '',
+      fifthPrize: ''
+    };
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
+
 }
