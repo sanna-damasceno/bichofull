@@ -23,10 +23,10 @@ jobs:
       - name: Grant execute permission for mvnw
         run: chmod +x backend/mvnw
 
-      - name: Run backend tests
+      - name: Build backend
         run: |
           cd backend
-          ./mvnw test
+          ./mvnw clean install
 
   frontend:
     runs-on: ubuntu-latest
@@ -35,8 +35,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Check frontend folder
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
         run: |
           cd bichofull-frontend
-          ls
-          echo "Frontend OK"
+          npm install
+
+      - name: Build frontend
+        run: |
+          cd bichofull-frontend
+          npx ng build
