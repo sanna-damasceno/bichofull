@@ -106,5 +106,10 @@ export class AdminDrawComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
 
 }
