@@ -3,8 +3,8 @@
   <button (click)="logout()">Sair</button>
 </div>
 <!-- SORTEIO AUTOMÁTICO -->
-<button (click)="runDraw()" [disabled]="loading">
-  {{ loading ? 'Executando...' : 'Executar Sorteio' }}
+<button (click)="runDraw()" [disabled]="loading()">
+  {{ loading() ? 'Executando...' : 'Executar Sorteio' }}
 </button>
 
 <hr>
@@ -20,22 +20,22 @@
   <input placeholder="5º prêmio" [(ngModel)]="manualDraw.fifthPrize">
 </div>
 
-<button (click)="createManualDraw()" [disabled]="loading">
+<button (click)="createManualDraw()" [disabled]="loading()">
   Criar Sorteio Manual
 </button>
 
 <!-- loading -->
-<p *ngIf="loading">⏳ Processando...</p>
+<p *ngIf="loading()">⏳ Processando...</p>
 
 <!-- sucesso -->
-<p *ngIf="success">✅ Operação realizada com sucesso!</p>
+<p *ngIf="success()">✅ Operação realizada com sucesso!</p>
 
-<div *ngIf="result">
+<div *ngIf="result() as r">
   <h3>Resultado:</h3>
-  <p>1º: {{ result.firstPrize }}</p>
-  <p>2º: {{ result.secondPrize }}</p>
-  <p>3º: {{ result.thirdPrize }}</p>
-  <p>4º: {{ result.fourthPrize }}</p>
-  <p>5º: {{ result.fifthPrize }}</p>
+  <p>1º: {{ r.firstPrize }}</p>
+  <p>2º: {{ r.secondPrize }}</p>
+  <p>3º: {{ r.thirdPrize }}</p>
+  <p>4º: {{ r.fourthPrize }}</p>
+  <p>5º: {{ r.fifthPrize }}</p>
 </div>
 

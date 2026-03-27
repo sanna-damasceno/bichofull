@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Backend (Spring Boot)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.bichofull.backend.BackendApplication",
+      "projectName": "backend"
+    },
+    {
+      "name": "Run Frontend (Angular)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}/bichofull-frontend"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Full Stack",
+      "configurations": [
+        "Run Backend (Spring Boot)",
+        "Run Frontend (Angular)"
+      ]
+    }
+  ]
+}

@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { DrawService, DrawResponse } from '../../services/draw.service';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -13,13 +11,14 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './admin-draw.html',
   styleUrls: ['./admin-draw.css'],
 })
-export class AdminDrawComponent implements OnInit, OnDestroy {
 
-  result: DrawResponse | null = null;
-  loading = false;
-  success = false;
+export class AdminDrawComponent {
 
-    manualDraw = {
+  result = signal<DrawResponse | null>(null);
+  loading = signal(false);
+  success = signal(false);
+
+  manualDraw = {
     firstPrize: '',
     secondPrize: '',
     thirdPrize: '',
@@ -27,66 +26,53 @@ export class AdminDrawComponent implements OnInit, OnDestroy {
     fifthPrize: ''
   };
 
-  sub!: Subscription;
 
   constructor(
     private drawService: DrawService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private router: Router
+
   ) {}
 
-  ngOnInit(): void {
-    this.sub = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.resetState();
-      }
-    });
-  }
 
   runDraw() {
-    this.loading = true;
-    this.success = false;
+    this.loading.set(true);
+    this.success.set(false);
 
     this.drawService.runDraw().subscribe({
       next: (res) => {
-        console.log("CHEGOU RESPOSTA", res);
-
-        this.result = res;
-        this.success = true;
-        this.loading = false;
-
-        this.cdr.detectChanges();
+        this.result.set(res);
+        this.success.set(true);
+        this.loading.set(false);
       },
       error: (err) => {
         console.error(err);
-        this.loading = false;
+        this.loading.set(false);
         alert('Erro ao executar sorteio');
       }
     });
   }
 
   resetState() {
-    this.result = null;
-    this.success = false;
-    this.loading = false;
+    this.result.set(null);
+    this.success.set(false);
+    this.loading.set(false);
   }
 
   createManualDraw() {
-    this.loading = true;
-    this.success = false;
+    this.loading.set(true);
+    this.success.set(false);
 
     this.drawService.createDraw(this.manualDraw).subscribe({
       next: (res) => {
-        this.result = res;
-        this.success = true;
-        this.loading = false;
+        this.result.set(res);
+        this.success.set(true);
+        this.loading.set(false);
 
         this.resetManualForm();
-        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
-        this.loading = false;
+        this.loading.set(false);
         alert('Erro ao criar sorteio manual');
       }
     });
@@ -102,14 +88,10 @@ export class AdminDrawComponent implements OnInit, OnDestroy {
     };
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
 
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
-
 
 }
