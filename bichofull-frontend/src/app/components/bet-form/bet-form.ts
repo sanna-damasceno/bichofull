@@ -18,6 +18,9 @@ type Animal = {
   styleUrl: './bet-form.css',
 })
 export class BetFormComponent implements OnChanges {
+
+  errorMessage = signal<string | null>(null);
+
   @Input() selectedAnimal: Animal | null = null;
 
   betType: 'GRUPO' | 'DEZENA' | 'MILHAR' = 'GRUPO';
@@ -78,12 +81,28 @@ export class BetFormComponent implements OnChanges {
   }
 
   onNumberChange(value: string) {
+    this.errorMessage.set(null);
+
     const cleanValue = value.replace(/\D/g, '');
     const limit = this.betType === 'MILHAR' ? 4 : 2;
 
-    this.numberInput.set(cleanValue.slice(0, limit));
+    if (cleanValue.length > limit) {
+      return;
+    }
 
-    if (!this.numberInput()) {
+    this.numberInput.set(cleanValue);
+
+    if (this.betType === 'GRUPO' && cleanValue.length === 2) {
+      const num = parseInt(cleanValue);
+
+      if (num < 1 || num > 25) {
+        this.errorMessage.set('Grupo deve estar entre 01 e 25');
+        this.detectedAnimal = null;
+        return;
+      }
+    }
+
+    if (!cleanValue) {
       this.detectedAnimal = null;
       this.calculatePrize();
       return;
@@ -113,10 +132,27 @@ export class BetFormComponent implements OnChanges {
   }
 
   confirmBet(): void {
-    if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput()) {
-      alert('Please fill in all fields correctly.');
+
+    if (this.errorMessage()) {
+      alert(this.errorMessage());
       return;
     }
+
+    if (this.betType === 'MILHAR' && this.numberInput().length !== 4) {
+      alert('Milhar precisa ter 4 números');
+      return;
+    }
+
+    if ((this.betType === 'GRUPO' || this.betType === 'DEZENA') && this.numberInput().length !== 2) {
+      alert('Grupo/Dezena devem ter apenas números');
+      return;
+    }
+
+    if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput()) {
+      alert('Preencha todos os campos corretamente.');
+      return;
+    }
+
 
     const typeMap: Record<string, 'GROUP' | 'TEN' | 'THOUSAND'> = {
       'GRUPO': 'GROUP',

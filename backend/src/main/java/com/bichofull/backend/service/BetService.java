@@ -37,7 +37,45 @@ public class BetService {
         
     }
 
+    private void validateBet(BetRequestDTO request) {
+
+        String number = request.getChosenNumber();
+
+        if (number == null || !number.matches("\\d+")) {
+            throw new RuntimeException("A aposta deve conter apenas números");
+        }
+
+        switch (request.getType()) {
+
+            case GROUP:
+                if (number.length() != 2) {
+                    throw new RuntimeException("Grupo deve ter 2 números");
+                }
+
+                int grupo = Integer.parseInt(number);
+
+                if (grupo < 1 || grupo > 25) {
+                    throw new RuntimeException("Grupo deve estar entre 01 e 25");
+                }
+                break;
+                
+            case TEN:
+                if (number.length() > 2) {
+                    throw new RuntimeException("Grupo/Dezena deve ter no máximo 2 números");
+                }
+                break;
+
+            case THOUSAND:
+                if (number.length() != 4) {
+                    throw new RuntimeException("Milhar deve ter exatamente 4 números");
+                }
+                break;
+        }
+    }
+
     public Bet createBet(BetRequestDTO request, String email) {
+
+        validateBet(request);
 
         log.info("User {} is attempting to create a bet", email);
 
