@@ -2,32 +2,31 @@
   <h2>Admin - Sorteio</h2>
   <button (click)="logout()">Sair</button>
 </div>
-<!-- SORTEIO AUTOMÁTICO -->
+
 <button (click)="runDraw()" [disabled]="loading()">
   {{ loading() ? 'Executando...' : 'Executar Sorteio' }}
 </button>
 
 <hr>
 
-<!-- SORTEIO MANUAL -->
 <h3>Criar Sorteio Manual</h3>
 
 <div>
-  <input placeholder="1º prêmio" [(ngModel)]="manualDraw.firstPrize">
-  <input placeholder="2º prêmio" [(ngModel)]="manualDraw.secondPrize">
-  <input placeholder="3º prêmio" [(ngModel)]="manualDraw.thirdPrize">
-  <input placeholder="4º prêmio" [(ngModel)]="manualDraw.fourthPrize">
-  <input placeholder="5º prêmio" [(ngModel)]="manualDraw.fifthPrize">
+  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.firstPrize" placeholder="1º prêmio">
+  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.secondPrize" placeholder="2º prêmio">
+  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.thirdPrize" placeholder="3º prêmio">
+  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.fourthPrize" placeholder="4º prêmio">
+  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.fifthPrize" placeholder="5º prêmio">
 </div>
 
 <button (click)="createManualDraw()" [disabled]="loading()">
   Criar Sorteio Manual
 </button>
 
-<!-- loading -->
+
 <p *ngIf="loading()">⏳ Processando...</p>
 
-<!-- sucesso -->
+
 <p *ngIf="success()">✅ Operação realizada com sucesso!</p>
 
 <div *ngIf="result() as r">

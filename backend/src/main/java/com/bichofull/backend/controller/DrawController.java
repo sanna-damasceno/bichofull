@@ -7,6 +7,7 @@ import com.bichofull.backend.service.DrawService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,8 +32,8 @@ public class DrawController {
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<DrawResponseDTO> createDraw(@RequestBody DrawRequestDTO request) {
-
+    public ResponseEntity<DrawResponseDTO> createDraw(@Valid @RequestBody DrawRequestDTO request) {
+        
         Draw saved = drawService.createDraw(request);
 
         return ResponseEntity.ok(drawService.toDTO(saved));

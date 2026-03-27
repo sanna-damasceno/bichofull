@@ -19,7 +19,6 @@ export const adminGuard: CanActivateFn = () => {
       return true;
     }
 
-    // ❌ NÃO É ADMIN → manda pro dashboard
     router.navigate(['/dashboard']);
     return false;
 

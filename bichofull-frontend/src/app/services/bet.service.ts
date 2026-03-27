@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Alinhado com o seu BetRequestDTO do Java
+// Alinhado com o BetRequestDTO 
 export interface BetRequest {
   type: 'GROUP' | 'TEN' | 'THOUSAND'; 
   chosenNumber: string;
   amount: number;
 }
 
-// Alinhado com o seu BetResponseDTO do Java
+// Alinhado com o BetResponseDTO 
 export interface BetResponse {
   id: number;
   type: string;

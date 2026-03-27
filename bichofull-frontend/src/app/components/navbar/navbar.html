@@ -17,7 +17,6 @@
     <div class="profile-info">
       <span>Olá, {{ user?.name ?? '' }}</span>
 
-      <!-- ✅ corrigido -->
       <img [src]="user?.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
     </div>
 

@@ -112,14 +112,12 @@ export class BetFormComponent implements OnChanges {
     this.prize = this.amount * multipliers[this.betType];
   }
 
-  // Método de confirmação atualizado com o serviço em inglês
   confirmBet(): void {
     if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput()) {
       alert('Please fill in all fields correctly.');
       return;
     }
 
-    // Mapeamento para o Enum que o seu Java espera
     const typeMap: Record<string, 'GROUP' | 'TEN' | 'THOUSAND'> = {
       'GRUPO': 'GROUP',
       'DEZENA': 'TEN',
@@ -141,7 +139,6 @@ export class BetFormComponent implements OnChanges {
       },
       error: (err) => {
         console.error('Error:', err);
-        // Se o saldo for insuficiente, o Spring Boot provavelmente envia um 400 ou 403
         alert('Failed to place bet. Please check your balance or connection.');
       }
     });

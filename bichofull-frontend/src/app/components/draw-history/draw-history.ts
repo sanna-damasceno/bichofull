@@ -18,7 +18,6 @@ export class DrawHistoryComponent implements OnInit {
   ngOnInit() {
     this.loadLastDraw();
 
-    // auto refresh
     setInterval(() => {
       this.loadLastDraw();
     }, 5000);
