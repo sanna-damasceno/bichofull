@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule], 
+  imports: [FormsModule, CommonModule], 
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -20,15 +21,13 @@ export class RegisterComponent {
   confirmPassword = ''; 
 
   constructor(private authService: AuthService, private router: Router) {}
+  
+  errorMessage = signal<string | null>(null);
 
   onRegister(event: Event) {
     event.preventDefault();
 
-    // Validação extra por segurança
-    if (this.registerData.password !== this.confirmPassword) {
-      alert('As senhas precisam ser iguais!');
-      return;
-    }
+    if (!this.validateForm()) return;
 
     this.authService.register(this.registerData).subscribe({
       next: (res) => {
@@ -37,8 +36,52 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Erro no registro', err);
+
+        if (err.error === 'Email already in use') {
+          this.errorMessage.set('Este email já está cadastrado');
+        } else {
+          this.errorMessage.set('Erro ao cadastrar. Tente novamente.');
+        }
       }
     });
+  }
+
+  validateForm(): boolean {
+    this.errorMessage.set(null);
+
+    if (!this.registerData.name.trim()) {
+      this.errorMessage.set('Nome é obrigatório');
+      return false;
+    }
+
+    if (!this.registerData.email) {
+      this.errorMessage.set('Email é obrigatório');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(this.registerData.email)) {
+      this.errorMessage.set('Email inválido');
+      return false;
+    }
+
+    if (!this.registerData.password) {
+      this.errorMessage.set('Senha é obrigatória');
+      return false;
+    }
+
+    if (this.registerData.password.length < 6) {
+      this.errorMessage.set('Senha deve ter no mínimo 6 caracteres');
+      return false;
+    }
+
+    if (this.registerData.password !== this.confirmPassword) {
+      this.errorMessage.set('As senhas não coincidem');
+      return false;
+    }
+
+    return true;
   }
 
 }

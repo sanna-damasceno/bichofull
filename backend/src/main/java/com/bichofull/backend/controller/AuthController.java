@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @Tag(name = "Autenticação", description = "Endpoints de cadastro e login")
 
@@ -30,7 +31,7 @@ public class AuthController {
     )
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request) {
 
         try {
             RegisterResponseDTO response = authService.register(request);

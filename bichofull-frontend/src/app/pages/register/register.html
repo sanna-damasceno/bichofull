@@ -7,13 +7,24 @@
   
   <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirmar senha" required>
 
+  <p *ngIf="errorMessage()" style="color: red; font-size: 13px;">
+    {{ errorMessage() }}
+  </p>
+
   @if (confirmPassword && registerData.password !== confirmPassword) {
     <p style="color: red; font-size: 12px;">
         As senhas não coincidem!
     </p>
     }
 
-  <button type="submit" [disabled]="registerData.password !== confirmPassword">
+  <button 
+    type="submit" 
+    [disabled]="
+      !registerData.name ||
+      !registerData.email ||
+      !registerData.password ||
+      registerData.password !== confirmPassword
+    ">
     Cadastrar
   </button>
 </form>
