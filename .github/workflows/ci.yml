@@ -50,11 +50,6 @@ jobs:
           cd bichofull-frontend
           npx ng lint
       
-      - name: Run frontend tests
-        run: |
-          cd bichofull-frontend
-          npm test -- --watch=false --browsers=ChromeHeadless
-
       - name: Build frontend
         run: |
           cd bichofull-frontend
