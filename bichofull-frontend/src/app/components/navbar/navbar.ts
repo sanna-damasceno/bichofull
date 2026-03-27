@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router'; 
 import { UserService } from '../../services/user.service'; 
@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   user: any;
 

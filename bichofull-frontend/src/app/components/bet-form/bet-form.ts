@@ -78,7 +78,7 @@ export class BetFormComponent implements OnChanges {
   }
 
   onNumberChange(value: string) {
-    let cleanValue = value.replace(/\D/g, '');
+    const cleanValue = value.replace(/\D/g, '');
     const limit = this.betType === 'MILHAR' ? 4 : 2;
 
     this.numberInput.set(cleanValue.slice(0, limit));

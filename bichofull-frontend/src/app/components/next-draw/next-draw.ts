@@ -17,7 +17,7 @@ export class NextDrawComponent {
 
     const times = [11, 14, 18];
 
-    for (let h of times) {
+    for (const h of times) {
       const t = new Date();
       t.setHours(h, 0, 0);
       if (now < t) return t;
