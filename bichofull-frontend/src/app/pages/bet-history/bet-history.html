@@ -1,6 +1,5 @@
 <div class="history-container">
   <header class="history-header">
-    <a routerLink="/dashboard" class="back-link">← Voltar para Apostas</a>
     <h1>
       <i class="icon-history"></i> Histórico de Apostas
     </h1>
@@ -39,50 +38,50 @@
       <h2>Suas Apostas</h2>
     </div>
 
-    <p>Quantidade de apostas: {{ bets().length }}</p>
+    <div class="bets-list">
+      @for (bet of bets(); track bet.id) {
+        <div class="bet-card">
+          <div class="bet-animal-icon">
+            <img 
+              [src]="'assets/animals/' + getAnimalPath(bet) + '.png'" 
+              alt="Ícone do Bicho"
+              class="animal-img"
+            />
+          </div>
 
-    <table class="history-table">
-      <thead>
-        <tr>
-          <th>Número</th>
-          <th>Tipo</th>
-          <th>Valor</th>
-          <th>Status</th>
-          <th>Prêmio</th>
-        </tr>
-      </thead>
+          <div class="bet-details">
+            <span class="bet-main-info">
+              {{ translateType(bet.type) }}: <strong>{{ bet.chosenNumber }}</strong>
+              <small>({{ getAnimalName(bet) }})</small>
+            </span>
+            <span class="bet-date">{{ bet.createdAt | date:'dd/MM/yyyy, HH:mm' }}</span>
+          </div>
 
-      <tbody>
-
-        @for (bet of bets(); track bet.id) {
-          <tr>
-            <td>{{ bet.chosenNumber }}</td>
-            <td>{{ translateType(bet.type) }}</td>
-            <td>{{ bet.amount | currency:'BRL' }}</td>
-            <td>
-              <span class="status-badge" [class]="getBadgeClass(bet.status)">
-                {{ translateStatus(bet.status) }}
-              </span>
-            </td>
-            <td>
-              @if (bet.status === 'WON') {
-                <span>{{ bet.prize | currency:'BRL' }}</span>
-              } @else {
-                <span>-</span>
+          <div class="bet-status">
+            <span class="status-badge" [class]="getBadgeClass(bet.status)">
+              @if (bet.status === 'PENDING') {
+                <span class="material-symbols-rounded icon-small">schedule</span>
               }
-            </td>
-          </tr>
-        }
+              {{ translateStatus(bet.status) }}
+            </span>
+          </div>
 
-        @if (bets().length === 0) {
-          <tr>
-            <td colspan="5" class="empty-message">
-              Nenhuma aposta encontrada.
-            </td>
-          </tr>
-        }
-
-      </tbody>
-    </table>
+          <div class="bet-values">
+            <div class="value-item">
+              <small>Apostado</small>
+              <strong>{{ bet.amount | currency:'BRL' }}</strong>
+            </div>
+            @if (bet.status === 'WON') {
+              <div class="value-item win">
+                <small>Ganho</small>
+                <strong>{{ bet.prize | currency:'BRL' }}</strong>
+              </div>
+            }
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-message">Nenhuma aposta encontrada.</div>
+      }
+    </div>
   </main>
 </div>

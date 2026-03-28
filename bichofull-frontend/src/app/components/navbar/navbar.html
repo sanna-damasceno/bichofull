@@ -14,20 +14,17 @@
   </ul>
 
   <div class="user-section">
-
-      <div class="profile-info">
-        @if (user(); as currentUser) {
-          <span>
-            Olá,<br>
-            {{ currentUser.name.split(' ')[0] }}
-          </span>
-        } @else {
-          <span>Carregando...</span>
-        }
-      </div>
-
-      <button (click)="logout()" class="logout-btn">
-        <span class="material-symbols-rounded">logout</span>
-      </button>
-    </div>
+    <div class="profile-info">
+      @if (user(); as currentUser) {
+        <span>
+          Olá,<br>
+          {{ currentUser.name ? currentUser.name.split(' ')[0] : 'Usuário' }}
+        </span>
+      } @else {
+        <span>Olá,<br>...</span>
+      }
+    </div> <button (click)="logout()" class="logout-btn">
+      <span class="material-symbols-rounded">logout</span>
+    </button>
+  </div> 
 </nav>
