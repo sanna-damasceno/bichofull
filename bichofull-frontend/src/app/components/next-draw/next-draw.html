@@ -1,11 +1,32 @@
-<div class="card">
-  <h3>Próximo Sorteio</h3>
-
-  <p>Às {{ nextDrawTime() | date:'HH:mm' }}</p>
-
-  <div class="countdown">
-    <span>{{ timeLeft().h }}h</span>
-    <span>{{ timeLeft().m }}m</span>
-    <span>{{ timeLeft().s }}s</span>
+<div class="next-draw-container">
+  <div class="header">
+    <span class="material-symbols-rounded timer-icon">timer</span>
+    <div>
+      <h3>Próximo Sorteio</h3>
+      <p class="subtitle">Contagem regressiva</p>
+    </div>
   </div>
+
+  <div class="countdown-wrapper">
+    <div class="time-block">
+      <div class="number-box">{{ timeLeft().h }}</div>
+      <span class="label">HORAS</span>
+    </div>
+
+    <span class="separator">:</span>
+
+    <div class="time-block">
+      <div class="number-box">{{ timeLeft().m }}</div>
+      <span class="label">MINUTOS</span>
+    </div>
+
+    <span class="separator">:</span>
+
+    <div class="time-block">
+      <div class="number-box">{{ timeLeft().s }}</div>
+      <span class="label">SEGUNDOS</span>
+    </div>
+  </div>
+  
+  <p class="next-time">Próximo sorteio às {{ nextDrawTime() | date:'HH:mm' }}h</p>
 </div>

@@ -9,30 +9,44 @@ import { DrawService, DrawResponse } from '../../services/draw.service';
   templateUrl: './draw-history.html',
   styleUrl: './draw-history.css',
 })
-export class DrawHistoryComponent implements OnInit {
 
+export class DrawHistoryComponent implements OnInit {
   lastDraw = signal<DrawResponse | null>(null);
 
   constructor(private drawService: DrawService) {}
 
   ngOnInit() {
     this.loadLastDraw();
-
-    setInterval(() => {
-      this.loadLastDraw();
-    }, 5000);
+    setInterval(() => this.loadLastDraw(), 5000);
   }
 
   loadLastDraw() {
     this.drawService.getLastDraw().subscribe({
       next: (res) => this.lastDraw.set(res),
-      error: (err) => console.error(err)
+      error: (err) => console.error('Erro ao carregar sorteio:', err)
     });
   }
 
-  getAnimal(number: string): string {
-    const group = Math.ceil(parseInt(number.slice(2)) / 4);
+  getAnimalImage(num: string | undefined | null): string {
+    if (!num) return 'assets/animals/01.png'; 
 
+    const numStr = String(num);
+    const dezena = parseInt(numStr.slice(-2));
+    const calcDezena = (dezena === 0) ? 100 : dezena;
+    const groupId = Math.ceil(calcDezena / 4);
+    const fileName = String(groupId).padStart(2, '0');
+
+    return `assets/animals/${fileName}.png`;
+  }
+
+  getAnimalName(num: string | undefined | null): string {
+    if (!num) return 'Aguardando...';
+    
+    const numStr = String(num);
+    const dezena = parseInt(numStr.slice(-2)) || 0;
+    const calcDezena = (dezena === 0) ? 100 : dezena;
+    const group = Math.ceil(calcDezena / 4);
+    
     const animals = [
       'Avestruz','Águia','Burro','Borboleta','Cachorro',
       'Cabra','Carneiro','Camelo','Cobra','Coelho',
@@ -40,7 +54,7 @@ export class DrawHistoryComponent implements OnInit {
       'Leão','Macaco','Porco','Pavão','Peru',
       'Touro','Tigre','Urso','Veado','Vaca'
     ];
-
-    return animals[group - 1] || '';
+    
+    return animals[group - 1] || 'Desconhecido';
   }
 }

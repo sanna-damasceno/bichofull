@@ -1,27 +1,18 @@
-
-
 <div class="dashboard-container">
-
   <div class="left">
-
-    <app-wallet></app-wallet>
-
-    <app-animal-grid 
-        (animalSelected)="onAnimalSelected($event)">
-    </app-animal-grid>
-    
+    <div class="glass-card">
+      <h3 style="color: #4a1d4a; margin-bottom: 15px;">Sua Carteira</h3>
+       <app-wallet></app-wallet>
+    </div>
+    <div class="glass-card">
+       <h3>Escolha um Animal</h3>
+       <app-animal-grid (animalSelected)="onAnimalSelected($event)"></app-animal-grid>
+    </div>
   </div>
 
   <div class="right">
-
-     <app-bet-form 
-        [selectedAnimal]="selectedAnimal">
-    </app-bet-form>
-
-    <app-draw-history></app-draw-history>
-
-    <app-next-draw></app-next-draw>
-
+     <app-bet-form [selectedAnimal]="selectedAnimal"></app-bet-form>
+     <app-draw-history></app-draw-history>
+     <app-next-draw></app-next-draw>
   </div>
-
 </div>

@@ -6,7 +6,6 @@ import { UserService } from '../../services/user.service';
 import { AnimalService } from '../../services/animal.service';
 import { Animal } from '../../pages/dashboard/dashboard';
 
-
 @Component({
   selector: 'app-bet-form',
   standalone: true,
@@ -15,32 +14,44 @@ import { Animal } from '../../pages/dashboard/dashboard';
   styleUrl: './bet-form.css',
 })
 export class BetFormComponent implements OnInit, OnChanges {
-
   errorMessage = signal<string | null>(null);
 
   @Input() selectedAnimal: Animal | null = null;
 
   betType: 'GRUPO' | 'DEZENA' | 'MILHAR' = 'GRUPO';
   numberInput = signal('');
-  detectedAnimal: Animal | null = null;
+  
+  // Transformado em Signal para evitar NG0100
+  detectedAnimal = signal<Animal | null>(null);
+  
   amount: number = 0;
   prize: number = 0;
 
   animals: Animal[] = [];
 
-  constructor(private betService: BetService,
-              private userService: UserService,
-              private animalService: AnimalService
+  constructor(
+    private betService: BetService,
+    private userService: UserService,
+    private animalService: AnimalService
   ) {}
+
+  ngOnInit(): void {
+    this.animalService.getAnimals().subscribe({
+      next: (data) => (this.animals = data),
+      error: (err) => console.error('Erro ao carregar animais no form:', err),
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedAnimal'] && this.selectedAnimal) {
       this.betType = 'GRUPO';
-      // Usa o groupNumber formatado com 2 dígitos (ex: 01, 02)
       const displayNum = this.selectedAnimal.groupNumber.toString().padStart(2, '0');
       this.numberInput.set(displayNum);
-      this.detectedAnimal = this.selectedAnimal;
       
+      // Atualiza o Signal
+      this.detectedAnimal.set(this.selectedAnimal);
+      
+      // Pequeno delay para garantir que o cálculo ocorra após a atualização do input
       setTimeout(() => this.calculatePrize());
     }
   }
@@ -48,34 +59,22 @@ export class BetFormComponent implements OnInit, OnChanges {
   onTypeChange(type: 'GRUPO' | 'DEZENA' | 'MILHAR') {
     this.betType = type;
     this.numberInput.set('');
-    this.detectedAnimal = null;
+    this.detectedAnimal.set(null);
     this.prize = 0;
+    this.errorMessage.set(null);
   }
 
   onNumberChange(value: string) {
     this.errorMessage.set(null);
-
     const cleanValue = value.replace(/\D/g, '');
     const limit = this.betType === 'MILHAR' ? 4 : 2;
 
-    if (cleanValue.length > limit) {
-      return;
-    }
+    if (cleanValue.length > limit) return;
 
     this.numberInput.set(cleanValue);
 
-    if (this.betType === 'GRUPO' && cleanValue.length === 2) {
-      const num = parseInt(cleanValue);
-
-      if (num < 1 || num > 25) {
-        this.errorMessage.set('Grupo deve estar entre 01 e 25');
-        this.detectedAnimal = null;
-        return;
-      }
-    }
-
     if (!cleanValue) {
-      this.detectedAnimal = null;
+      this.detectedAnimal.set(null);
       this.calculatePrize();
       return;
     }
@@ -84,92 +83,86 @@ export class BetFormComponent implements OnInit, OnChanges {
     this.calculatePrize();
   }
 
-  ngOnInit(): void {
-    
-    this.animalService.getAnimals().subscribe({
-      next: (data) => this.animals = data,
-      error: (err) => console.error('Erro ao carregar animais no form:', err)
-    });
-  }
-
   private updateDetectedAnimal() {
     const val = this.numberInput();
-    if (!val) {
-      this.detectedAnimal = null;
-      return;
-    }
+    let found: Animal | null = null;
 
     if (this.betType === 'GRUPO') {
-      const num = parseInt(val); // Definindo o 'num' que faltava
-      this.detectedAnimal = this.animals.find(a => a.groupNumber === num) || null;
+      const num = parseInt(val, 10);
+      if (num >= 1 && num <= 25) {
+        found = this.animals.find((a) => a.groupNumber === num) || null;
+      } else if (val.length === 2) {
+        this.errorMessage.set('Grupo deve estar entre 01 e 25');
+      }
     } else {
-      const lastTwoDigits = val.slice(-2).padStart(2, '0');
-
-      this.detectedAnimal = this.animals.find(a => a.dezenas.includes(lastTwoDigits)) || null;
+      // Para DEZENA ou MILHAR, identifica o bicho pelos últimos 2 dígitos
+      if (val.length >= 2) {
+        const lastTwoDigits = val.slice(-2).padStart(2, '0');
+        found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits)) || null;
+      }
     }
+
+    this.detectedAnimal.set(found);
   }
 
   calculatePrize() {
-    if (!this.amount || this.amount <= 0 || !this.detectedAnimal) {
+    // Acessa o valor do Signal usando ()
+    const animal = this.detectedAnimal();
+    
+    if (!this.amount || this.amount <= 0 || !animal) {
       this.prize = 0;
       return;
     }
-    const multipliers = { 'GRUPO': 18, 'DEZENA': 60, 'MILHAR': 4000 };
+    const multipliers = { GRUPO: 18, DEZENA: 60, MILHAR: 4000 };
     this.prize = this.amount * multipliers[this.betType];
   }
 
   confirmBet(): void {
+    if (this.errorMessage()) return;
 
-    if (this.errorMessage()) {
-      alert(this.errorMessage());
-      return;
-    }
+    const val = this.numberInput();
+    const animal = this.detectedAnimal();
 
-    if (this.betType === 'MILHAR' && this.numberInput().length !== 4) {
+    if (this.betType === 'MILHAR' && val.length !== 4) {
       alert('Milhar precisa ter 4 números');
       return;
     }
 
-    if ((this.betType === 'GRUPO' || this.betType === 'DEZENA') && this.numberInput().length !== 2) {
-      alert('Grupo/Dezena devem ter apenas números');
+    if ((this.betType === 'GRUPO' || this.betType === 'DEZENA') && val.length < 1) {
+      alert('Preencha o número para apostar');
       return;
     }
 
-    if (!this.detectedAnimal || this.amount <= 0 || !this.numberInput()) {
+    if (!animal || this.amount <= 0) {
       alert('Preencha todos os campos corretamente.');
       return;
     }
 
-
     const typeMap: Record<string, 'GROUP' | 'TEN' | 'THOUSAND'> = {
-      'GRUPO': 'GROUP',
-      'DEZENA': 'TEN',
-      'MILHAR': 'THOUSAND'
+      GRUPO: 'GROUP',
+      DEZENA: 'TEN',
+      MILHAR: 'THOUSAND',
     };
 
     const betRequest: BetRequest = {
       type: typeMap[this.betType],
-      chosenNumber: this.numberInput(),
-      amount: this.amount
+      chosenNumber: val.padStart(this.betType === 'MILHAR' ? 4 : 2, '0'),
+      amount: this.amount,
     };
 
     this.betService.placeBet(betRequest).subscribe({
       next: (response: BetResponse) => {
-        console.log('Bet successful:', response);
         this.userService.loadUserProfile();
-        alert(`Success! Bet ID: ${response.id} registered.`);
+        alert(`Sucesso! Aposta registrada.`);
         this.resetForm();
       },
-      error: (err) => {
-        console.error('Error:', err);
-        alert('Failed to place bet. Please check your balance or connection.');
-      }
+      error: (err) => alert('Erro ao realizar aposta. Verifique seu saldo.'),
     });
   }
 
   private resetForm(): void {
     this.numberInput.set('');
-    this.detectedAnimal = null;
+    this.detectedAnimal.set(null);
     this.amount = 0;
     this.prize = 0;
   }

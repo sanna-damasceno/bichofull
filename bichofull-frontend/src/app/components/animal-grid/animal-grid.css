@@ -1,12 +1,116 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+.animal-grid-container {
+  padding: 20px;
+  background-color: transparent;
 }
 
-.animal-card{
-  background:#f3e6f8;
-  padding:20px;
-  border-radius:12px;
-  text-align:center;
+.grid-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: #4a1d4a;
+}
+
+.animal-grid {
+  display: grid;
+  /* 5 colunas iguais como na imagem */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 16px;
+}
+
+.animal-card {
+  background-color: #f3e5f5; /* Lilás suave de fundo */
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.animal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(156, 127, 188, 0.15);
+  border-color: #d1c4e9;
+}
+
+/* Número no topo esquerdo */
+.card-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.animal-id {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #4a1d4a;
+  opacity: 0.7;
+}
+
+.selection-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* O círculo branco do animal */
+.animal-icon-wrapper {
+  margin-bottom: 12px;
+}
+
+.white-circle {
+  background-color: #ffffff;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.white-circle img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+/* Informações do Animal */
+.animal-info {
+  text-align: center;
+  width: 100%;
+}
+
+.animal-name {
+  display: block;
+  color: #4a1d4a;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.dezenas-box {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  color: #6a4a6a;
+  font-weight: 600;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+/* Responsividade: ajustar colunas em telas menores */
+@media (max-width: 1200px) {
+  .animal-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .animal-grid { grid-template-columns: repeat(3, 1fr); }
 }

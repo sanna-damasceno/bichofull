@@ -1,0 +1,82 @@
+.next-draw-container {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 400px;
+  margin-top: 20px; /* Para desgrudar do de cima, caso necessário */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.timer-icon {
+  color: #9c7fbc;
+}
+
+h3 {
+  margin: 0;
+  color: #4a1d4a;
+  font-size: 1.1rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: #a084ad;
+  font-size: 0.85rem;
+}
+
+.countdown-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.number-box {
+  background-color: #f3e5f5; /* Lilás bem clarinho */
+  color: #9c7fbc;           /* Roxo médio */
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 1px solid #e1bee7;
+}
+
+.label {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #8e749a;
+  letter-spacing: 1px;
+}
+
+.separator {
+  font-size: 1.5rem;
+  color: #e1bee7;
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+.next-time {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #a084ad;
+  margin-top: 10px;
+  font-weight: 500;
+}

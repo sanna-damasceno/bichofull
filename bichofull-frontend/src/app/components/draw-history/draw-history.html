@@ -1,11 +1,61 @@
-@if (lastDraw(); as draw) {
-  <div class="card">
-    <h3>Último Sorteio</h3>
+<div class="draw-history-container">
+  <h3>
+    <span class="material-symbols-rounded history-icon">history</span> Último Sorteio
+  </h3>
 
-    <p>1º {{ draw.firstPrize }}</p>
-    <p>2º {{ draw.secondPrize }}</p>
-    <p>3º {{ draw.thirdPrize }}</p>
-    <p>4º {{ draw.fourthPrize }}</p>
-    <p>5º {{ draw.fifthPrize }}</p>
-  </div>
-}
+  @if (lastDraw(); as draw) {
+    <div class="draw-list">
+      <div class="draw-item">
+        <span class="draw-date">{{ draw.drawDate | date:'dd/MM, HH:mm' }}</span>
+        <div class="draw-number">
+          <span class="prize-rank"></span> {{ draw.firstPrize }}
+          <div class="animal-icon-container">
+            <img [src]="getAnimalImage(draw.firstPrize)" class="animal-icon-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="draw-item">
+        <span class="draw-date">{{ draw.drawDate | date:'dd/MM, HH:mm' }}</span>
+        <div class="draw-number">
+          <span class="prize-rank"></span> {{ draw.secondPrize }}
+          <div class="animal-icon-container">
+            <img [src]="getAnimalImage(draw.secondPrize)" class="animal-icon-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="draw-item">
+        <span class="draw-date">{{ draw.drawDate | date:'dd/MM, HH:mm' }}</span>
+        <div class="draw-number">
+          <span class="prize-rank"></span> {{ draw.thirdPrize }}
+          <div class="animal-icon-container">
+            <img [src]="getAnimalImage(draw.thirdPrize)" class="animal-icon-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="draw-item">
+        <span class="draw-date">{{ draw.drawDate | date:'dd/MM, HH:mm' }}</span>
+        <div class="draw-number">
+          <span class="prize-rank"></span> {{ draw.fourthPrize }}
+          <div class="animal-icon-container">
+            <img [src]="getAnimalImage(draw.fourthPrize)" class="animal-icon-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="draw-item">
+        <span class="draw-date">{{ draw.drawDate | date:'dd/MM, HH:mm' }}</span>
+        <div class="draw-number">
+          <span class="prize-rank"></span> {{ draw.fifthPrize }}
+          <div class="animal-icon-container">
+            <img [src]="getAnimalImage(draw.fifthPrize)" class="animal-icon-img" />
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <p>Carregando resultados...</p>
+  }
+</div>

@@ -1,14 +1,26 @@
-<div class="animal-grid">
-  <div 
-    class="animal-card" 
-    *ngFor="let animal of animals()" 
-    (click)="selectAnimal(animal)"
-  >
-    <div class="animal-id">{{ animal.groupNumber }}</div>
-    <strong>{{ animal.name }}</strong>
+<div class="animal-grid-container">
 
-    <div class="dezenas">
-      {{ animal.dezenas }}
-    </div>
+  <div class="animal-grid">
+    @for (animal of animals(); track animal.groupNumber) {
+      <div class="animal-card" (click)="$event.stopPropagation(); selectAnimal(animal)">
+        <div class="card-top">
+          <span class="animal-id">{{ animal.groupNumber | number:'2.0' }}</span>
+          <div class="selection-indicator"></div>
+        </div>
+
+        <div class="animal-icon-wrapper">
+          <div class="white-circle">
+            <img [src]="'assets/animals/' + (animal.groupNumber | number:'2.0') + '.png'" [alt]="animal.name">
+          </div>
+        </div>
+
+        <div class="animal-info">
+          <strong class="animal-name">{{ animal.name }}</strong>
+          <div class="dezenas-box">
+            {{ animal.dezenas.replaceAll(',', ' ') }}
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>

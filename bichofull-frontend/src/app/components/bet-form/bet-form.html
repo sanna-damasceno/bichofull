@@ -1,45 +1,68 @@
-<div>
-  <h3>Fazer aposta</h3>
+<div class="bet-container">
+  <div class="header">
+    <span class="material-symbols-rounded bet-icon">local_activity</span>
+    <h3>Fazer Aposta</h3>
+  </div>
 
+  <label class="label-small">Escolha um tipo de aposta</label>
   <div class="bet-types">
-    <button (click)="onTypeChange('GRUPO')" [class.active]="betType === 'GRUPO'">Grupo</button>
-    <button (click)="onTypeChange('DEZENA')" [class.active]="betType === 'DEZENA'">Dezena</button>
-    <button (click)="onTypeChange('MILHAR')" [class.active]="betType === 'MILHAR'">Milhar</button>
+    <button (click)="onTypeChange('GRUPO')" [class.active]="betType === 'GRUPO'">
+      <strong>Grupo</strong> <span>(18x)</span>
+    </button>
+    <button (click)="onTypeChange('DEZENA')" [class.active]="betType === 'DEZENA'">
+      <strong>Dezena</strong> <span>(60x)</span>
+    </button>
+    <button (click)="onTypeChange('MILHAR')" [class.active]="betType === 'MILHAR'">
+      <strong>Milhar</strong> <span>(4000x)</span>
+    </button>
   </div>
 
-  <input 
-    type="text" 
-    [ngModel]="numberInput()"
-    (ngModelChange)="onNumberChange($event)"
-    [attr.maxlength]="betType === 'MILHAR' ? 4 : 2" 
-    placeholder="{{ betType === 'MILHAR' ? '0000' : '00' }}"
-  />
+  <div class="input-section">
+    <p class="input-title">Número do {{ betType | titlecase }}</p>
+    
+    <div class="selection-display-box">
+      <input 
+        type="text" 
+        [ngModel]="numberInput()"
+        (ngModelChange)="onNumberChange($event)"
+        [attr.maxlength]="betType === 'MILHAR' ? 4 : 2" 
+        placeholder="{{ betType === 'MILHAR' ? '0000' : '00' }}"
+      />
 
-  <p *ngIf="errorMessage()" style="color: red;">
-    {{ errorMessage() }}
-  </p>
-
-  <input 
-    type="number"
-    [(ngModel)]="amount"
-    (ngModelChange)="calculatePrize()"
-    placeholder="Valor da Aposta (R$)"
-  />
-
-  <div *ngIf="detectedAnimal" class="result-info">
-    <p>Animal: <strong>{{ detectedAnimal.name }}</strong></p>
-    <p>Grupo: <strong>{{ detectedAnimal.id }}</strong></p>
+      @if (detectedAnimal()) {
+        <div class="animal-preview">
+          <span class="animal-name">{{ detectedAnimal()?.name }}</span>
+        </div>
+      }
+    </div>
+    
+    @if (errorMessage()) {
+      <p class="error-text">{{ errorMessage() }}</p>
+    }
   </div>
 
-  <p *ngIf="prize > 0" class="prize-info">
-    Possível Retorno: <strong>R$ {{ prize }}</strong>
-  </p>
+  <div class="input-section">
+    <p class="input-title">Valor da Aposta (R$)</p>
+    <div class="value-input-wrapper">
+      <span class="currency-prefix">R$</span>
+      <input 
+        type="number"
+        [(ngModel)]="amount"
+        (ngModelChange)="calculatePrize()"
+        placeholder="0"
+      />
+    </div>
+  </div>
+
+  <div class="return-section" *ngIf="prize > 0">
+    <span>Possível Retorno:</span>
+    <strong class="return-value">{{ prize | currency:'BRL' }}</strong>
+  </div>
 
   <button 
     class="btn-confirmar" 
     (click)="confirmBet()" 
-    [disabled]="!detectedAnimal || amount <= 0">
+    [disabled]="!detectedAnimal() || amount <= 0">
     Confirmar Aposta
   </button>
-
 </div>

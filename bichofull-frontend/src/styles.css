@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+/* Variáveis de cores baseadas no seu design */
+:root {
+  --primary-purple: #9d7bb0;    /* Roxo do Header/Botões */
+  --bg-lavender: #e9dff0;       /* Fundo da aplicação */
+  --card-bg: #f8f1fb;           /* Fundo dos cards de animais */
+  --success-green: #e1f7e7;     /* Fundo do saldo/ganhou */
+  --text-dark: #333333;
+  --white: #ffffff;
+  --radius: 12px;               /* Arredondamento padrão */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-lavender);
+  color: var(--text-dark);
+}
+
+/* No styles.css */
+.glass-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+
+.material-symbols-rounded {
+  /* Ajusta a espessura do traço (wght) e o arredondamento */
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  font-size: 28px;
+}
