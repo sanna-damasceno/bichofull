@@ -16,6 +16,10 @@ export class BetHistoryComponent implements OnInit {
   private betService = inject(BetService);
   private animalService = inject(AnimalService);
 
+  // Controle de paginação
+  currentPage = signal(1);
+  pageSize = 5;
+
   bets = signal<BetResponse[]>([]);
   private animals: any[] = [];
 
@@ -33,6 +37,23 @@ export class BetHistoryComponent implements OnInit {
       winRate: total > 0 ? (won.length / total) * 100 : 0
     };
   });
+
+  paginatedBets = computed(() => {
+    const startIndex = (this.currentPage() - 1) * this.pageSize;
+    return this.bets().slice(startIndex, startIndex + this.pageSize);
+  });
+
+  totalPages = computed(() => Math.ceil(this.bets().length / this.pageSize));
+
+  // Gera o array de números das páginas [1, 2, 3...]
+  pagesArray = computed(() => Array.from({ length: this.totalPages() }, (_, i) => i + 1));
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
 
   ngOnInit(): void {
     // 1. Primeiro carregamos os animais para que o mapeamento de nomes funcione
@@ -90,6 +111,7 @@ export class BetHistoryComponent implements OnInit {
         }
 
         this.bets.set(lista);
+        this.currentPage.set(1);
       },
       error: (err) => console.error('Erro ao buscar histórico:', err)
     });

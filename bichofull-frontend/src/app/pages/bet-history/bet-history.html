@@ -1,7 +1,7 @@
 <div class="history-container">
   <header class="history-header">
     <h1>
-      <i class="icon-history"></i> Histórico de Apostas
+      <span class="material-symbols-rounded">history</span> Histórico de Apostas
     </h1>
   </header>
 
@@ -13,39 +13,34 @@
 
     <div class="stat-card">
       <small>Taxa de Acerto</small>
-      <strong class="highlight">
-        {{ stats().winRate | number:'1.0-2' }}%
-      </strong>
+      <strong class="highlight">{{ stats().winRate | number:'1.0-2' }}%</strong>
     </div>
 
     <div class="stat-card">
       <small>Total Ganho</small>
-      <strong class="won-text">
-        {{ stats().totalWon | currency:'BRL' }}
-      </strong>
+      <strong class="won-text">{{ stats().totalWon | currency:'BRL' }}</strong>
     </div>
 
     <div class="stat-card">
       <small>Total Perdido</small>
-      <strong class="lost-text">
-        {{ stats().totalLost | currency:'BRL' }}
-      </strong>
+      <strong class="lost-text">{{ stats().totalLost | currency:'BRL' }}</strong>
     </div>
   </section>
 
   <main class="table-container">
     <div class="table-header">
       <h2>Suas Apostas</h2>
-    </div>
+      </div>
 
     <div class="bets-list">
-      @for (bet of bets(); track bet.id) {
+      @for (bet of paginatedBets(); track bet.id) {
         <div class="bet-card">
           <div class="bet-animal-icon">
             <img 
               [src]="'assets/animals/' + getAnimalPath(bet) + '.png'" 
               alt="Ícone do Bicho"
               class="animal-img"
+              (error)="$any($event.target).src = 'assets/animals/default.png'"
             />
           </div>
 
@@ -83,5 +78,34 @@
         <div class="empty-message">Nenhuma aposta encontrada.</div>
       }
     </div>
+
+    @if (totalPages() > 1) {
+      <div class="pagination-container">
+        <button 
+          class="pag-btn prev-next" 
+          [disabled]="currentPage() === 1"
+          (click)="changePage(currentPage() - 1)">
+          Anterior
+        </button>
+
+        <div class="page-numbers">
+          @for (p of pagesArray(); track p) {
+            <button 
+              class="pag-btn num" 
+              [class.active]="p === currentPage()"
+              (click)="changePage(p)">
+              {{ p }}
+            </button>
+          }
+        </div>
+
+        <button 
+          class="pag-btn prev-next" 
+          [disabled]="currentPage() === totalPages()"
+          (click)="changePage(currentPage() + 1)">
+          Próximo
+        </button>
+      </div>
+    }
   </main>
 </div>
