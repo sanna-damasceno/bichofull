@@ -1,10 +1,14 @@
 <div class="animal-grid">
   <div 
     class="animal-card" 
-    *ngFor="let animal of animals"
+    *ngFor="let animal of animals()" 
     (click)="selectAnimal(animal)"
   >
-    <div>{{animal.id}}</div>
-    <strong>{{animal.name}}</strong>
+    <div class="animal-id">{{ animal.groupNumber }}</div>
+    <strong>{{ animal.name }}</strong>
+
+    <div class="dezenas">
+      {{ animal.dezenas }}
+    </div>
   </div>
 </div>

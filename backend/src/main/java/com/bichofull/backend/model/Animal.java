@@ -1,6 +1,5 @@
 package com.bichofull.backend.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +13,12 @@ import lombok.*;
 public class Animal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    private Integer groupNumber;
 
     private String name;
 
-    private Integer groupNumber;
+    private String dezenas;
+
 }

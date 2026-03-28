@@ -7,10 +7,11 @@ import { BetFormComponent } from '../../components/bet-form/bet-form';
 import { DrawHistoryComponent } from '../../components/draw-history/draw-history';
 import { NextDrawComponent } from '../../components/next-draw/next-draw';
 
-interface Animal {
+export interface Animal {
   id: number;
+  groupNumber: number;
   name: string;
-  dezenas: number[];
+  dezenas: string;
 }
 
 @Component({
