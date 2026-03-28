@@ -1,5 +1,5 @@
 <nav class="navbar-container">
-  <div class="logo">Bicho Full</div>
+  <div class="logo">Bicho<br>Full</div>
   
   <ul class="nav-menu">
     <li>
@@ -14,14 +14,20 @@
   </ul>
 
   <div class="user-section">
-    <div class="profile-info">
-      <span>Olá, {{ user?.name ?? '' }}</span>
 
-      <img [src]="user?.avatarUrl || 'assets/default-avatar.png'" alt="Avatar">
+      <div class="profile-info">
+        @if (user(); as currentUser) {
+          <span>
+            Olá,<br>
+            {{ currentUser.name.split(' ')[0] }}
+          </span>
+        } @else {
+          <span>Carregando...</span>
+        }
+      </div>
+
+      <button (click)="logout()" class="logout-btn">
+        <span class="material-symbols-rounded">logout</span>
+      </button>
     </div>
-
-    <button (click)="logout()" class="logout-btn">
-      Sair
-    </button>
-  </div>
 </nav>

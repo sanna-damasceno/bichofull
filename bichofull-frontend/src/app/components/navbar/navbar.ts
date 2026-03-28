@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router'; 
 import { UserService } from '../../services/user.service'; 
@@ -11,12 +11,10 @@ import { UserService } from '../../services/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  user: any;
+  private userService = inject(UserService);
+  private router = inject(Router);
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+  user = this.userService.user;
 
   ngOnInit(){
     this.userService.loadUserProfile();

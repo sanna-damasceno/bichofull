@@ -1,32 +1,66 @@
 .navbar-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  height: 60px;
-  background: #1e1e2f;
-  color: white;
+  align-items: center;
+  padding: 0 40px;
+  height: 85px; /* Altura um pouco maior conforme a imagem */
+  background-color: #b392d1; /* Lilás vibrante da imagem */
+  color: #4a1d4a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
+/* --- LOGO --- */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #4a1d4a;
+  text-transform: none;
+}
+
+/* --- MENU CENTRAL (PILLS) --- */
 .nav-menu {
   display: flex;
-  gap: 20px;
   list-style: none;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-menu a {
-  color: white;
+.nav-menu li a {
   text-decoration: none;
+  color: #4a1d4a;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 12px 24px;
+  border-radius: 50px; /* Formato de pílula */
+  background: rgba(255, 255, 255, 0.2); /* Fundo sutil para itens inativos */
+  transition: all 0.3s ease;
 }
 
-.nav-menu a.active {
-  border-bottom: 2px solid #00ff88;
+.nav-menu li a.active {
+  background: #fdf2f8; /* Branco rosado do item ativo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* --- SEÇÃO DA DIREITA (SALDO E PERFIL) --- */
 .user-section {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+/* Badge de Saldo */
+.balance-badge {
+  background: #e8f5e9; /* Verde bem claro */
+  color: #2d6a4f;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .profile-info {
@@ -36,16 +70,36 @@
 }
 
 .profile-info img {
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
 }
 
+.profile-info span {
+  display: block;
+  line-height: 1.2;
+  color: #4a1d4a; /* Cor roxa da sua logo */
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Botão Sair Minimalista */
 .logout-btn {
-  background: #ff4d4d;
+  background: rgba(255, 255, 255, 0.3);
   border: none;
-  padding: 6px 12px;
-  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  border-radius: 6px;
+  color: #4a1d4a;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
