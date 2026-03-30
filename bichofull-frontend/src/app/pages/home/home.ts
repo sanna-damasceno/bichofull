@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from '../../components/footer/footer'; // ajuste o caminho
+import { FooterComponent } from '../../components/footer/footer'; 
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FooterComponent], // Adicionado aqui
+  imports: [RouterModule, FooterComponent], 
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

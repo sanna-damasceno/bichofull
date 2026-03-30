@@ -23,27 +23,93 @@ body {
 }
 
 /* --- NAVBAR (MANTIDA) --- */
+/* --- CONTAINER PRINCIPAL --- */
 .home-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 50px;
-  background-color: var(--primary-purple);
+  padding: 0 40px;
+  height: 85px; /* Altura padrão do sistema */
+  background-color: #b392d1; /* Lilás vibrante */
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.logo { font-size: 24px; font-weight: 800; color: white; }
-.logo span { color: var(--dark-purple); }
+/* --- LOGO --- */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #4a1d4a; /* Roxo escuro da marca */
+  text-transform: none;
+}
 
-.nav-links { display: flex; gap: 10px; background: rgba(255, 255, 255, 0.15); padding: 6px 15px; border-radius: 25px; }
-.nav-links a { color: var(--dark-purple); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
-.nav-links a:hover { background: white; }
+.logo span {
+  color: white; /* Diferencia o 'Full' no modo visitante */
+}
 
-.btn-entrar { background: var(--green-menta); color: var(--green-dark); border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-right: 10px; }
-.btn-cadastrar { background: white; color: var(--primary-purple); border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+/* --- MENU CENTRAL (ESTILO PÍLULA) --- */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a1d4a;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 12px 24px;
+  border-radius: 50px; /* Formato pílula conforme solicitado */
+  background: rgba(255, 255, 255, 0.2); /* Transparência sutil */
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+  background: #fdf2f8; /* Branco rosado para o item ativo/hover */
+  color: #4a1d4a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- BOTÕES DE AUTENTICAÇÃO --- */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-entrar {
+  background: transparent;
+  border: 2px solid #4a1d4a;
+  color: #4a1d4a;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cadastrar {
+  background: #4a1d4a;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(74, 29, 74, 0.2);
+  transition: 0.3s;
+}
+
+.btn-cadastrar:hover {
+  background: #361436;
+  transform: translateY(-2px);
+}
+
+.btn-entrar:hover {
+  background: rgba(74, 29, 74, 0.1);
+}
 
 /* --- SEÇÕES (ESTILO PAIMING COM CORES ROXAS) --- */
 section {
@@ -89,7 +155,36 @@ section {
 }
 
 .hero-buttons { display: flex; gap: 20px; }
-.btn-primary { background: var(--green-menta); color: var(--green-dark); border: none; padding: 15px 35px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; }
+.btn-primary {
+  /* Mantendo as cores solicitadas */
+  background-color: transparent; /* Fundo transparente para destacar a borda */
+  color: #4a1d4a; /* Texto na cor da marca */
+  
+  /* Adicionando a Borda */
+  border: 2px solid #4a1d4a; 
+  
+  /* Estilo Pílula e Espaçamento */
+  padding: 15px 35px;
+  border-radius: 10px; 
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  
+  /* Transição para suavizar o hover */
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efeito ao passar o mouse para não ficar estático */
+.btn-primary:hover {
+  background-color: #4a1d4a; /* Inverte as cores no hover */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 29, 74, 0.2);
+}
+
 .btn-secondary { background: var(--primary-purple); color: white; border: none; padding: 15px 35px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; }
 
 /* Placeholder Imagem Hero */
@@ -110,6 +205,7 @@ section {
   /* Opcional: Adiciona uma borda suave para destacar o círculo */
   border: 4px solid white;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  opacity: 0.8;
 }
 
 .hero-main-img {
