@@ -106,15 +106,20 @@ input:focus {
 
 .password-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .eye-icon {
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  user-select: none;
   color: #8e749a;
   cursor: pointer;
+}
+
+.eye-icon:hover {
+  color: #a78bfa;
 }
 
 .forgot-password {

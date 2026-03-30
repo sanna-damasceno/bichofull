@@ -22,21 +22,39 @@
           <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="seu@email.com" required>
         </div>
 
-        <div class="input-group">
-          <label>Senha</label>
-          <div class="password-wrapper">
-            <input type="password" name="password" [(ngModel)]="registerData.password" placeholder="••••••••" required>
-            <span class="material-symbols-rounded eye-icon">visibility</span>
-          </div>
+    <div class="input-group">
+      <label>Senha</label>
+        <div class="password-wrapper">
+          <input 
+            [type]="showPassword() ? 'text' : 'password'" 
+            name="password" 
+            [(ngModel)]="registerData.password" 
+            placeholder="••••••••" 
+            required>
+          <span 
+            class="material-symbols-rounded eye-icon" 
+            (click)="togglePassword()">
+            {{ showPassword() ? 'visibility_off' : 'visibility' }}
+          </span>
         </div>
+      </div>
 
-        <div class="input-group">
-          <label>Confirmar senha</label>
-          <div class="password-wrapper">
-            <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="••••••••" required>
-            <span class="material-symbols-rounded eye-icon">visibility</span>
-          </div>
-        </div>
+    <div class="input-group">
+      <label>Confirmar senha</label>
+      <div class="password-wrapper">
+        <input 
+          [type]="showConfirmPassword() ? 'text' : 'password'" 
+          name="confirmPassword" 
+          [(ngModel)]="confirmPassword" 
+          placeholder="••••••••" 
+          required>
+        <span 
+          class="material-symbols-rounded eye-icon" 
+          (click)="toggleConfirmPassword()">
+          {{ showConfirmPassword() ? 'visibility_off' : 'visibility' }}
+        </span>
+      </div>
+    </div>
 
         <div class="error-container" *ngIf="errorMessage() || (confirmPassword && registerData.password !== confirmPassword)">
           <p class="error-text">{{ errorMessage() || 'As senhas não coincidem!' }}</p>

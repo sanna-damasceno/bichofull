@@ -19,8 +19,15 @@
       <div class="input-group">
         <label>Senha</label>
         <div class="password-wrapper">
-          <input type="password" placeholder="••••••••" [(ngModel)]="password" />
-          <span class="material-symbols-rounded eye-icon">visibility</span>
+          <input 
+            [type]="showPassword() ? 'text' : 'password'" 
+            placeholder="••••••••" 
+            [(ngModel)]="password" 
+            />
+          <span 
+            class="material-symbols-rounded eye-icon"
+            (click)="togglePassword()"> {{ showPassword() ? 'visibility_off' : 'visibility' }}
+          </span>
         </div>
         <a href="#" class="forgot-password">Esqueci minha senha</a>
       </div>

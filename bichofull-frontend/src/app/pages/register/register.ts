@@ -21,6 +21,19 @@ export class RegisterComponent {
   };
   confirmPassword = ''; 
 
+  // Controle de visibilidade para os dois campos
+  showPassword = signal<boolean>(false);
+  showConfirmPassword = signal<boolean>(false);
+
+  togglePassword() {
+    this.showPassword.set(!this.showPassword());
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword.set(!this.showConfirmPassword());
+  }
+
+
   constructor(private authService: AuthService, private router: Router) {}
   
   errorMessage = signal<string | null>(null);

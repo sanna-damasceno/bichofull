@@ -103,16 +103,29 @@ input:focus {
 
 .password-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 45px; /* Espaço para o ícone não cobrir o texto */
 }
 
 .eye-icon {
   position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #8e749a;
+  right: 15px;
   cursor: pointer;
+  color: #a78bfa;
+  user-select: none;
   font-size: 20px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.eye-icon:hover {
+  color: #7c3aed;
+  transform: scale(1.1);
 }
 
 /* MENSAGENS DE ERRO */

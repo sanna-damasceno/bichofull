@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
@@ -16,6 +16,12 @@ export class LoginComponent {
 
   email: string = '';
   password: string = '';
+
+  showPassword = signal<boolean>(false);
+
+  togglePassword() {
+    this.showPassword.set(!this.showPassword());
+  }
 
   constructor(private authService: AuthService,
               private router: Router
