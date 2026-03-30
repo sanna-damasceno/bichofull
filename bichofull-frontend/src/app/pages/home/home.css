@@ -1,0 +1,475 @@
+/* --- CONFIGURAÇÕES GLOBAIS (MANTIDAS) --- */
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-purple: #a78bfa; /* Lilás da Navbar */
+  --dark-purple: #2d1b4d;    /* Roxo Escuro de texto/fundo */
+  --mid-purple: #7c3aed;     /* Roxo médio para destaques */
+  --bg-light: #f3f0ff;      /* Fundo lilás bem clarinho */
+  --green-menta: #d1fae5;    /* Verde menta para botões */
+  --green-dark: #065f46;     /* Verde escuro para texto no botão verde */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark-purple);
+  margin: 0;
+}
+
+.home-container {
+  background-color: white; /* Fundo base branco como na Hero do exemplo */
+}
+
+/* --- NAVBAR (MANTIDA) --- */
+.home-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background-color: var(--primary-purple);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.logo { font-size: 24px; font-weight: 800; color: white; }
+.logo span { color: var(--dark-purple); }
+
+.nav-links { display: flex; gap: 10px; background: rgba(255, 255, 255, 0.15); padding: 6px 15px; border-radius: 25px; }
+.nav-links a { color: var(--dark-purple); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
+.nav-links a:hover { background: white; }
+
+.btn-entrar { background: var(--green-menta); color: var(--green-dark); border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-right: 10px; }
+.btn-cadastrar { background: white; color: var(--primary-purple); border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+/* --- SEÇÕES (ESTILO PAIMING COM CORES ROXAS) --- */
+section {
+  padding: 100px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  scroll-margin-top: 90px;
+}
+
+/* --- HERO SECTION (Duas Colunas) --- */
+.hero-section {
+  padding: 120px 50px;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-text .badge {
+  background: #ede9fe;
+  color: var(--mid-purple);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  color: var(--dark-purple);
+  font-weight: 800;
+  margin: 20px 0;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 40px;
+}
+
+.hero-buttons { display: flex; gap: 20px; }
+.btn-primary { background: var(--green-menta); color: var(--green-dark); border: none; padding: 15px 35px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; }
+.btn-secondary { background: var(--primary-purple); color: white; border: none; padding: 15px 35px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; }
+
+/* Placeholder Imagem Hero */
+.hero-image-container { display: flex; justify-content: center; position: relative; }
+.image-placeholder {
+  width: 400px; 
+  height: 400px;
+  background: #fdf2f8; 
+  border-radius: 50%; /* Faz o container ser um círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  /* ESTA É A CHAVE: Corta qualquer parte da imagem que saia do círculo */
+  overflow: hidden; 
+  
+  /* Opcional: Adiciona uma borda suave para destacar o círculo */
+  border: 4px solid white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.hero-main-img {
+  width: 100%;
+  height: 100%;
+  
+  /* Mantém a proporção da foto sem achatar, preenchendo o círculo */
+  object-fit: cover; 
+  
+  /* Garante que a imagem siga o arredondamento do pai em alguns navegadores */
+  border-radius: 50%; 
+}
+
+.deco-icon {
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.3;
+  z-index: 1;
+}
+.ico-1 { top: 20px; left: -20px; }
+.ico-2 { bottom: 50px; right: -30px; }
+
+/* --- DRAWS SECTION (Fundo Escuro/Cards Brancos) --- */
+/* Container principal da seção */
+.draws-section {
+  background-color: #2d1b4d; /* Roxo escuro profundo */
+  padding: 100px 50px;
+  max-width: 100% !important;
+  border-radius: 50px; /* Bordas arredondadas na section como no exemplo */
+  margin: 40px 20px;
+  color: white;
+}
+
+.section-header .sub-title {
+  color: #a78bfa;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+/* Grid de Cards */
+.draws-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+/* Estilo do Card Branco */
+.draw-card {
+  background: white;
+  color: #2d1b4d;
+  padding: 30px;
+  border-radius: 24px;
+  width: 320px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.draw-card:hover {
+  transform: translateY(-10px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.trophy {
+  font-size: 28px;
+}
+
+.draw-tag {
+  background: #f3f0ff;
+  color: #7c3aed;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* O Número do Sorteio */
+.draw-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #7c3aed;
+  background: #f8f7ff;
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 15px;
+  letter-spacing: 2px;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #a78bfa;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.btn-text:hover {
+  color: #7c3aed;
+  text-decoration: underline;
+}
+
+
+/* --- HOW IT WORKS (Section Lista) --- */
+/* --- HOW IT WORKS SECTION (Melhorada) --- */
+.how-it-works-section {
+  background: white; /* Mantendo fundo branco para contraste com a section escura */
+  max-width: 100%;
+  padding: 100px 50px;
+}
+
+.how-it-works-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Títulos e Textos */
+.how-text h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--dark-purple);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.how-text p {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.how-text .sub-title {
+  color: var(--mid-purple);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.how-it-works {
+  background-color: #f3f0ff; /* Fundo lilás bem clarinho para destacar os cards brancos */
+  padding: 100px 5% !important;
+  text-align: center;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 colunas que se adaptam */
+  gap: 30px;
+  margin-top: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step-card {
+  background: white;
+  padding: 45px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave conforme a referência */
+  transition: transform 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-card:hover {
+  transform: translateY(-10px); /* Leve animação ao passar o mouse */
+}
+
+/* O círculo com o número */
+.step-number {
+  background: #f3f0ff;
+  color: #7c3aed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.step-card h3 {
+  color: #2d1b4d;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.step-card p {
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+
+/* --- ABOUT SECTION (Limpa) --- */
+.about-section {
+  padding: 120px 5%;
+  background-color: #f8f9fa; /* Um cinza/roxo quase imperceptível para separar das outras seções */
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Texto ganha mais destaque */
+  gap: 80px;
+  align-items: center;
+}
+
+.about-text .sub-title {
+  color: #7c3aed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.about-text h2 {
+  font-size: 3rem;
+  color: #2d1b4d;
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  color: #64748b;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+/* Itens de destaque rápidos */
+.about-features {
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #2d1b4d;
+}
+
+.feature-icon {
+  background: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Parte Visual à Direita */
+.about-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.visual-circle {
+  width: 400px;
+  height: 400px;
+  background: #a78bfa;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forma orgânica estilo Paiming */
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge de experiência flutuante */
+.experience-badge {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  z-index: 10;
+}
+
+.experience-badge strong {
+  display: block;
+  font-size: 2rem;
+  color: #7c3aed;
+  line-height: 1;
+}
+
+.experience-badge span {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: bold;
+}
+
+/* --- FOOTER (Estilo Escuro da Paiming) --- */
+.main-footer {
+  background-color: #1a102e; /* Roxo quase preto */
+  color: #d1d5db;
+  padding: 80px 50px 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 50px;
+}
+
+.footer-brand { max-width: 300px; }
+.footer-brand p { margin-top: 15px; font-size: 14px; }
+
+.footer-links-grid { display: flex; gap: 50px; }
+.link-group h4 { color: white; margin-bottom: 20px; }
+.link-group a { display: block; color: #d1d5db; text-decoration: none; margin-bottom: 10px; font-size: 14px; }
+.link-group a:hover { color: white; }
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+}

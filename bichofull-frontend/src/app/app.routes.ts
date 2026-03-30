@@ -11,11 +11,14 @@ import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // 1. Rota Raiz
+  { path: '', component: HomeComponent },
 
+  // 2. Rotas de Autenticação
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
+  // 3. Rotas Internas com Layout Principal e Proteção
   {
     path: '',
     component: MainLayoutComponent,
@@ -41,9 +44,10 @@ export const routes: Routes = [
     ]
   },
 
-
+  // 4. Rota Administrativa
   { path: 'admin', component: AdminDrawComponent, 
     canActivate: [adminGuard] },
 
-  { path: '**', redirectTo: 'login' }
+  // 5. Wildcard (Se a rota não existir, volta para a Home)
+  { path: '**', redirectTo: 'home' }
 ];
