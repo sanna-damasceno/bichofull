@@ -111,6 +111,52 @@
   font-style: italic;
 }
 
+/* Container de Paginação */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* Estilo Base dos Botões */
+.pag-btn {
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: #f5f0f8;
+  color: #4a1d4a;
+  transition: 0.2s;
+}
+
+.pag-btn:hover:not(:disabled) {
+  background: #e9e0f0;
+}
+
+/* Números redondos */
+.pag-btn.num {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.pag-btn.num.active {
+  background: #9d7cd8;
+  color: white;
+}
+
+/* Botões Anterior/Próximo */
+.pag-btn.prev-next {
+  padding: 8px 18px;
+  border-radius: 20px;
+}
+
+.pag-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* Responsividade */
 @media (max-width: 850px) {
   .draw-card { flex-direction: column; align-items: flex-start; }

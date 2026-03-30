@@ -1,13 +1,11 @@
 <div class="history-container">
   <header class="main-header">
     <h1>Sorteios Realizados</h1>
-
   </header>
 
   <main class="table-container">
-
     <div class="bets-list">
-      @for (d of history(); track d.id) {
+      @for (d of paginatedHistory(); track d.id) {
         <div class="bet-card draw-card">
           <div class="bet-details draw-main-details">
             <span class="bet-date">
@@ -17,50 +15,55 @@
           </div>
 
           <div class="draw-results-grid">
-            <div class="prize-slot">
-              <small>1º Prêmio</small>
-              <div class="prize-content">
-                <img [src]="'assets/animals/' + getAnimalPath(d.firstPrize) + '.png'" alt="Animal">
-                <strong>{{ d.firstPrize }}</strong>
+            @for (prize of [
+              {label: '1º', val: d.firstPrize},
+              {label: '2º', val: d.secondPrize},
+              {label: '3º', val: d.thirdPrize},
+              {label: '4º', val: d.fourthPrize},
+              {label: '5º', val: d.fifthPrize}
+            ]; track $index) {
+              <div class="prize-slot">
+                <small>{{ prize.label }} Prêmio</small>
+                <div class="prize-content">
+                  <img [src]="'assets/animals/' + getAnimalPath(prize.val) + '.png'" alt="Animal">
+                  <strong>{{ prize.val }}</strong>
+                </div>
               </div>
-            </div>
-
-            <div class="prize-slot">
-              <small>2º Prêmio</small>
-              <div class="prize-content">
-                <img [src]="'assets/animals/' + getAnimalPath(d.secondPrize) + '.png'" alt="Animal">
-                <strong>{{ d.secondPrize }}</strong>
-              </div>
-            </div>
-
-            <div class="prize-slot">
-              <small>3º Prêmio</small>
-              <div class="prize-content">
-                <img [src]="'assets/animals/' + getAnimalPath(d.thirdPrize) + '.png'" alt="Animal">
-                <strong>{{ d.thirdPrize }}</strong>
-              </div>
-            </div>
-
-            <div class="prize-slot">
-              <small>4º Prêmio</small>
-              <div class="prize-content">
-                <img [src]="'assets/animals/' + getAnimalPath(d.fourthPrize) + '.png'" alt="Animal">
-                <strong>{{ d.fourthPrize }}</strong>
-              </div>
-            </div>
-
-            <div class="prize-slot">
-              <small>5º Prêmio</small>
-              <div class="prize-content">
-                <img [src]="'assets/animals/' + getAnimalPath(d.fifthPrize) + '.png'" alt="Animal">
-                <strong>{{ d.fifthPrize }}</strong>
-              </div>
-            </div>
+            }
           </div>
         </div>
       } @empty {
         <div class="empty-message">Nenhum sorteio encontrado.</div>
       }
     </div>
+
+    @if (totalPages() > 1) {
+      <div class="pagination-container">
+        <button 
+          class="pag-btn prev-next" 
+          [disabled]="currentPage() === 1"
+          (click)="changePage(currentPage() - 1)">
+          Anterior
+        </button>
+
+        <div class="page-numbers">
+          @for (p of pagesArray(); track p) {
+            <button 
+              class="pag-btn num" 
+              [class.active]="p === currentPage()"
+              (click)="changePage(p)">
+              {{ p }}
+            </button>
+          }
+        </div>
+
+        <button 
+          class="pag-btn prev-next" 
+          [disabled]="currentPage() === totalPages()"
+          (click)="changePage(currentPage() + 1)">
+          Próximo
+        </button>
+      </div>
+    }
   </main>
 </div>
