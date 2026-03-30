@@ -1,30 +1,58 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="banner-side">
+      <div class="badge">Jogos online · Sorteios rápidos</div>
+      <h1>Crie sua conta e faça sua aposta!</h1>
+    </div>
 
-<form (submit)="onRegister($event)">
-  <input type="text" name="name" [(ngModel)]="registerData.name" placeholder="Nome" required>
-  <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="Email" required>
-  
-  <input type="password" name="password" [(ngModel)]="registerData.password" placeholder="Senha" required>
-  
-  <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirmar senha" required>
+    <div class="form-side">
+      <div class="form-header">
+        <h2>Crie sua conta!</h2>
+        <p>Preencha os dados abaixo para começar a jogar no BichoFull.</p>
+      </div>
 
-  <p *ngIf="errorMessage()" style="color: red; font-size: 13px;">
-    {{ errorMessage() }}
-  </p>
+      <form (submit)="onRegister($event)" class="register-form">
+        <div class="input-group">
+          <label>Nome completo</label>
+          <input type="text" name="name" [(ngModel)]="registerData.name" placeholder="João da Silva" required>
+        </div>
 
-  @if (confirmPassword && registerData.password !== confirmPassword) {
-    <p style="color: red; font-size: 12px;">
-        As senhas não coincidem!
-    </p>
-    }
+        <div class="input-group">
+          <label>E-mail</label>
+          <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="seu@email.com" required>
+        </div>
 
-  <button 
-    type="submit" 
-    [disabled]="
-      !registerData.name ||
-      !registerData.email ||
-      !registerData.password ||
-      registerData.password !== confirmPassword
-    ">
-    Cadastrar
-  </button>
-</form>
+        <div class="input-group">
+          <label>Senha</label>
+          <div class="password-wrapper">
+            <input type="password" name="password" [(ngModel)]="registerData.password" placeholder="••••••••" required>
+            <span class="material-symbols-rounded eye-icon">visibility</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Confirmar senha</label>
+          <div class="password-wrapper">
+            <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="••••••••" required>
+            <span class="material-symbols-rounded eye-icon">visibility</span>
+          </div>
+        </div>
+
+        <div class="error-container" *ngIf="errorMessage() || (confirmPassword && registerData.password !== confirmPassword)">
+          <p class="error-text">{{ errorMessage() || 'As senhas não coincidem!' }}</p>
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn-register"
+          [disabled]="!registerData.name || !registerData.email || !registerData.password || registerData.password !== confirmPassword">
+          Cadastrar
+        </button>
+      </form>
+
+      <p class="login-link-text">
+        Já tem uma conta? <a routerLink="/login">Entrar na conta</a>
+      </p>
+    </div>
+  </div>
+</div>

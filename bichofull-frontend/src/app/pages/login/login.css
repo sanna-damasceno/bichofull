@@ -1,0 +1,169 @@
+:host {
+  display: block;
+  height: 100vh;
+  background-color: #fdf2f8; /* Fundo rosado suave */
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.login-container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* LADO ESQUERDO */
+.banner-side {
+  flex: 1;
+  background: #a78bfa; /* Lilás principal */
+  background-image: linear-gradient(rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.8)), 
+                    url('/assets/images/arcade-bg.png'); /* Coloque sua imagem de fundo aqui */
+  background-size: cover;
+  background-position: center;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  width: fit-content;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.banner-side h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* LADO DIREITO */
+.form-side {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-header h2 {
+  color: #4a1d4a;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: #8e749a;
+  margin-bottom: 40px;
+}
+
+.input-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-weight: 700;
+  color: #4a1d4a;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #f0e6f5;
+  border-radius: 10px;
+  background-color: #fdf2f8; /* Input levemente rosado */
+  color: #4a1d4a;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #a78bfa;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8e749a;
+  cursor: pointer;
+}
+
+.forgot-password {
+  align-self: flex-end;
+  font-size: 0.8rem;
+  color: #a78bfa;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.btn-login {
+  background: #c4b5fd; /* Lilás pastel do botão */
+  color: #4a1d4a;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.btn-login:hover {
+  background: #b5a2f8;
+  transform: translateY(-2px);
+}
+
+.signup-text {
+  text-align: center;
+  margin-top: 30px;
+  color: #8e749a;
+  font-size: 0.9rem;
+}
+
+.signup-text a {
+  color: #a78bfa;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 850px) {
+  .login-container {
+    flex-direction: column;
+    max-width: 450px;
+  }
+  .banner-side {
+    display: none; /* Esconde o banner no celular para focar no login */
+  }
+}
