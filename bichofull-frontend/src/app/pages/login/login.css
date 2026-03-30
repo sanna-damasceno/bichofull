@@ -28,7 +28,7 @@
   flex: 1;
   background: #a78bfa; /* Lilás principal */
   background-image: linear-gradient(rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.8)), 
-                    url('/assets/images/arcade-bg.png'); /* Coloque sua imagem de fundo aqui */
+                    url('/assets/animals/arcade-bg.png'); /* Coloque sua imagem de fundo aqui */
   background-size: cover;
   background-position: center;
   padding: 60px;
@@ -152,7 +152,7 @@ input:focus {
 }
 
 .signup-text a {
-  color: #a78bfa;
+  color: #8666e6;
   font-weight: 700;
   text-decoration: none;
 }

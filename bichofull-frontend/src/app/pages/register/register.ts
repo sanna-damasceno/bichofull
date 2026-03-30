@@ -1,17 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, CommonModule], 
+  imports: [FormsModule, CommonModule, RouterModule], 
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
+
 export class RegisterComponent {
   registerData = {
     name: '',
@@ -30,7 +31,7 @@ export class RegisterComponent {
     if (!this.validateForm()) return;
 
     this.authService.register(this.registerData).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         alert('Conta criada! Saldo de R$ 1.000,00 liberado.');
         this.router.navigate(['/login']);
       },
