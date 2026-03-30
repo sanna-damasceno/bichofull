@@ -1,40 +1,66 @@
-<h2>Sorteios</h2>
+<div class="history-container">
+  <header class="main-header">
+    <h1>Sorteios Realizados</h1>
 
-<div class="top-container">
+  </header>
 
-  <app-next-draw></app-next-draw>
+  <main class="table-container">
 
-  <app-draw-history></app-draw-history>
-
-</div>
-
-
-<div class="history">
-  <h3>Histórico de Sorteios</h3>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>1º</th>
-        <th>2º</th>
-        <th>3º</th>
-        <th>4º</th>
-        <th>5º</th>
-      </tr>
-    </thead>
-
-    <tbody>
+    <div class="bets-list">
       @for (d of history(); track d.id) {
-        <tr>
-          <td>{{ d.drawDate | date:'dd/MM HH:mm' }}</td>
-          <td>{{ d.firstPrize }}</td>
-          <td>{{ d.secondPrize }}</td>
-          <td>{{ d.thirdPrize }}</td>
-          <td>{{ d.fourthPrize }}</td>
-          <td>{{ d.fifthPrize }}</td>
-        </tr>
+        <div class="bet-card draw-card">
+          <div class="bet-details draw-main-details">
+            <span class="bet-date">
+              <span class="material-symbols-rounded icon-small">calendar_today</span>
+              {{ d.drawDate | date:'dd/MM/yyyy, HH:mm' }}
+            </span>
+          </div>
+
+          <div class="draw-results-grid">
+            <div class="prize-slot">
+              <small>1º Prêmio</small>
+              <div class="prize-content">
+                <img [src]="'assets/animals/' + getAnimalPath(d.firstPrize) + '.png'" alt="Animal">
+                <strong>{{ d.firstPrize }}</strong>
+              </div>
+            </div>
+
+            <div class="prize-slot">
+              <small>2º Prêmio</small>
+              <div class="prize-content">
+                <img [src]="'assets/animals/' + getAnimalPath(d.secondPrize) + '.png'" alt="Animal">
+                <strong>{{ d.secondPrize }}</strong>
+              </div>
+            </div>
+
+            <div class="prize-slot">
+              <small>3º Prêmio</small>
+              <div class="prize-content">
+                <img [src]="'assets/animals/' + getAnimalPath(d.thirdPrize) + '.png'" alt="Animal">
+                <strong>{{ d.thirdPrize }}</strong>
+              </div>
+            </div>
+
+            <div class="prize-slot">
+              <small>4º Prêmio</small>
+              <div class="prize-content">
+                <img [src]="'assets/animals/' + getAnimalPath(d.fourthPrize) + '.png'" alt="Animal">
+                <strong>{{ d.fourthPrize }}</strong>
+              </div>
+            </div>
+
+            <div class="prize-slot">
+              <small>5º Prêmio</small>
+              <div class="prize-content">
+                <img [src]="'assets/animals/' + getAnimalPath(d.fifthPrize) + '.png'" alt="Animal">
+                <strong>{{ d.fifthPrize }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-message">Nenhum sorteio encontrado.</div>
       }
-    </tbody>
-  </table>
+    </div>
+  </main>
 </div>
