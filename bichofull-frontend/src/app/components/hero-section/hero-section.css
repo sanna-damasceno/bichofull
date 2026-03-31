@@ -1,0 +1,102 @@
+/* --- HERO SECTION (Duas Colunas) --- */
+.hero-section {
+  padding: 120px 50px;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  color: var(--dark-purple);
+  font-weight: 800;
+  margin: 20px 0;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 40px;
+}
+
+.hero-buttons { 
+  display: flex; 
+  gap: 20px; 
+}
+
+/* Botões específicos da Hero */
+.btn-primary {
+  background-color: transparent;
+  color: #4a1d4a;
+  border: 2px solid #4a1d4a; 
+  padding: 15px 35px;
+  border-radius: 10px; 
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background-color: #4a1d4a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 29, 74, 0.2);
+}
+
+.btn-secondary { 
+  background: var(--primary-purple); 
+  color: white; 
+  border: none; 
+  padding: 15px 35px; 
+  border-radius: 10px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+/* Container da Imagem com Círculo */
+.hero-image-container { 
+  display: flex; 
+  justify-content: center; 
+  position: relative; 
+}
+
+.image-placeholder {
+  width: 400px; 
+  height: 400px;
+  background: #fdf2f8; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; 
+  border: 4px solid white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  opacity: 0.8;
+}
+
+.hero-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.deco-icon {
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.ico-1 { top: 20px; left: -20px; }
+.ico-2 { bottom: 50px; right: -30px; }

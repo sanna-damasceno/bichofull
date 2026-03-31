@@ -1,0 +1,85 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.how-it-works {
+  background-color: #f3f0ff; /* Fundo lilás clarinho */
+  padding: 100px 5% !important;
+  text-align: center;
+}
+
+.section-header {
+  margin-bottom: 50px;
+}
+
+.section-header .sub-title {
+  color: var(--mid-purple);
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-header h2 {
+  font-size: 2.8rem;
+  color: var(--dark-purple);
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.section-header p {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 50px auto 0;
+}
+
+.step-card {
+  background: white;
+  padding: 45px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-card:hover {
+  transform: translateY(-10px);
+}
+
+.step-number {
+  background: #f3f0ff;
+  color: #7c3aed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.step-card h3 {
+  color: #2d1b4d;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.step-card p {
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}

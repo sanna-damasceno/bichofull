@@ -1,13 +1,26 @@
+// src/app/pages/home/home.component.ts
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from '../../components/footer/footer'; 
 
+// Importações dos novos componentes globais
+import { HeroSectionComponent } from '../../components/hero-section/hero-section';
+import { HowItWorksComponent } from '../../components/how-it-works/how-it-works';
+import { AboutSectionComponent } from '../../components/about-section/about-section';
+import { FooterComponent } from '../../components/footer/footer';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FooterComponent], 
+  imports: [
+    CommonModule,
+    RouterModule, // Necessário para routerLink na Navbar e Footer
+    HeroSectionComponent,
+    HowItWorksComponent,
+    AboutSectionComponent,
+    FooterComponent,
+  ],
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrl: './home.css'
 })
 export class HomeComponent {}
