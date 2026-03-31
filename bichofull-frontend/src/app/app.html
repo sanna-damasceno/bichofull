@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+
+
+<main [class.content-area]="!isAuthPage()">
+  <router-outlet></router-outlet>
+</main>
+
+@if (!isAuthPage()) {
+  <app-footer></app-footer>
+}

@@ -9,6 +9,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout';
 
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works';
 
 export const routes: Routes = [
   // 1. Rota Raiz
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
+  
   // 3. Rotas Internas com Layout Principal e Proteção
   {
     path: '',
@@ -40,6 +42,8 @@ export const routes: Routes = [
               .then(m => m.DrawsComponent),
               canActivate: [authGuard]
         },
+
+        { path: 'how-it-works', component: HowItWorksComponent },
 
     ]
   },

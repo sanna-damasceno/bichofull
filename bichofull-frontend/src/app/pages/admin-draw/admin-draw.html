@@ -1,40 +1,59 @@
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <h2>Admin - Sorteio</h2>
-  <button (click)="logout()">Sair</button>
+<div class="admin-page">
+  <div class="admin-container">
+    
+    <div class="status-side">
+      <div class="badge">Painel de Controle</div>
+      <h1>Sorteio em Tempo Real</h1>
+      
+      <div class="result-card" *ngIf="result() as r">
+        <h3>Resultado Atual</h3>
+        <div class="prize-list">
+          <p><span>1º Prêmio:</span> {{ r.firstPrize }}</p>
+          <p><span>2º Prêmio:</span> {{ r.secondPrize }}</p>
+          <p><span>3º Prêmio:</span> {{ r.thirdPrize }}</p>
+          <p><span>4º Prêmio:</span> {{ r.fourthPrize }}</p>
+          <p><span>5º Prêmio:</span> {{ r.fifthPrize }}</p>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="!result()">
+        <p>Aguardando a execução do sorteio para exibir os números.</p>
+      </div>
+    </div>
+
+    <div class="form-side">
+      <div class="form-header">
+        <div class="header-top">
+          <h2>Admin - Sorteio</h2>
+          <button class="btn-logout" (click)="logout()">Sair</button>
+        </div>
+        <p>Gerencie os prêmios e execuções do sistema.</p>
+      </div>
+
+      <button class="btn-action main-draw" (click)="runDraw()" [disabled]="loading()">
+        {{ loading() ? '⏳ Processando...' : 'Executar Sorteio Automático' }}
+      </button>
+
+      <div class="divider">
+        <span>ou criar manual</span>
+      </div>
+
+      <div class="manual-inputs">
+        <div class="input-row">
+          <input type="text" maxlength="4" [(ngModel)]="manualDraw.firstPrize" placeholder="1º">
+          <input type="text" maxlength="4" [(ngModel)]="manualDraw.secondPrize" placeholder="2º">
+          <input type="text" maxlength="4" [(ngModel)]="manualDraw.thirdPrize" placeholder="3º">
+          <input type="text" maxlength="4" [(ngModel)]="manualDraw.fourthPrize" placeholder="4º">
+          <input type="text" maxlength="4" [(ngModel)]="manualDraw.fifthPrize" placeholder="5º">
+        </div>
+      </div>
+
+      <button class="btn-action secondary-draw" (click)="createManualDraw()" [disabled]="loading()">
+        Criar Sorteio Manual
+      </button>
+
+      <p class="status-msg success" *ngIf="success()">Operação realizada com sucesso!</p>
+    </div>
+
+  </div>
 </div>
-
-<button (click)="runDraw()" [disabled]="loading()">
-  {{ loading() ? 'Executando...' : 'Executar Sorteio' }}
-</button>
-
-<hr>
-
-<h3>Criar Sorteio Manual</h3>
-
-<div>
-  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.firstPrize" placeholder="1º prêmio">
-  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.secondPrize" placeholder="2º prêmio">
-  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.thirdPrize" placeholder="3º prêmio">
-  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.fourthPrize" placeholder="4º prêmio">
-  <input type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" [(ngModel)]="manualDraw.fifthPrize" placeholder="5º prêmio">
-</div>
-
-<button (click)="createManualDraw()" [disabled]="loading()">
-  Criar Sorteio Manual
-</button>
-
-
-<p *ngIf="loading()">⏳ Processando...</p>
-
-
-<p *ngIf="success()">✅ Operação realizada com sucesso!</p>
-
-<div *ngIf="result() as r">
-  <h3>Resultado:</h3>
-  <p>1º: {{ r.firstPrize }}</p>
-  <p>2º: {{ r.secondPrize }}</p>
-  <p>3º: {{ r.thirdPrize }}</p>
-  <p>4º: {{ r.fourthPrize }}</p>
-  <p>5º: {{ r.fifthPrize }}</p>
-</div>
-
