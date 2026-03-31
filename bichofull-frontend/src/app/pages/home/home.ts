@@ -14,7 +14,7 @@ import { FooterComponent } from '../../components/footer/footer';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule, // Necessário para routerLink na Navbar e Footer
+    RouterModule,
     HeroSectionComponent,
     HowItWorksComponent,
     AboutSectionComponent,

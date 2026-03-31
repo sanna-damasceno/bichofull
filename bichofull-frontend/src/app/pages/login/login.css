@@ -1,7 +1,7 @@
 :host {
   display: block;
   height: 100vh;
-  background-color: #fdf2f8; /* Fundo rosado suave */
+  background-color: #fdf2f8;
 }
 
 .login-page {
@@ -26,9 +26,8 @@
 /* LADO ESQUERDO */
 .banner-side {
   flex: 1;
-  background: #a78bfa; /* Lilás principal */
-  background-image: linear-gradient(rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.8)), 
-                    url('/assets/animals/arcade-bg.png'); /* Coloque sua imagem de fundo aqui */
+  background: #a78bfa;
+  background-image: linear-gradient(rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.8));
   background-size: cover;
   background-position: center;
   padding: 60px;
@@ -93,7 +92,7 @@ input {
   padding: 14px 16px;
   border: 1px solid #f0e6f5;
   border-radius: 10px;
-  background-color: #fdf2f8; /* Input levemente rosado */
+  background-color: #fdf2f8;
   color: #4a1d4a;
   font-size: 1rem;
   outline: none;
@@ -132,7 +131,7 @@ input:focus {
 }
 
 .btn-login {
-  background: #c4b5fd; /* Lilás pastel do botão */
+  background: #c4b5fd;
   color: #4a1d4a;
   border: none;
   padding: 16px;
@@ -169,6 +168,6 @@ input:focus {
     max-width: 450px;
   }
   .banner-side {
-    display: none; /* Esconde o banner no celular para focar no login */
+    display: none;
   }
 }
