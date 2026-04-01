@@ -80,3 +80,67 @@ h3 {
   margin-top: 10px;
   font-weight: 500;
 }
+
+/* RESPONSIVIDADE*/
+
+@media (max-width: 992px) {
+  .next-draw-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: auto;
+    max-width: 180px; /* Bem pequeno */
+    padding: 10px;
+    margin: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* Efeito glassmorphism */
+    border: 1px solid rgba(156, 127, 188, 0.3);
+    box-shadow: 0 8px 32px rgba(74, 29, 74, 0.15);
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  /* Esconde o cabeçalho e o subtítulo no mobile para economizar espaço */
+  .header, .label {
+    display: none;
+  }
+
+  /* Compacta a contagem regressiva */
+  .countdown-wrapper {
+    margin: 0;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .number-box {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: none;
+    color: #4a1d4a;
+  }
+
+  .separator {
+    padding-top: 0;
+    font-size: 1rem;
+    color: #9c7fbc;
+  }
+
+  /* Adiciona um ícone pequeno de relógio antes dos números */
+  .countdown-wrapper::before {
+    content: 'timer';
+    font-family: 'Material Symbols Rounded';
+    font-size: 1.2rem;
+    color: #9c7fbc;
+    margin-right: 5px;
+  }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

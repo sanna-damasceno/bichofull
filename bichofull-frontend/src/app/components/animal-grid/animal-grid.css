@@ -106,11 +106,135 @@
   letter-spacing: 1px;
 }
 
-/* Responsividade: ajustar colunas em telas menores */
-@media (max-width: 1200px) {
-  .animal-grid { grid-template-columns: repeat(4, 1fr); }
+/* --- CONFIGURAÇÃO BASE --- */
+.animal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 16px;
 }
 
-@media (max-width: 900px) {
-  .animal-grid { grid-template-columns: repeat(3, 1fr); }
+/* --- RESPONSIVIDADE FILTRADA --- */
+
+@media (max-width: 1024px) {
+  .animal-grid-container {
+    padding: 10px; /* Reduz respiro externo */
+  }
+  
+  .animal-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas em tablets */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .animal-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas em celulares para não espremer o texto */
+    gap: 8px;
+  }
+
+  .animal-card {
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  /* Redução drástica do ícone para ganhar altura */
+  .white-circle {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+  }
+
+  .white-circle img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .animal-icon-wrapper {
+    margin-bottom: 5px;
+  }
+
+  /* Esconde as dezenas no mobile para simplificar */
+  /* O usuário geralmente já conhece os números ou foca no nome/ícone */
+  .dezenas-box {
+    display: none; 
+  }
+
+  .animal-name {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .animal-id {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .animal-grid-container {
+    padding: 10px 0; /* Remove o padding lateral para o scroll encostar na borda da tela */
+    overflow: hidden;
+  }
+
+  .animal-grid {
+    display: flex; /* Muda de Grid para Flex para alinhar em linha */
+    overflow-x: auto; /* Habilita o scroll horizontal */
+    scroll-snap-type: x mandatory; /* Faz o "imã" para o card parar no lugar certo */
+    gap: 12px;
+    padding: 10px 20px; /* Padding interno para o primeiro card não colar na borda */
+    
+    /* Esconde a barra de scroll para um visual mais limpo */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+
+  .animal-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .animal-card {
+    flex: 0 0 calc(35% - 12px); /* Ajustado para mostrar 2.8 cards (deixa o próximo cortado) */
+    scroll-snap-align: start;
+    min-width: 110px; /* Um pouco mais largo para caber as dezenas */
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Reduzimos o ícone para caber no carrossel */
+  .white-circle {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+  }
+
+  .white-circle img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dezenas-box {
+    display: block; /* Garante que apareça */
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    color: #4a1d4a;
+    font-weight: 700;
+    width: 90%; /* Ocupa quase toda a largura interna do card */
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Ajuste para telas muito pequenas (3 colunas com ícones minúsculos) */
+@media (max-width: 400px) {
+  .animal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .white-circle {
+    width: 40px;
+    height: 40px;
+  }
 }

@@ -1,18 +1,30 @@
 <nav class="navbar-container">
   <div class="logo">Bicho<span>Full</span></div>
+
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <span class="material-symbols-rounded">
+      {{ isMenuOpen() ? 'close' : 'menu' }}
+    </span>
+  </button>
   
-  <ul class="nav-menu">
+  <ul class="nav-menu" [class.open]="isMenuOpen()">
     <li>
-      <a routerLink="/dashboard" routerLinkActive="active">Apostar</a>
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">Apostar</a>
     </li>
     <li>
-      <a routerLink="/bet-history" routerLinkActive="active">Histórico de Apostas</a>
+      <a routerLink="/bet-history" routerLinkActive="active" (click)="closeMenu()">Histórico de Apostas</a>
     </li>
     <li>
-      <a routerLink="/draws" routerLinkActive="active">Sorteios</a>
+      <a routerLink="/draws" routerLinkActive="active" (click)="closeMenu()">Sorteios</a>
     </li>
     <li>
-      <a routerLink="/how-it-works" routerLinkActive="active">Como Jogar</a>
+      <a routerLink="/how-it-works" routerLinkActive="active" (click)="closeMenu()">Como Jogar</a>
+    </li>
+
+    <li class="mobile-logout">
+      <button (click)="logout(); closeMenu()" class="logout-link">
+        <span class="material-symbols-rounded">logout</span> Sair
+      </button>
     </li>
   </ul>
 
@@ -31,3 +43,7 @@
     </button>
   </div> 
 </nav>
+
+@if (isMenuOpen()) {
+  <div class="menu-overlay" (click)="closeMenu()"></div>
+}

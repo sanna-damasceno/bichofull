@@ -29,6 +29,7 @@ export interface Animal {
 export class DashboardComponent {
   selectedAnimal: Animal | null = null;
 
+
   onAnimalSelected(animal: Animal) {
     this.selectedAnimal = animal;
     console.log("Animal escolhido:", animal);

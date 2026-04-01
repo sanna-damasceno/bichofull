@@ -95,3 +95,10 @@
   color: #4a1d4a;
   font-size: 1.2rem;
 }
+
+/* Esconde o card completamente em dispositivos móveis */
+@media (max-width: 992px) {
+  .draw-history-container {
+    display: none;
+  }
+}

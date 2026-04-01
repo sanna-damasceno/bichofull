@@ -32,8 +32,12 @@ body {
   padding: 0 40px;
   height: 85px;
   background-color: #b392d1;
-  position: sticky;
+  position: fixed; /* Fixa em relação à tela, não ao pai */
   top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não estique a largura */
+  
   z-index: 1000;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }

@@ -1,19 +1,61 @@
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 350px; /* Esquerda flexível, direita fixa */
+  grid-template-columns: 1fr 350px;
   gap: 20px;
   max-width: 1400px;
   margin: 20px auto;
   padding: 0 20px;
 }
 
-/* Responsividade básica: em telas menores, empilha as colunas */
+/* --- RESPONSIVIDADE AVANÇADA --- */
 @media (max-width: 1024px) {
   .dashboard-container {
-    grid-template-columns: 1fr;
+    display: flex; /* Mudamos de grid para flex para controlar a ordem total */
+    flex-direction: column;
+    margin: 10px auto;
+    padding: 0 10px;
+    gap: 15px;
   }
+
+
+  /* 1. Fazemos os containers "sumirem" visualmente para que os cards 
+        se tornem irmãos diretos do container principal */
+  .left, .right {
+    display: contents; 
+  }
+
+  /* 2. Agora aplicamos a ordem exata que você deseja */
   
-  .right {
-    order: -1; /* Opcional: coloca o formulário de aposta no topo no celular */
+  /* CARTEIRA (Primeiro card da .left) */
+  .left .glass-card:first-child {
+    order: 1; 
+  }
+
+  /* FORMULÁRIO DE APOSTA (Componente dentro da .right) */
+  app-bet-form {
+    order: 2;
+    display: block; /* Garante renderização correta */
+  }
+
+  /* GRADE DE ANIMAIS (Último card da .left) */
+  .left .glass-card:last-child {
+    order: 3;
+  }
+
+  /* PRÓXIMO SORTEIO */
+  app-next-draw {
+    order: 4;
+  }
+
+  /* HISTÓRICO */
+  app-draw-history {
+    order: 5;
+  }
+}
+
+/* Ocultar histórico em telas muito pequenas */
+@media (max-width: 480px) {
+  app-draw-history {
+    display: none;
   }
 }

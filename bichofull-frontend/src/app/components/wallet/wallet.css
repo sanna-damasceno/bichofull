@@ -53,12 +53,49 @@
   color: #947119;
 }
 
-/* Responsividade: em telas pequenas, vira 2 colunas ou 1 só */
-@media (max-width: 600px) {
+/* --- RESPONSIVIDADE SIMPLIFICADA --- */
+
+@media (max-width: 768px) {
   .wallet-container {
     flex-wrap: wrap;
+    gap: 8px; /* Gap mais apertado para telas pequenas */
   }
-  .card {
-    flex: 1 1 calc(50% - 15px); /* 2 cards por linha */
+
+  /* DESTAQUE DO SALDO: Ocupa a linha toda */
+  .card.saldo {
+    flex: 1 1 100%; 
+    padding: 20px;
+    margin-bottom: 4px;
+  }
+
+  .card.saldo strong {
+    font-size: 1.8rem; /* Saldo bem grande no celular */
+  }
+
+  /* OUTROS CARDS: 3 colunas pequenas ou 2x1 */
+  .card.ganhou, 
+  .card.perdeu, 
+  .card.pendente {
+    flex: 1 1 calc(33.33% - 8px); /* Tenta colocar os 3 lado a lado */
+    padding: 10px 5px;
+    min-height: 60px;
+  }
+
+  .card small {
+    font-size: 0.6rem; /* Fonte menor para não quebrar linha */
+    margin-bottom: 2px;
+  }
+
+  .card strong {
+    font-size: 0.9rem; /* Valores secundários menores */
+  }
+}
+
+/* Ajuste extremo para celulares muito finos */
+@media (max-width: 380px) {
+  .card.ganhou, 
+  .card.perdeu, 
+  .card.pendente {
+    flex: 1 1 calc(50% - 8px); /* Vira grade 2x2 (Saldo no topo + 2 embaixo + 1 sozinho) */
   }
 }

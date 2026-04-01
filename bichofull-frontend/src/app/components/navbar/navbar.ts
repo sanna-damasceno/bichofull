@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router'; 
 import { UserService } from '../../services/user.service'; 
@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
 
+  isMenuOpen = signal(false);
+
   user = this.userService.user;
 
   ngOnInit(){
@@ -26,5 +28,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']).then(() => {
       window.location.reload();
     });
+  }
+
+  toggleMenu() {
+    this.isMenuOpen.set(!this.isMenuOpen());
+  }
+
+  closeMenu() {
+    this.isMenuOpen.set(false);
   }
 }
