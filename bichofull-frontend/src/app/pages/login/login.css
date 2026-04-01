@@ -27,14 +27,47 @@
 .banner-side {
   flex: 1;
   background: #a78bfa;
-  background-image: linear-gradient(rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.8));
   background-size: cover;
   background-position: center;
   padding: 60px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* Removido justify-content: center para a logo não ficar no meio */
+  justify-content: space-between; 
   color: white;
+}
+
+/* ESTILO DA LOGO NO BANNER */
+.logo-link {
+  text-decoration: none;
+  display: block; /* Garante que o link ocupe a área da logo */
+  width: fit-content;
+  transition: transform 0.2s ease;
+}
+
+/* Efeito sutil de hover para indicar que é clicável */
+.logo-link:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 2.2rem; /* Um pouco maior que no navbar para dar destaque */
+  font-weight: 800;
+  color: #4a1d4a;
+  letter-spacing: -1px;
+  margin-bottom: 40px; /* Espaço entre a logo e o "Bem-vindo" */
+  display: flex;
+  align-items: center;
+}
+
+.logo span {
+  color: white; /* O roxo claro do BichoFull */
+}
+
+.banner-content {
+  margin-bottom: auto;
+  margin-top: auto;
 }
 
 .badge {
@@ -54,6 +87,8 @@
 }
 
 /* LADO DIREITO */
+
+
 .form-side {
   flex: 1;
   padding: 60px;

@@ -26,13 +26,49 @@
 /* LADO ESQUERDO: BANNER */
 .banner-side {
   flex: 1;
-  background: #a78bfa; /* Roxo vibrante do Login */
+  background: #a78bfa;
+  background-size: cover;
+  background-position: center;
   padding: 60px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between; 
   color: white;
 }
+
+/* ESTILO DA LOGO NO BANNER */
+.logo-link {
+  text-decoration: none;
+  display: block; 
+  width: fit-content;
+  transition: transform 0.2s ease;
+}
+
+/* Efeito sutil de hover para indicar que é clicável */
+.logo-link:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 2.2rem; 
+  font-weight: 800;
+  color: #4a1d4a;
+  letter-spacing: -1px;
+  margin-bottom: 40px; 
+  display: flex;
+  align-items: center;
+}
+
+.logo span {
+  color: white; 
+}
+
+.banner-content {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
 
 .badge {
   background: rgba(255, 255, 255, 0.2);
@@ -60,7 +96,7 @@
 }
 
 .form-header h2 {
-  color: #4a1d4a; /* Roxo escuro do Login */
+  color: #4a1d4a; 
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 5px;
