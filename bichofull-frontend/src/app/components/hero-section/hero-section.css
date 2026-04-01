@@ -100,3 +100,107 @@
 
 .ico-1 { top: 20px; left: -20px; }
 .ico-2 { bottom: 50px; right: -30px; }
+
+/* --- RESPONSIVIDADE HERO --- */
+
+/* Ajustes para Tablets (até 992px) */
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 80px 30px;
+    text-align: center;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr; /* Empilha o texto sobre a imagem */
+    gap: 40px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .image-placeholder {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+  }
+}
+/* --- RESPONSIVIDADE HERO --- */
+/* --- RESPONSIVIDADE HERO (AJUSTADA) --- */
+
+/* Ajustes para Tablets (992px) */
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 60px 30px;
+    text-align: center;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Mantém a imagem no tablet, mas menor */
+  .image-placeholder {
+    width: 250px; 
+    height: 250px;
+  }
+}
+
+/* Ajustes para Celulares (768px) - AQUI ESCONDEMOS A IMAGEM */
+@media (max-width: 768px) {
+  .hero-image-container {
+    display: none; /* Esconde o mascote e o círculo no mobile */
+  }
+
+  .hero-section {
+    padding: 50px 20px;
+    /* Ocupa menos altura agora que não tem imagem */
+    min-height: auto; 
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  /* BOTÕES MENORES E ALINHADOS */
+  .hero-buttons {
+    flex-direction: row; /* Mantém lado a lado se couber, ou column se preferir */
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 12px 20px; /* Reduzido de 18px para 12px verticalmente */
+    font-size: 14px;     /* Fonte levemente menor */
+    width: auto;         /* Botão não ocupa mais 100% da largura */
+    min-width: 140px;    /* Mas mantém um tamanho mínimo para clique */
+  }
+}
+
+/* Ajustes para Telas Muito Pequenas (480px) */
+@media (max-width: 480px) {
+  .hero-buttons {
+    flex-direction: column; /* Em telas minúsculas, melhor empilhar */
+    align-items: center;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 280px; /* Limita a largura para não ficarem "linguiças" */
+  }
+}

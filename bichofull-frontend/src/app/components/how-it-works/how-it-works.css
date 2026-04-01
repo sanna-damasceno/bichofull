@@ -83,3 +83,142 @@
   line-height: 1.6;
   margin: 0;
 }
+
+.scroll-indicator {
+  display: none;
+}
+
+/* --- RESPONSIVIDADE COMO JOGAR --- */
+
+/* Ajustes para Tablets e telas médias (992px) */
+@media (max-width: 992px) {
+  .how-it-works {
+    padding: 80px 5% !important;
+  }
+
+  .section-header h2 {
+    font-size: 2.4rem; /* Reduz levemente o título principal */
+  }
+
+  .steps-grid {
+    gap: 20px;
+    margin-top: 40px;
+    /* O auto-fit já vai empilhar aqui se não couber os 300px */
+  }
+}
+
+/* Ajustes para Celulares (768px a 576px) */
+@media (max-width: 768px) {
+  .how-it-works {
+    padding: 40px 0 !important;
+  }
+
+  .steps-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-header {
+    margin-bottom: 20px; /* Diminuído de 50px para 20px */
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    padding: 0 20px;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+    padding: 0 25px;
+  }
+
+  .step-card {
+    min-width: 85%; /* Deixa um pedaço do próximo card aparecendo (dica visual) */
+    max-width: 85%;
+    scroll-snap-align: center; /* Garante que o card pare centralizado ao soltar */
+    flex-shrink: 0; /* Impede o flex de espremer o card */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+    padding: 35px 25px;
+  }
+
+  .step-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .steps-grid {
+    margin-top: 10px;
+    display: flex; /* Muda de Grid para Flex para alinhar lado a lado */
+    overflow-x: auto; /* Habilita o scroll horizontal */
+    scroll-snap-type: x mandatory; /* Faz o "imã" para o card parar no meio */
+    gap: 15px;
+    padding: 20px 20px 30px; /* Espaço para a sombra não cortar e respiro embaixo */
+    scrollbar-width: none; /* Esconde a barra no Firefox */
+    -ms-overflow-style: none; /* Esconde a barra no IE/Edge */
+    justify-content: flex-start;
+    text-align: center;
+  }
+  .steps-grid::-webkit-scrollbar {
+    display: none; /* Esconde a barra no Chrome/Safari */
+  }
+
+  .scroll-indicator {
+    display: flex;
+    position: absolute;
+    right: 10px;
+    top: 55%;
+    transform: translateY(-50%);
+    background: rgba(124, 58, 237, 0.9); /* Roxo com transparência */
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    pointer-events: none; /* Deixa o clique passar para o card */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: bounceRight 1.5s infinite; /* Animação de atenção */
+  }
+
+  .scroll-indicator span {
+    font-size: 18px;
+    margin-left: 4px; /* Ajuste para centralizar visualmente a seta */
+  }
+
+  /* Animação para a seta "pedir" o deslize */
+  @keyframes bounceRight {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(8px); }
+  }
+
+  /* Opcional: Sumir com a seta quando o usuário começar a rolar */
+  .steps-grid:active + .scroll-indicator,
+  .steps-grid:focus + .scroll-indicator {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+}
+
+/* Ajustes finos para telas muito pequenas (480px) */
+@media (max-width: 480px) {
+  .how-it-works {
+    padding: 60px 20px !important;
+  }
+
+  .step-number {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  .step-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .step-card p {
+    font-size: 0.9rem;
+  }
+}

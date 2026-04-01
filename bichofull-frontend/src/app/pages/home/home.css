@@ -114,3 +114,72 @@ section {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* --- RESPONSIVIDADE GLOBAL E NAVBAR --- */
+
+/* Ajustes para Tablets (992px) */
+@media (max-width: 992px) {
+  .home-navbar {
+    padding: 0 15px;
+    height: 75px;
+  }
+
+  .nav-links {
+    display: none; /* Esconde o menu central (Início, Como jogar, etc) */
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+}
+
+/* Ajustes para Celulares (768px) */
+@media (max-width: 768px) {
+  .auth-buttons {
+    gap: 8px; /* Aproxima os botões */
+  }
+
+  .home-navbar {
+    height: 70px;
+    justify-content: space-between;
+  }
+
+  /* No mobile, deixamos apenas o botão principal de cadastro para economizar espaço */
+  .btn-entrar, .btn-cadastrar {
+    padding: 8px 15px; /* Botões mais baixos e estreitos */
+    font-size: 0.8rem;   /* Fonte menor para caber em 1 linha */
+    border-radius: 20px; /* Mantém o estilo arredondado mas mais contido */
+  }
+
+  .btn-entrar {
+    border-width: 1.5px; /* Borda mais fina para não pesar visualmente */
+  }
+
+  .home-container {
+    padding-top: 0; /* Garante que não haja espaço extra no topo */
+  }
+
+  /* Ajuste das Seções Modulares para não ficarem presas em 1200px no mobile */
+  section {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0;
+  }
+}
+
+/* Ajustes para Celulares Pequenos (480px) */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .auth-buttons {
+    gap: 8px;
+  }
+
+  .btn-entrar, .btn-cadastrar {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+}

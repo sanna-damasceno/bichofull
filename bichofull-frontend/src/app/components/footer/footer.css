@@ -74,16 +74,48 @@
 }
 
 /* Responsividade */
+/* --- RESPONSIVIDADE (FOCO EM ALTURA) --- */
 @media (max-width: 768px) {
+  .main-footer {
+    padding: 30px 20px 15px; /* Bem mais compacto no mobile */
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;
-    align-items: center;
+    gap: 25px; /* Espaço menor entre a marca e os links */
+  }
+
+  .footer-brand p {
+    margin-bottom: 5px;
   }
 
   .footer-links-grid {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
+    gap: 20px; /* Links mais próximos lateralmente */
+    width: 100%;
+    justify-content: space-around; /* Distribui melhor os grupos */
+  }
+
+  .link-group h4 {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Coloca os links em duas colunas para economizar altura */
+    text-align: left;
+    padding-left: 10%;
+  }
+  
+  .footer-brand {
+    text-align: center;
   }
 }
