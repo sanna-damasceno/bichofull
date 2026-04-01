@@ -1,13 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar'; // Ajuste o caminho se necessário
-import { FooterComponent } from './components/footer/footer'; // Ajuste o caminho se necessário
-import { CommonModule } from '@angular/common'; // Necessário para usar @if ou *ngIf
+import { FooterComponent } from './components/footer/footer';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule],
+  imports: [RouterOutlet, FooterComponent, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,15 +1,17 @@
 :host {
   display: block;
   height: 100vh;
-  background-color: #fdf2f8; /* Fundo rosado padrão */
+  background-color: #fdf2f8;
+  overflow-y: auto;
 }
 
 .register-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 20px;
+  background-color: transparent;
+  min-height: 100hv;
+  padding: 40px 20px;
 }
 
 .register-container {
@@ -37,19 +39,6 @@
 }
 
 /* ESTILO DA LOGO NO BANNER */
-.logo-link {
-  text-decoration: none;
-  display: block; 
-  width: fit-content;
-  transition: transform 0.2s ease;
-}
-
-/* Efeito sutil de hover para indicar que é clicável */
-.logo-link:hover {
-  transform: scale(1.02);
-  cursor: pointer;
-}
-
 .logo {
   font-size: 2.2rem; 
   font-weight: 800;
@@ -64,11 +53,23 @@
   color: white; 
 }
 
+.logo-link {
+  text-decoration: none;
+  display: block; 
+  width: fit-content;
+  transition: transform 0.2s ease;
+}
+
+/* Efeito sutil de hover para indicar que é clicável */
+.logo-link:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
 .banner-content {
   margin-bottom: auto;
   margin-top: auto;
 }
-
 
 .badge {
   background: rgba(255, 255, 255, 0.2);
@@ -215,12 +216,82 @@ input:focus {
   text-decoration: none;
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 850px) {
-  .banner-side {
-    display: none;
-  }
+/* --- RESPONSIVIDADE INTERMEDIÁRIA (TABLETS) --- */
+@media (max-width: 992px) {
   .register-container {
-    max-width: 450px;
+    max-width: 900px;
+  }
+  .banner-side, .form-side {
+    padding: 40px;
+  }
+  .banner-side h1 {
+    font-size: 2.2rem;
+  }
+}
+
+/* --- RESPONSIVIDADE CRÍTICA (MOBILE / ROTAÇÃO) --- */
+@media (max-width: 850px) {
+  :host {
+    height: auto; /* Destrava a altura fixa */
+  }
+
+  .register-page {
+    align-items: flex-start; /* Alinha no topo para não cortar nada ao rotacionar */
+    padding: 20px 15px;
+  }
+
+  .register-container {
+    flex-direction: column;
+    max-width: 420px;
+    margin: 0 auto;
+    overflow: visible; /* Garante que sombras não criem scroll lateral */
+    min-height: auto;
+  }
+
+  .banner-side {
+    padding: 30px 20px;
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .banner-content, .badge, .banner-side h1 {
+    display: none; /* Simplifica o visual no mobile */
+  }
+
+  .logo {
+    margin-bottom: 0;
+    font-size: 1.8rem;
+  }
+
+  .form-side {
+    padding: 30px 20px;
+    width: 100%;
+  }
+
+  .form-header h2 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .form-header p {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  /* Ajuste de Inputs para toque mobile */
+  input, .btn-register {
+    padding: 14px;
+    font-size: 16px; /* Evita zoom automático no iOS */
+  }
+}
+
+@media (max-width: 400px) {
+  .register-page {
+    padding: 10px;
+  }
+  .form-side {
+    padding: 25px 15px;
   }
 }

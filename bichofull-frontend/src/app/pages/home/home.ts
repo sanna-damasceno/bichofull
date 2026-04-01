@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { HeroSectionComponent } from '../../components/hero-section/hero-section';
 import { HowItWorksComponent } from '../../components/how-it-works/how-it-works';
 import { AboutSectionComponent } from '../../components/about-section/about-section';
-import { FooterComponent } from '../../components/footer/footer';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +17,6 @@ import { FooterComponent } from '../../components/footer/footer';
     HeroSectionComponent,
     HowItWorksComponent,
     AboutSectionComponent,
-    FooterComponent,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
