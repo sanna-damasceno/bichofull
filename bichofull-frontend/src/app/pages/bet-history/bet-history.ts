@@ -72,7 +72,7 @@ export class BetHistoryComponent implements OnInit {
   getAnimalName(bet: any): string {
     if (!bet.chosenNumber || this.animals.length === 0) return '...';
 
-    let found: any = null;
+    let found: any;
 
     if (bet.type === 'GROUP') {
       // No GRUPO, o chosenNumber é o número do grupo (1 a 25)
@@ -90,7 +90,7 @@ export class BetHistoryComponent implements OnInit {
   getAnimalPath(bet: any): string {
     if (!bet.chosenNumber || this.animals.length === 0) return 'default';
 
-    let found: any = null;
+    let found: any;
 
     if (bet.type === 'GROUP') {
       const groupNum = parseInt(bet.chosenNumber, 10);
