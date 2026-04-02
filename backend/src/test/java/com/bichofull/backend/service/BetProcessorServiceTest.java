@@ -28,6 +28,17 @@ class BetProcessorServiceTest {
         betProcessorService = new BetProcessorService(betRepository, userRepository);
     }
 
+    // Método auxiliar para criar um sorteio completo, evitando NullPointerException no List.of()
+    private Draw createValidDraw(String firstPrize) {
+        Draw draw = new Draw();
+        draw.setFirstPrize(firstPrize);
+        draw.setSecondPrize("2222");
+        draw.setThirdPrize("3333");
+        draw.setFourthPrize("4444");
+        draw.setFifthPrize("5555");
+        return draw;
+    }
+
     @Test
     void shouldMarkBetAsWon() {
 
@@ -41,8 +52,7 @@ class BetProcessorServiceTest {
         bet.setStatus(BetStatus.PENDING);
         bet.setUser(user);
 
-        Draw draw = new Draw();
-        draw.setFirstPrize("1234");
+        Draw draw = createValidDraw("1234");
 
         when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
@@ -69,8 +79,7 @@ class BetProcessorServiceTest {
         bet.setStatus(BetStatus.PENDING);
         bet.setUser(user);
 
-        Draw draw = new Draw();
-        draw.setFirstPrize("1234");
+        Draw draw = createValidDraw("1234");
 
         when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
@@ -96,8 +105,7 @@ class BetProcessorServiceTest {
         bet.setStatus(BetStatus.PENDING);
         bet.setUser(user);
 
-        Draw draw = new Draw();
-        draw.setFirstPrize("1234");
+        Draw draw = createValidDraw("1234");
 
         when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of(bet));
@@ -113,8 +121,7 @@ class BetProcessorServiceTest {
     @Test
     void shouldDoNothingWhenNoBets() {
 
-        Draw draw = new Draw();
-        draw.setFirstPrize("1234");
+        Draw draw = createValidDraw("1234");
 
         when(betRepository.findByStatusWithUser(BetStatus.PENDING))
                 .thenReturn(List.of());
