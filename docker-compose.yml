@@ -1,17 +1,47 @@
-version: '3.8'
 
 services:
+  # Banco de Dados (MySQL)
   mysql:
     image: mysql:8
     container_name: bichofull-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: bichofull
+      MYSQL_DATABASE: bicho_db
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend (Spring Boot)
+  backend:
+    build: ./backend
+    container_name: bichofull-api
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/bicho_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8080:8080"
+
+  # Frontend (Angular)
+  frontend:
+    build: ./bichofull-frontend
+    container_name: bichofull-ui
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   mysql_data:
