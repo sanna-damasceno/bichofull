@@ -289,7 +289,140 @@
 }
 
 
-/* Responsividade */
-@media (max-width: 900px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+/* --- RESPONSIVIDADE OTIMIZADA --- */
+
+@media (max-width: 768px) {
+  :host {
+    padding: 20px 15px; /* Reduz o respiro lateral no mobile */
+  }
+
+  .history-header h1 {
+    font-size: 1.4rem;
+    gap: 8px;
+  }
+
+  /* Estatísticas: 2x2 para não ficar muito vertical */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+
+  .stat-card {
+    padding: 15px;
+    gap: 4px;
+  }
+
+  .stat-card strong {
+    font-size: 1.3rem;
+  }
+
+  /* Container da Tabela/Lista */
+  .table-container {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  /* --- AJUSTE DO CARD DE APOSTA (O PONTO CHAVE) --- */
+  .bet-card {
+    padding: 12px;
+    display: grid;
+    grid-template-areas: 
+      "icon details status"
+      "icon values values";
+    grid-template-columns: 50px 1fr auto;
+    gap: 10px;
+  }
+
+  .bet-animal-icon {
+    grid-area: icon;
+    align-self: center;
+  }
+
+  .bet-animal-icon img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0;
+  }
+
+  .bet-details {
+    grid-area: details;
+    justify-content: center;
+  }
+
+  .bet-main-info {
+    font-size: 0.85rem;
+  }
+
+  .bet-date {
+    font-size: 0.75rem;
+  }
+
+  .bet-status {
+    grid-area: status;
+    align-self: start;
+    justify-content: flex-end;
+  }
+
+  .status-badge {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  .bet-values {
+    grid-area: values;
+    flex-direction: row; /* Valores lado a lado no mobile */
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #f0e6f5;
+    padding-top: 8px;
+    margin-top: 5px;
+    text-align: left;
+  }
+
+  .value-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .value-item small {
+    display: inline;
+    font-size: 0.7rem;
+  }
+
+  .value-item strong {
+    font-size: 0.9rem;
+  }
+
+  /* Paginação */
+  .pagination-container {
+    gap: 8px;
+  }
+
+  .pag-btn.prev-next {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .pag-btn.num {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 400px) {
+  .stats-grid {
+    grid-template-columns: 1fr; /* 1 card por linha se for muito estreito */
+  }
+  
+  .bet-card {
+    grid-template-areas: 
+      "icon details"
+      "status status"
+      "values values";
+    grid-template-columns: 50px 1fr;
+  }
 }

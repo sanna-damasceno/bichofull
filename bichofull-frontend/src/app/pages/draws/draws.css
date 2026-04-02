@@ -157,9 +157,100 @@
   cursor: not-allowed;
 }
 
-/* Responsividade */
-@media (max-width: 850px) {
-  .draw-card { flex-direction: column; align-items: flex-start; }
-  .draw-main-details { border-right: none; border-bottom: 1px solid #f0e6f5; margin-bottom: 15px; width: 100%; padding-bottom: 10px; }
-  .draw-results-grid { width: 100%; justify-content: space-between; }
+/* --- RESPONSIVIDADE OTIMIZADA --- */
+
+@media (max-width: 992px) {
+  :host {
+    padding: 20px 15px;
+  }
+
+  .main-header {
+    margin-bottom: 25px;
+  }
+
+  .main-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .table-container {
+    padding: 15px;
+  }
+
+  .draw-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  /* Data do Sorteio em destaque no topo do card */
+  .draw-main-details {
+    flex: none;
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px dashed #f0e6f5;
+    margin-right: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .bet-date {
+    font-weight: 800;
+    color: #4a1d4a;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza a data no mobile */
+    font-size: 0.95rem;
+  }
+
+  /* Grade de Resultados: 2 colunas para os 4 primeiros e 1 centralizado para o 5º, ou 3+2 */
+  .draw-results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas no tablet/celular largo */
+    gap: 15px;
+    width: 100%;
+  }
+
+  .prize-slot {
+    background: #fdf2f8; /* Fundo sutil para destacar cada prêmio */
+    padding: 8px;
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .prize-slot small {
+    font-size: 0.6rem;
+    margin-bottom: 2px;
+  }
+
+  .prize-content {
+    gap: 5px;
+  }
+
+  .prize-content img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .prize-content strong {
+    font-size: 1rem;
+  }
+}
+
+/* Ajuste para celulares pequenos (iPhone SE, etc) */
+@media (max-width: 480px) {
+  .draw-results-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 prêmios por linha */
+  }
+
+  /* Faz o 5º prêmio ocupar a largura total para balancear o layout */
+  .prize-slot:last-child {
+    grid-column: span 2;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .prize-slot:last-child .prize-content {
+    margin-top: 0;
+  }
 }

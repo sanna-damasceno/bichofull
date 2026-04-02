@@ -70,28 +70,39 @@ export class BetHistoryComponent implements OnInit {
   // --- LÓGICA DE IDENTIFICAÇÃO DOS BICHOS ---
 
   getAnimalName(bet: any): string {
-    const val = bet.chosenNumber;
-    if (!val || this.animals.length === 0) return '...';
+    if (!bet.chosenNumber || this.animals.length === 0) return '...';
 
-    // Pega os últimos 2 dígitos para identificar o bicho
-    const lastTwoDigits = val.slice(-2).padStart(2, '0');
-    const found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits));
+    let found: any = null;
+
+    if (bet.type === 'GROUP') {
+      // No GRUPO, o chosenNumber é o número do grupo (1 a 25)
+      const groupNum = parseInt(bet.chosenNumber, 10);
+      found = this.animals.find((a) => a.groupNumber === groupNum);
+    } else {
+      // Para TEN (Dezena) ou THOUSAND (Milhar), usa os últimos 2 dígitos
+      const lastTwoDigits = bet.chosenNumber.slice(-2).padStart(2, '0');
+      found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits));
+    }
     
     return found ? found.name : 'Outro';
   }
 
   getAnimalPath(bet: any): string {
-    const val = bet.chosenNumber;
-    if (!val || this.animals.length === 0) return 'default';
+    if (!bet.chosenNumber || this.animals.length === 0) return 'default';
 
-    // Identifica o bicho pelos últimos 2 dígitos (Dezena)
-    const lastTwoDigits = val.slice(-2).padStart(2, '0');
-    const found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits));
+    let found: any = null;
+
+    if (bet.type === 'GROUP') {
+      const groupNum = parseInt(bet.chosenNumber, 10);
+      found = this.animals.find((a) => a.groupNumber === groupNum);
+    } else {
+      const lastTwoDigits = bet.chosenNumber.slice(-2).padStart(2, '0');
+      found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits));
+    }
 
     if (!found) return 'default';
 
-    // Retorna o número do grupo formatado com 2 dígitos (ex: 1 vira "01")
-    // Isso vai bater exatamente com seus arquivos 01.png, 02.png...
+    // Retorna o número do grupo formatado (ex: "01") para o caminho da imagem
     return found.groupNumber.toString().padStart(2, '0');
   }
 
