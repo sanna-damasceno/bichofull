@@ -40,7 +40,15 @@ public class BetProcessorService {
 
         for (Bet bet : bets) {
 
-            boolean winner = BetChecker.isWinner(bet, draw.getFirstPrize());
+            List<String> results = List.of(
+                draw.getFirstPrize(),
+                draw.getSecondPrize(),
+                draw.getThirdPrize(),
+                draw.getFourthPrize(),
+                draw.getFifthPrize()
+            );
+
+            boolean winner = BetChecker.isWinner(bet, results);
 
             if (winner) {
 
