@@ -19,7 +19,7 @@
 .draw-list {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Espaço entre cada prêmio */
+  gap: 12px; 
 }
 
 .draw-item {
@@ -27,7 +27,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  background-color: #f3e5f5; /* Cor lilás de fundo da imagem */
+  background-color: #f3e5f5; 
   border-radius: 12px;
   transition: transform 0.2s;
 }

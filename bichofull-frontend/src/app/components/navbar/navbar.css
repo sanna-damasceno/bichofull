@@ -124,7 +124,7 @@
   .menu-toggle {
     display: block;
     order: 3;
-    z-index: 1100; /* Fica acima de tudo */
+    z-index: 1100;
     margin-left: 15px;
   }
 
@@ -132,7 +132,7 @@
   .nav-menu {
     position: fixed;
     top: 0;
-    right: -100%; /* Começa fora da tela */
+    right: -100%; 
     width: 280px;
     height: 100vh;
     background-color: #b392d1;
@@ -160,7 +160,7 @@
     display: block;
     width: 100%;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.1); /* Um fundo leve para os botões */
+    background: rgba(255, 255, 255, 0.1); 
     text-align: center;
     color: #4a1d4a;
     text-decoration: none;

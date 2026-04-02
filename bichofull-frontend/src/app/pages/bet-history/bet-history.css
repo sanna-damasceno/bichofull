@@ -1,6 +1,6 @@
 :host {
   display: block;
-  background-color: #fdf2f8; /* Fundo levemente rosado da imagem */
+  background-color: #fdf2f8; 
   min-height: 100vh;
   padding: 40px;
 }
@@ -108,7 +108,7 @@
   color: #4a1d4a;
   font-size: 0.9rem;
   font-weight: 700;
-  border-bottom: 2px dashed #f0e6f5; /* Linha tracejada da imagem */
+  border-bottom: 2px dashed #f0e6f5; 
 }
 
 .history-table td {
@@ -289,7 +289,7 @@
 }
 
 
-/* --- RESPONSIVIDADE OTIMIZADA --- */
+/* --- RESPONSIVIDADE --- */
 
 @media (max-width: 768px) {
   :host {
@@ -323,7 +323,7 @@
     border-radius: 12px;
   }
 
-  /* --- AJUSTE DO CARD DE APOSTA (O PONTO CHAVE) --- */
+  /* --- AJUSTE DO CARD DE APOSTA --- */
   .bet-card {
     padding: 12px;
     display: grid;

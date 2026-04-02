@@ -10,7 +10,7 @@
 /* --- RESPONSIVIDADE AVANÇADA --- */
 @media (max-width: 1024px) {
   .dashboard-container {
-    display: flex; /* Mudamos de grid para flex para controlar a ordem total */
+    display: flex; 
     flex-direction: column;
     margin: 10px auto;
     padding: 0 10px;
@@ -18,15 +18,11 @@
   }
 
 
-  /* 1. Fazemos os containers "sumirem" visualmente para que os cards 
-        se tornem irmãos diretos do container principal */
   .left, .right {
     display: contents; 
   }
 
-  /* 2. Agora aplicamos a ordem exata que você deseja */
   
-  /* CARTEIRA (Primeiro card da .left) */
   .left .glass-card:first-child {
     order: 1; 
   }

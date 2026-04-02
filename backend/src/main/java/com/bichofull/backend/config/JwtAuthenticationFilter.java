@@ -32,30 +32,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-
+        // Busca o cabeçalho "Authorization" na requisição HTTP
         final String authHeader = request.getHeader("Authorization");
 
+        // Se o cabeçalho não existir ou não começar com "Bearer ", ignora e segue o fluxo
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        // Limpa a string para obter apenas o código do token JWT
         String token = authHeader.substring(7).replace("\"", "");
-        System.out.println("Token LIMPO: " + token);
 
-        System.out.println("Token recebido: " + token);
-
-        if (jwtService.isTokenValid(token)
-                && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            System.out.println("Token válido!");    
+        // Se o token for válido e o usuário ainda não estiver autenticado no sistema
+        if (jwtService.isTokenValid(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 
             String email = jwtService.extractEmail(token);
-
-            System.out.println("Email extraído: " + email);
-
             String role = jwtService.extractRole(token);
 
+            // Cria um objeto de autenticação com o e-mail e as permissões (Roles) vindas do token
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             email,
@@ -63,13 +58,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             List.of(new SimpleGrantedAuthority("ROLE_" + role))
                     );
 
-            authentication.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+            // Registra o usuário como "logado" no contexto de segurança do Spring
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
+        // Deixa a requisição seguir para o Controller correspondente
         filterChain.doFilter(request, response);
     }
 }

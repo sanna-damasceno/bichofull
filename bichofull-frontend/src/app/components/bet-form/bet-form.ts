@@ -96,8 +96,8 @@ export class BetFormComponent implements OnInit, OnChanges {
       }
     } else {
       // Para DEZENA ou MILHAR
-      if (val.length >= 1) { // Mudado de 2 para 1 para aceitar "2" como "02"
-        // Pegamos o valor e garantimos que tenha pelo menos 2 dígitos para a busca
+      if (val.length >= 1) { 
+        
         const formattedValue = val.padStart(2, '0');
         const lastTwoDigits = formattedValue.slice(-2);
         

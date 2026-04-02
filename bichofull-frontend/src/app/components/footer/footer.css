@@ -4,7 +4,7 @@
 }
 
 .main-footer {
-  background-color: #1a102e; /* Roxo quase preto */
+  background-color: #1a102e;
   color: #d1d5db;
   padding: 80px 50px 30px;
 }
@@ -73,7 +73,6 @@
   color: #9ca3af;
 }
 
-/* Responsividade */
 /* --- RESPONSIVIDADE (FOCO EM ALTURA) --- */
 @media (max-width: 768px) {
   .main-footer {

@@ -4,7 +4,7 @@
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   max-width: 400px;
-  margin-top: 20px; /* Para desgrudar do de cima, caso necessário */
+  margin-top: 20px; 
 }
 
 .header {
@@ -46,8 +46,8 @@ h3 {
 }
 
 .number-box {
-  background-color: #f3e5f5; /* Lilás bem clarinho */
-  color: #9c7fbc;           /* Roxo médio */
+  background-color: #f3e5f5; 
+  color: #9c7fbc;          
   width: 70px;
   height: 70px;
   display: flex;
@@ -89,7 +89,7 @@ h3 {
     bottom: 20px;
     right: 20px;
     width: auto;
-    max-width: 180px; /* Bem pequeno */
+    max-width: 180px;
     padding: 10px;
     margin: 0;
     z-index: 1000;

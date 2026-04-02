@@ -33,7 +33,6 @@
   padding: 60px;
   display: flex;
   flex-direction: column;
-  /* Removido justify-content: center para a logo não ficar no meio */
   justify-content: space-between; 
   color: white;
 }
@@ -63,7 +62,7 @@
 }
 
 .logo span {
-  color: white; /* O roxo claro do BichoFull */
+  color: white; 
 }
 
 .banner-content {
@@ -198,7 +197,6 @@ input:focus {
 }
 
 /* RESPONSIVIDADE */
-/* --- RESPONSIVIDADE LOGIN --- */
 
 @media (max-width: 992px) {
   .login-container {

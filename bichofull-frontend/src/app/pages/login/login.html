@@ -40,8 +40,13 @@
         <a href="#" class="forgot-password">Esqueci minha senha</a>
       </div>
 
-      <button class="btn-login" (click)="login()">Entrar na conta</button>
+      @if (errorMessage()) {
+        <div style="color: #e11d48; background: #fff1f2; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9rem; text-align: center; border: 1px solid #fda4af;">
+          {{ errorMessage() }}
+        </div>
+      }
 
+      <button class="btn-login" (click)="login()">Entrar na conta</button>
       <p class="signup-text">
         Ainda não tem uma conta? <a routerLink="/register">Cadastrar agora</a>
       </p>

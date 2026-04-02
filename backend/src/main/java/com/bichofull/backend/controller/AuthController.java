@@ -31,15 +31,10 @@ public class AuthController {
     )
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<RegisterResponseDTO> register(@Valid @RequestBody RegisterRequestDTO request) {
 
-        try {
-            RegisterResponseDTO response = authService.register(request);
-            return ResponseEntity.ok(response);
-
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        RegisterResponseDTO response = authService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(
@@ -48,15 +43,10 @@ public class AuthController {
     )
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request) {
 
-        try {
-            LoginResponseDTO response = authService.login(request);
-            return ResponseEntity.ok(response);
-
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(401).body(e.getMessage());
-        }
+        LoginResponseDTO response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -130,7 +130,6 @@
   }
 }
 /* --- RESPONSIVIDADE HERO --- */
-/* --- RESPONSIVIDADE HERO (AJUSTADA) --- */
 
 /* Ajustes para Tablets (992px) */
 @media (max-width: 992px) {
@@ -155,7 +154,7 @@
   }
 }
 
-/* Ajustes para Celulares (768px) - AQUI ESCONDEMOS A IMAGEM */
+/* Ajustes para Celulares (768px) */
 @media (max-width: 768px) {
   .hero-image-container {
     display: none; /* Esconde o mascote e o círculo no mobile */
@@ -201,6 +200,6 @@
 
   .btn-primary, .btn-secondary {
     width: 100%;
-    max-width: 280px; /* Limita a largura para não ficarem "linguiças" */
+    max-width: 280px; 
   }
 }

@@ -52,7 +52,7 @@ public class DrawService {
 
         Draw saved = drawRepository.save(draw);
 
-        log.info("🎯 Sorteio manual criado: {}", saved.getId());
+        log.info("Sorteio manual criado: {}", saved.getId());
 
         betProcessorService.processBets(saved);
 
@@ -88,7 +88,7 @@ public class DrawService {
 
         Draw savedDraw = drawRepository.save(draw);
 
-        log.info("🎯 Sorteio criado: {}", savedDraw.getId());
+        log.info("Sorteio criado: {}", savedDraw.getId());
 
         betProcessorService.processBets(savedDraw);
 

@@ -27,6 +27,7 @@ public class OpenApiConfig {
                                 .email("sanna@email.com")
                         )
                 )
+                // Adiciona o botão "Authorize" no Swagger para você poder colar o Token JWT e testar rotas protegidas
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .schemaRequirement(securitySchemeName,
                         new SecurityScheme()

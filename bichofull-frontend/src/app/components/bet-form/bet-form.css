@@ -83,13 +83,13 @@
   border-radius: 12px;
   padding: 8px 15px;
   background-color: #fdfbff;
-  min-height: 56px; /* Altura controlada para o box tracejado */
+  min-height: 56px; 
 }
 
 /* Input de Número Reduzido */
 .selection-display-box input {
   width: 130px;
-  height: 40px; /* Altura padrão conforme pedido */
+  height: 40px; 
   border: 1px solid #e1bee7;
   border-radius: 8px;
   padding: 0;
@@ -99,7 +99,7 @@
   color: #4a1d4a;
   outline: none;
   background: white;
-  margin-bottom: 0; /* Remove margem do input geral */
+  margin-bottom: 0; 
 }
 
 .animal-name {
@@ -120,7 +120,7 @@
   border: 1px solid #9e7bb0;
   border-radius: 8px;
   padding: 0 10px;
-  height: 40px; /* Mesma altura do input de número */
+  height: 40px; 
   background: #fcfaff;
 }
 
@@ -173,7 +173,7 @@
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 4px 0 #c8e6d1;
-  margin-top: 30px; /* Mais espaço conforme pedido */
+  margin-top: 30px; 
 }
 
 .btn-confirmar:hover:not(:disabled) {

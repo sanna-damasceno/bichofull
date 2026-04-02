@@ -113,7 +113,7 @@
   gap: 16px;
 }
 
-/* --- RESPONSIVIDADE FILTRADA --- */
+/* --- RESPONSIVIDADE --- */
 
 @media (max-width: 1024px) {
   .animal-grid-container {
@@ -153,8 +153,6 @@
     margin-bottom: 5px;
   }
 
-  /* Esconde as dezenas no mobile para simplificar */
-  /* O usuário geralmente já conhece os números ou foca no nome/ícone */
   .dezenas-box {
     display: none; 
   }
@@ -194,14 +192,14 @@
   .animal-card {
     flex: 0 0 calc(35% - 12px); /* Ajustado para mostrar 2.8 cards (deixa o próximo cortado) */
     scroll-snap-align: start;
-    min-width: 110px; /* Um pouco mais largo para caber as dezenas */
+    min-width: 110px; 
     padding: 10px 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  /* Reduzimos o ícone para caber no carrossel */
+  /* Reduz o ícone para caber no carrossel */
   .white-circle {
     width: 50px;
     height: 50px;
@@ -214,14 +212,14 @@
   }
 
   .dezenas-box {
-    display: block; /* Garante que apareça */
+    display: block; 
     font-size: 0.65rem;
     padding: 2px 8px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
     color: #4a1d4a;
     font-weight: 700;
-    width: 90%; /* Ocupa quase toda a largura interna do card */
+    width: 90%; 
     text-align: center;
     letter-spacing: 0.5px;
   }

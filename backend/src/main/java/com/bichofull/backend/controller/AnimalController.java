@@ -16,6 +16,8 @@ public class AnimalController {
         this.animalRepository = animalRepository;
     }
 
+    // Retornar a lista completa de animais (ex: Avestruz, Águia, etc.) 
+    // para que o frontend possa exibir as opções de aposta ao usuário.
     @GetMapping
     public List<Animal> getAllAnimals() {
         return animalRepository.findAll();

@@ -157,7 +157,7 @@
   cursor: not-allowed;
 }
 
-/* --- RESPONSIVIDADE OTIMIZADA --- */
+/* --- RESPONSIVIDADE --- */
 
 @media (max-width: 992px) {
   :host {

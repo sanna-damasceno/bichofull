@@ -33,7 +33,7 @@ public class AuthService {
     public RegisterResponseDTO register(RegisterRequestDTO request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Email already in use");
+            throw new IllegalArgumentException("Este e-mail já está sendo utilizado");
         }
 
         User user = new User();
@@ -62,10 +62,10 @@ public class AuthService {
     public LoginResponseDTO login(LoginRequestDTO request) {
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+                .orElseThrow(() -> new IllegalArgumentException("Credenciais inválidas"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
-            throw new IllegalArgumentException("Invalid credentials");
+            throw new IllegalArgumentException("Credenciais inválidas");
         }
 
         String token = jwtService.generateToken(user);

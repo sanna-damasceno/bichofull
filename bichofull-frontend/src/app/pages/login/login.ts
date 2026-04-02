@@ -19,6 +19,8 @@ export class LoginComponent {
 
   showPassword = signal<boolean>(false);
 
+  errorMessage = signal<string | null>(null);
+
   togglePassword() {
     this.showPassword.set(!this.showPassword());
   }
@@ -28,6 +30,8 @@ export class LoginComponent {
   ) {}
 
   login() {
+
+    this.errorMessage.set(null);
 
     console.log("BOTÃO CLICADO");
 
@@ -53,6 +57,12 @@ export class LoginComponent {
       error: (err) => {
 
         console.log("ERRO NO LOGIN", err);
+        const msg = err.error?.message || "Erro ao conectar com o servidor.";
+        
+        this.errorMessage.set(msg);
+        
+        // Opcional: Alerta rápido para teste
+        alert(msg);
 
       }
     });
