@@ -26,7 +26,7 @@
         [ngModel]="numberInput()"
         (ngModelChange)="onNumberChange($event)"
         [attr.maxlength]="betType === 'MILHAR' ? 4 : 2" 
-        placeholder="{{ betType === 'MILHAR' ? '0000' : '00' }}"
+        [placeholder]="getPlaceholder()"
       />
 
       @if (detectedAnimal()) {

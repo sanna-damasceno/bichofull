@@ -91,13 +91,16 @@ export class BetFormComponent implements OnInit, OnChanges {
       const num = parseInt(val, 10);
       if (num >= 1 && num <= 25) {
         found = this.animals.find((a) => a.groupNumber === num) || null;
-      } else if (val.length === 2) {
+      } else if (val.length >= 1) { // Mudado de 2 para 1
         this.errorMessage.set('Grupo deve estar entre 01 e 25');
       }
     } else {
-      // Para DEZENA ou MILHAR, identifica o bicho pelos últimos 2 dígitos
-      if (val.length >= 2) {
-        const lastTwoDigits = val.slice(-2).padStart(2, '0');
+      // Para DEZENA ou MILHAR
+      if (val.length >= 1) { // Mudado de 2 para 1 para aceitar "2" como "02"
+        // Pegamos o valor e garantimos que tenha pelo menos 2 dígitos para a busca
+        const formattedValue = val.padStart(2, '0');
+        const lastTwoDigits = formattedValue.slice(-2);
+        
         found = this.animals.find((a) => a.dezenas.includes(lastTwoDigits)) || null;
       }
     }
@@ -158,6 +161,19 @@ export class BetFormComponent implements OnInit, OnChanges {
       },
       error: (err) => alert('Erro ao realizar aposta. Verifique seu saldo.'),
     });
+  }
+
+  getPlaceholder(): string {
+    switch (this.betType) {
+      case 'GRUPO':
+        return '1-25';
+      case 'DEZENA':
+        return '00-99';
+      case 'MILHAR':
+        return '0000-9999';
+      default:
+        return '00';
+    }
   }
 
   private resetForm(): void {

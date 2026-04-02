@@ -88,7 +88,7 @@
 
 /* Input de Número Reduzido */
 .selection-display-box input {
-  width: 60px;
+  width: 130px;
   height: 40px; /* Altura padrão conforme pedido */
   border: 1px solid #e1bee7;
   border-radius: 8px;
