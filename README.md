@@ -1,5 +1,4 @@
 
-```markdown
 ---
 
 # 🎲 BichoFull
@@ -97,11 +96,11 @@ A aplicação utiliza:
 2. Backend gera um **JWT**
 3. Frontend envia o token no header:
 
-```
+
 
 Authorization: Bearer \<token\>
 
-````
+
 
 4. O filtro JWT valida o token antes de acessar rotas protegidas
 
