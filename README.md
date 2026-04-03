@@ -258,13 +258,15 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
 No seu terminal, clone o projeto e acesse o diretório principal:
 
 ```bash
-git clone [https://github.com/SEU_USUARIO/bichofull.git](https://github.com/SEU_USUARIO/bichofull.git)
+git clone [https://github.com/sanna-damasceno/bichofull.git](https://github.com/sanna-damasceno/bichofull.git)
 cd bichofull
 ```
 
+(Nota: O banco de dados e as tabelas são criados automaticamente pela aplicação via Hibernate, não é necessário rodar scripts SQL manuais).
+
 ---
 
-### ▶️ OPÇÃO 1: Execução Completa via Docker
+### ▶️ Execução Completa via Docker
 
 Esta é a maneira mais rápida de ver a aplicação rodando. O Docker irá subir o Banco de Dados, a API Spring Boot e o site Angular simultaneamente.
 
@@ -278,8 +280,18 @@ docker-compose up -d --build
 * **Frontend (Site):** http://localhost (Porta 80)
 * **Backend (Swagger):** http://localhost:8080/swagger-ui/index.html
 
+Para parar a aplicação e liberar a memória da sua máquina, execute:
 
-> **Dica:** O sistema roda a classe `AdminInitializer` ao iniciar, criando automaticamente um usuário administrador com o e-mail `admin@bichofull.com` e a senha definida no properties.
+```bash
+docker-compose down
+```
+
+**🔑 Credenciais de Acesso (Administrador)**
+O sistema roda a classe AdminInitializer ao iniciar, criando automaticamente um usuário administrador para você testar a execução de sorteios manuais e automáticos.
+
+* E-mail: admin@bichofull.com
+
+* Senha: admin123
 
 ---
 
