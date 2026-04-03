@@ -1,17 +1,20 @@
 package com.bichofull.backend.config;
 
-import org.springframework.security.config.Customizer;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpMethod;
 
 @Configuration
+@EnableWebSecurity // ✨ ADICIONADO AQUI
 @EnableMethodSecurity
 public class SecurityConfig {
 
@@ -21,7 +24,6 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-   
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -34,14 +36,19 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/api/auth/**",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/swagger-ui.html"
-                ).permitAll()
-                .anyRequest().authenticated()
-            );
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .requestMatchers(
+                "/api/auth/**",
+                "/v3/api-docs",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/webjars/**",
+                "/error" // ✨ ROTA DE ERROS LIBERADA!
+            ).permitAll()
+            .anyRequest().authenticated()
+        );
 
         http.addFilterBefore(
                 jwtAuthenticationFilter,
@@ -60,20 +67,11 @@ public class SecurityConfig {
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
         
-        // Libera as origens comuns (localhost puro do Docker e o 4200 do ng serve)
-        configuration.setAllowedOrigins(java.util.Arrays.asList(
-            "http://localhost", 
-            "http://localhost:4200", 
-            "http://127.0.0.1"
-        ));
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         
-        // Libera os métodos HTTP
-        configuration.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        
-        // Libera os headers (Authorization é essencial para o JWT)
-        configuration.setAllowedHeaders(java.util.Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
-        
-        // Permite envio de cookies/auth se necessário
+        // ✨ MUDAMOS PARA "*" PARA LIBERAR QUALQUER CABEÇALHO DO SWAGGER
+        configuration.setAllowedHeaders(List.of("*")); 
         configuration.setAllowCredentials(true);
 
         org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();

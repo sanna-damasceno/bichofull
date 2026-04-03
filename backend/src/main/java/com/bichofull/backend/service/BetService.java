@@ -159,7 +159,7 @@ public class BetService {
 
     
     public BigDecimal calculateTotalPendingPrize(Long userId) {
-        System.out.println("CALCULANDO PENDING CORRETAMENTE");
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -170,7 +170,7 @@ public class BetService {
         return pendingBets.stream()
                 .map(bet -> {
                 BigDecimal prize = PrizeCalculator.calculatePrize(bet.getType(), bet.getAmount());
-                System.out.println("Tipo: " + bet.getType() + " → " + prize);
+
                 return prize;
             })
             .reduce(BigDecimal.ZERO, BigDecimal::add);

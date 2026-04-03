@@ -45,7 +45,7 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         BigDecimal won = betService.sumPrizeByUserAndStatus(user.getId(), BetStatus.WON);
-        BigDecimal lost = betService.sumAmountByUserAndStatus(user.getId(), com.bichofull.backend.enums.BetStatus.LOST);
+        BigDecimal lost = betService.sumAmountByUserAndStatus(user.getId(), BetStatus.LOST);
         BigDecimal pending = betService.calculateTotalPendingPrize(user.getId());
        
         return new UserResponseDTO(

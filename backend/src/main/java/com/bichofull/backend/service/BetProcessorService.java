@@ -32,11 +32,9 @@ public class BetProcessorService {
         List<Bet> bets = betRepository.findByStatusWithUser(BetStatus.PENDING);
 
         if (bets.isEmpty()) {
-            System.out.println("No pending bets to process.");
             return;
         }
 
-        System.out.println("Processing " + bets.size() + " bets...");
 
         for (Bet bet : bets) {
 
@@ -82,6 +80,5 @@ public class BetProcessorService {
                 .toList()
         );
 
-        System.out.println("Bet processing finished.");
     }
 }

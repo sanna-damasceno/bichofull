@@ -32,6 +32,6 @@ export class DashboardComponent {
 
   onAnimalSelected(animal: Animal) {
     this.selectedAnimal = animal;
-    console.log("Animal escolhido:", animal);
+
   }
 }

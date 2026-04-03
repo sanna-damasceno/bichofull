@@ -11,11 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import java.util.List;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -24,6 +22,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public JwtAuthenticationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
+    }
+
+    // ✨ MÉTODO ADICIONADO PARA LIBERAR O SWAGGER E O LOGIN DO FILTRO JWT
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return path.startsWith("/api/auth/") || 
+               path.startsWith("/swagger-ui") || 
+               path.startsWith("/v3/api-docs") ||
+               path.startsWith("/swagger-resources") ||
+               path.startsWith("/webjars") ||
+               path.equals("/swagger-ui.html") ||
+               path.startsWith("/error"); // ✨ IGNORA A ROTA DE ERRO AQUI TAMBÉM
     }
 
     @Override

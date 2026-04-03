@@ -33,14 +33,10 @@ export class LoginComponent {
 
     this.errorMessage.set(null);
 
-    console.log("BOTÃO CLICADO");
-
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
 
         localStorage.setItem("token", response.token);
-
-        console.log("LOGIN FUNCIONOU", response);
 
         const token = response.token;
         const payload = JSON.parse(atob(token.split('.')[1]));
@@ -56,7 +52,6 @@ export class LoginComponent {
       },
       error: (err) => {
 
-        console.log("ERRO NO LOGIN", err);
         const msg = err.error?.message || "Erro ao conectar com o servidor.";
         
         this.errorMessage.set(msg);
