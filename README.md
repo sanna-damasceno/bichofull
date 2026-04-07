@@ -248,7 +248,7 @@ Siga os passos abaixo para configurar o ambiente e executar a aplicação localm
 Certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
 * **[Docker](https://www.docker.com/products/docker-desktop/)** e **Docker Compose**
 * **[Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)** ou superior
-* **[Node.js](https://nodejs.org/)** e **Angular CLI** (`npm install -g @angular/cli`)
+* **Angular CLI** (`npm install -g @angular/cli`)
 * **[Git](https://git-scm.com/)**
 
 ---
